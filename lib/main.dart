@@ -12,13 +12,11 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Future<Widget> loadFromFuture() async {
-    return Future.value(const HomePage());
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return const MaterialApp(
+      home: HomePage(),
+    );
   }
 }
 
@@ -27,6 +25,13 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Tasker"),
+      ),
+      body: const Center(
+        child: Text("Hello World"),
+      ),
+    );
   }
 }
