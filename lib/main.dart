@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:tasker_mobile/src/constants/colors.dart';
-import 'package:tasker_mobile/src/features/auth/presentation/login_screen.dart';
-import 'package:tasker_mobile/src/themes/custom_theme.dart';
-import 'package:tasker_mobile/src/themes/themes.dart';
+import 'package:tasker_mobile/src/constants/export.dart';
+import 'package:tasker_mobile/src/features/auth/export.dart';
+import 'package:tasker_mobile/src/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:tasker_mobile/src/themes/export.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
@@ -39,10 +40,30 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: AppTheme.of(context),
-      title: 'Tasker',
-      home: LoginScreen(),
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider(
+          create: (context) => AuthRepository(service: AuthService()),
+        ),
+        RepositoryProvider(
+          create: (context) => UserRepository(service: UserService()),
+        ),
+      ],
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => AuthBloc(
+              authRepository: context.read<AuthRepository>(),
+              userRepository: context.read<UserRepository>(),
+            ),
+          ),
+        ],
+        child: MaterialApp(
+          theme: AppTheme.of(context),
+          title: 'Tasker',
+          home: LoginScreen(),
+        ),
+      ),
     );
   }
 }

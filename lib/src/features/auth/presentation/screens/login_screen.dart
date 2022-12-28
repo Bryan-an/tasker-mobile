@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:tasker_mobile/src/features/auth/presentation/login_controller.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:tasker_mobile/src/features/auth/presentation/widgets/filled_button.dart';
 import 'package:tasker_mobile/src/features/auth/presentation/widgets/header.dart';
 import 'package:tasker_mobile/src/features/auth/presentation/widgets/text_field.dart';
 
 class LoginScreen extends StatelessWidget {
-  final LoginController _controller;
+  final emailInputController = TextEditingController();
+  final passwordInputController = TextEditingController();
 
-  LoginScreen({super.key}) : _controller = LoginController();
+  LoginScreen({super.key});
+
+  Future removeSplashScreen() async {
+    await Future.delayed(
+      const Duration(seconds: 3),
+      () => FlutterNativeSplash.remove(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    _controller.removeSplashScreen();
+    removeSplashScreen();
 
     return SafeArea(
       child: Scaffold(
@@ -37,12 +45,11 @@ class LoginScreen extends StatelessWidget {
                         vertical: 10,
                       ),
                       child: TextFieldWidget(
-                        controller: _controller.emailInputController,
+                        controller: emailInputController,
                         label: 'Email',
                         hint: 'Enter your email',
                         suffixIcon: IconButton(
-                          onPressed: () =>
-                              _controller.emailInputController.clear(),
+                          onPressed: () => emailInputController.clear(),
                           icon: const Icon(Icons.clear),
                         ),
                       ),
@@ -59,13 +66,12 @@ class LoginScreen extends StatelessWidget {
                         vertical: 10,
                       ),
                       child: TextFieldWidget(
-                        controller: _controller.passwordInputController,
+                        controller: passwordInputController,
                         label: 'Password',
                         hint: 'Enter your password',
                         obscureText: true,
                         suffixIcon: IconButton(
-                          onPressed: () =>
-                              _controller.passwordInputController.clear(),
+                          onPressed: () => passwordInputController.clear(),
                           icon: const Icon(Icons.clear),
                         ),
                       ),
