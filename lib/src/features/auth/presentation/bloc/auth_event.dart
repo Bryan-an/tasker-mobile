@@ -44,3 +44,5 @@ class VerifyEmail extends AuthEvent {
   @override
   List<Object?> get props => [data];
 }
+
+class AppStart extends AuthEvent {}

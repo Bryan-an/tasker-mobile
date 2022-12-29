@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tasker_mobile/src/features/auth/presentation/widgets/filled_button.dart';
 import 'package:tasker_mobile/src/features/auth/presentation/widgets/header.dart';
 import 'package:tasker_mobile/src/features/auth/presentation/widgets/text_field.dart';
+import 'package:tasker_mobile/src/routes/export.dart';
 
 class LoginScreen extends StatelessWidget {
   final emailInputController = TextEditingController();
@@ -10,17 +11,8 @@ class LoginScreen extends StatelessWidget {
 
   LoginScreen({super.key});
 
-  Future removeSplashScreen() async {
-    await Future.delayed(
-      const Duration(seconds: 3),
-      () => FlutterNativeSplash.remove(),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    removeSplashScreen();
-
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -107,7 +99,7 @@ class LoginScreen extends StatelessWidget {
                       ),
                       child: FilledButtonWidget(
                         child: const Text('Sign up'),
-                        onPressed: () => print('Sign up'),
+                        onPressed: () => context.go(AppScreen.register.toPath),
                       ),
                     ),
                   ),

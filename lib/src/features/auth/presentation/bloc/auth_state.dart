@@ -12,10 +12,14 @@ extension AuthStatusX on AuthStatus {
 class AuthState extends Equatable {
   final AuthStatus status;
   final User user;
+  final bool authenticated;
+  final bool initialized;
 
   const AuthState({
     this.status = AuthStatus.initial,
     this.user = const User(id: ''),
+    this.authenticated = false,
+    this.initialized = false,
   });
 
   @override
@@ -24,9 +28,13 @@ class AuthState extends Equatable {
   AuthState copyWith({
     AuthStatus? status,
     User? user,
+    bool? authenticated,
+    bool? initialized,
   }) =>
       AuthState(
         status: status ?? this.status,
         user: user ?? this.user,
+        authenticated: authenticated ?? this.authenticated,
+        initialized: initialized ?? this.initialized,
       );
 }

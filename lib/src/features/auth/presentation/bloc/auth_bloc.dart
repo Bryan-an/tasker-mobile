@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
+import 'package:localstorage/localstorage.dart';
 import 'package:tasker_mobile/src/features/auth/data/auth_interface.dart';
 import 'package:tasker_mobile/src/features/auth/data/user_interface.dart';
 import 'package:tasker_mobile/src/features/auth/domain/user.dart';
@@ -12,6 +13,7 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final IAuthRepository authRepository;
   final IUserRepository userRepository;
+  final LocalStorage storage = LocalStorage('tasker');
 
   AuthBloc({
     required this.authRepository,
@@ -23,6 +25,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<RegisterUser>(_mapRegisterUserEventToState);
     on<ResendVerificationCode>(_mapResendVerificationCodeEventToState);
     on<VerifyEmail>(_mapVerifyEmailEventToState);
+    on<AppStart>(_mapAppStartEventToState);
   }
 
   void _mapLoginUserEventToState(
@@ -133,6 +136,34 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
 
       emit(state.copyWith(status: AuthStatus.error));
+    }
+  }
+
+  void _mapAppStartEventToState(AppStart event, Emitter<AuthState> emit) async {
+    String? accessToken = storage.getItem('accessToken');
+
+    if (accessToken != null) {
+      try {
+        var user = await userRepository.getInfo();
+
+        emit(state.copyWith(
+          status: AuthStatus.success,
+          user: user,
+          authenticated: true,
+          initialized: true,
+        ));
+      } catch (error, stacktrace) {
+        if (kDebugMode) {
+          print(stacktrace);
+        }
+
+        emit(state.copyWith(status: AuthStatus.error));
+      }
+    } else {
+      emit(state.copyWith(
+        status: AuthStatus.success,
+        initialized: true,
+      ));
     }
   }
 }

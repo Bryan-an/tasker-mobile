@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:tasker_mobile/src/constants/export.dart';
 import 'package:tasker_mobile/src/features/auth/export.dart';
-import 'package:tasker_mobile/src/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:tasker_mobile/src/routes/export.dart';
 import 'package:tasker_mobile/src/themes/export.dart';
 
 void main() {
@@ -55,13 +55,24 @@ class _MyAppState extends State<MyApp> {
             create: (context) => AuthBloc(
               authRepository: context.read<AuthRepository>(),
               userRepository: context.read<UserRepository>(),
-            ),
+            )..add(
+                AppStart(),
+              ),
           ),
         ],
-        child: MaterialApp(
-          theme: AppTheme.of(context),
-          title: 'Tasker',
-          home: LoginScreen(),
+        child: BlocBuilder<AuthBloc, AuthState>(
+          builder: (context, state) {
+            if (state.initialized) {
+              FlutterNativeSplash.remove();
+            }
+
+            return MaterialApp.router(
+              debugShowCheckedModeBanner: false,
+              theme: AppTheme.of(context),
+              title: 'Tasker',
+              routerConfig: router(state),
+            );
+          },
         ),
       ),
     );

@@ -10,14 +10,12 @@ class UserService {
   final String _baseUrl = '192.168.68.107:8080';
   final String _endpoint = '/api/v1/users';
   final LocalStorage storage = LocalStorage('tasker');
-  late String accessToken;
 
   UserService({http.Client? httpClient})
-      : _httpClient = httpClient ?? http.Client() {
-    accessToken = storage.getItem('accessToken') ?? '';
-  }
+      : _httpClient = httpClient ?? http.Client();
 
   Future<dynamic> get() async {
+    String accessToken = storage.getItem('accessToken') ?? '';
     final url = Uri.http(_baseUrl, _endpoint);
 
     var response = await _httpClient.get(
@@ -41,6 +39,7 @@ class UserService {
   }
 
   Future<void> update(Map<String, dynamic> user) async {
+    String accessToken = storage.getItem('accessToken') ?? '';
     final url = Uri.http(_baseUrl, _endpoint);
 
     var response = await _httpClient.put(
@@ -67,6 +66,7 @@ class UserService {
   }
 
   Future<void> delete() async {
+    String accessToken = storage.getItem('accessToken') ?? '';
     final url = Uri.http(_baseUrl, _endpoint);
 
     var response = await _httpClient.delete(

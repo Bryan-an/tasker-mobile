@@ -1,5 +1,8 @@
 export 'presentation/screens/login_screen.dart';
+export 'presentation/screens/register_screen.dart';
+export 'presentation/screens/verify_email_screen.dart';
 export 'application/auth_service.dart';
+export 'presentation/bloc/auth_bloc.dart';
 export 'application/user_service.dart';
 export 'data/auth_interface.dart';
 export 'data/auth_repository.dart';

@@ -32,8 +32,8 @@ class User extends Equatable {
       password: json['password'],
       role: json['role'],
       status: json['status'],
-      createdAt: json['created_at'],
-      updatedAt: json['updated_at'],
+      createdAt: DateTime.parse(json['created_at']),
+      updatedAt: DateTime.parse(json['updated_at']),
     );
   }
 
@@ -45,8 +45,8 @@ class User extends Equatable {
       'password': password,
       'role': role,
       'status': status,
-      'created_at': createdAt,
-      'updated_at': updatedAt,
+      'created_at': createdAt != null ? createdAt!.toIso8601String() : null,
+      'updated_at': updatedAt != null ? updatedAt!.toIso8601String() : null,
     };
   }
 }
