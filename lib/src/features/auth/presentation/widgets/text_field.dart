@@ -7,6 +7,8 @@ class TextFieldWidget extends StatefulWidget {
   final bool? obscureText;
   final TextEditingController? controller;
   final Widget? suffixIcon;
+  final String? Function(String?)? validator;
+  final TextInputType? keyboardType;
 
   const TextFieldWidget({
     super.key,
@@ -16,6 +18,8 @@ class TextFieldWidget extends StatefulWidget {
     this.obscureText,
     this.controller,
     this.suffixIcon,
+    this.validator,
+    this.keyboardType,
   });
 
   @override
@@ -25,7 +29,8 @@ class TextFieldWidget extends StatefulWidget {
 class _TextFieldWidgetState extends State<TextFieldWidget> {
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
+      keyboardType: widget.keyboardType,
       controller: widget.controller,
       obscureText: widget.obscureText == null ? false : widget.obscureText!,
       decoration: InputDecoration(
@@ -35,6 +40,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
         errorText: widget.error,
         suffixIcon: widget.suffixIcon,
       ),
+      validator: widget.validator,
     );
   }
 }

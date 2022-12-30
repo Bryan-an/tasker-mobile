@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:tasker_mobile/src/features/auth/export.dart';
+import 'package:tasker_mobile/src/routes/export.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -10,8 +14,48 @@ class HomeScreen extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Home Screen'),
         ),
-        body: const Center(
-          child: Text('Home screen'),
+        body: BlocBuilder<AuthBloc, AuthState>(
+          builder: (context, state) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Center(
+                        child: Text(state.user.email ?? ''),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Center(
+                        child: TextButton(
+                          onPressed: (state.status == AuthStatus.loading)
+                              ? null
+                              : () {
+                                  context.read<AuthBloc>().add(LogoutUser());
+                                  context.go(AppScreen.login.toPath);
+                                },
+                          child: (state.status == AuthStatus.loading)
+                              ? const SizedBox(
+                                  height: 25,
+                                  width: 25,
+                                  child: CircularProgressIndicator(),
+                                )
+                              : const Text('Log out'),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            );
+          },
         ),
       ),
     );

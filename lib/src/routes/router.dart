@@ -16,7 +16,7 @@ GoRouter router(AuthState authState) {
       GoRoute(
         path: AppScreen.login.toPath,
         name: AppScreen.login.name,
-        builder: (context, state) => LoginScreen(),
+        builder: (context, state) => const LoginScreen(),
       ),
       GoRoute(
         path: AppScreen.register.toPath,

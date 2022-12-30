@@ -1,11 +1,13 @@
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
-import 'package:localstorage/localstorage.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:tasker_mobile/src/config/export.dart';
 import 'package:tasker_mobile/src/features/auth/data/auth_interface.dart';
 import 'package:tasker_mobile/src/features/auth/data/user_interface.dart';
 import 'package:tasker_mobile/src/features/auth/domain/user.dart';
 import 'package:tasker_mobile/src/features/auth/domain/verification.dart';
+import 'package:tasker_mobile/src/utils/export.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -13,7 +15,6 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final IAuthRepository authRepository;
   final IUserRepository userRepository;
-  final LocalStorage storage = LocalStorage('tasker');
 
   AuthBloc({
     required this.authRepository,
@@ -26,6 +27,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<ResendVerificationCode>(_mapResendVerificationCodeEventToState);
     on<VerifyEmail>(_mapVerifyEmailEventToState);
     on<AppStart>(_mapAppStartEventToState);
+    on<LogoutUser>(_mapLogoutUserEventToState);
   }
 
   void _mapLoginUserEventToState(
@@ -39,12 +41,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(state.copyWith(
         status: AuthStatus.success,
         user: user,
+        authenticated: true,
       ));
-    } catch (error, stacktrace) {
-      if (kDebugMode) {
-        print(stacktrace);
-      }
-
+    } on DioError catch (e) {
+      showDioErrors(e);
+      emit(state.copyWith(status: AuthStatus.error));
+    } catch (error) {
+      showGeneralError(error);
       emit(state.copyWith(status: AuthStatus.error));
     }
   }
@@ -61,11 +64,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         status: AuthStatus.success,
         user: user,
       ));
-    } catch (error, stacktrace) {
-      if (kDebugMode) {
-        print(stacktrace);
-      }
-
+    } on DioError catch (e) {
+      showDioErrors(e);
+      emit(state.copyWith(status: AuthStatus.error));
+    } catch (error) {
+      showGeneralError(error);
       emit(state.copyWith(status: AuthStatus.error));
     }
   }
@@ -82,11 +85,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         status: AuthStatus.success,
         user: user,
       ));
-    } catch (error, stacktrace) {
-      if (kDebugMode) {
-        print(stacktrace);
-      }
-
+    } on DioError catch (e) {
+      showDioErrors(e);
+      emit(state.copyWith(status: AuthStatus.error));
+    } catch (error) {
+      showGeneralError(error);
       emit(state.copyWith(status: AuthStatus.error));
     }
   }
@@ -98,11 +101,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       await authRepository.register(event.user);
       emit(state.copyWith(status: AuthStatus.success));
-    } catch (error, stacktrace) {
-      if (kDebugMode) {
-        print(stacktrace);
-      }
-
+    } on DioError catch (e) {
+      showDioErrors(e);
+      emit(state.copyWith(status: AuthStatus.error));
+    } catch (error) {
+      showGeneralError(error);
       emit(state.copyWith(status: AuthStatus.error));
     }
   }
@@ -114,11 +117,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       await authRepository.resendVerificationCode(event.data);
       emit(state.copyWith(status: AuthStatus.success));
-    } catch (error, stacktrace) {
-      if (kDebugMode) {
-        print(stacktrace);
-      }
-
+    } on DioError catch (e) {
+      showDioErrors(e);
+      emit(state.copyWith(status: AuthStatus.error));
+    } catch (error) {
+      showGeneralError(error);
       emit(state.copyWith(status: AuthStatus.error));
     }
   }
@@ -130,20 +133,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       await authRepository.verifyEmail(event.data);
       emit(state.copyWith(status: AuthStatus.success));
-    } catch (error, stacktrace) {
-      if (kDebugMode) {
-        print(stacktrace);
-      }
-
+    } on DioError catch (e) {
+      showDioErrors(e);
+      emit(state.copyWith(status: AuthStatus.error));
+    } catch (error) {
+      showGeneralError(error);
       emit(state.copyWith(status: AuthStatus.error));
     }
   }
 
   void _mapAppStartEventToState(AppStart event, Emitter<AuthState> emit) async {
-    String? accessToken = storage.getItem('accessToken');
+    try {
+      final prefs = await futurePrefs;
+      String? accessToken = prefs.getString('accessToken');
 
-    if (accessToken != null) {
-      try {
+      if (accessToken != null) {
+        dio.options.headers['authorization'] = 'Bearer $accessToken';
         var user = await userRepository.getInfo();
 
         emit(state.copyWith(
@@ -152,18 +157,44 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           authenticated: true,
           initialized: true,
         ));
-      } catch (error, stacktrace) {
-        if (kDebugMode) {
-          print(stacktrace);
-        }
-
-        emit(state.copyWith(status: AuthStatus.error));
+      } else {
+        emit(state.copyWith(
+          status: AuthStatus.success,
+          initialized: true,
+        ));
       }
-    } else {
-      emit(state.copyWith(
-        status: AuthStatus.success,
-        initialized: true,
-      ));
+
+      print('accessToken: ' + (accessToken ?? 'null'));
+    } on DioError catch (e) {
+      showDioErrors(e);
+      emit(state.copyWith(status: AuthStatus.error));
+    } catch (error) {
+      showGeneralError(error);
+      emit(state.copyWith(status: AuthStatus.error));
+    }
+
+    FlutterNativeSplash.remove();
+  }
+
+  void _mapLogoutUserEventToState(
+      LogoutUser event, Emitter<AuthState> emit) async {
+    emit(state.copyWith(status: AuthStatus.loading));
+
+    try {
+      final prefs = await futurePrefs;
+      await prefs.remove('accessToken');
+      dio.options.headers.remove('authorization');
+
+      emit(
+        state.copyWith(
+          user: null,
+          authenticated: false,
+          status: AuthStatus.success,
+        ),
+      );
+    } catch (e) {
+      showGeneralError(e);
+      emit(state.copyWith(status: AuthStatus.error));
     }
   }
 }

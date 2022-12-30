@@ -62,15 +62,12 @@ class _MyAppState extends State<MyApp> {
         ],
         child: BlocBuilder<AuthBloc, AuthState>(
           builder: (context, state) {
-            if (state.initialized) {
-              FlutterNativeSplash.remove();
-            }
-
             return MaterialApp.router(
               debugShowCheckedModeBanner: false,
               theme: AppTheme.of(context),
               title: 'Tasker',
               routerConfig: router(state),
+              scaffoldMessengerKey: snackBarKey,
             );
           },
         ),

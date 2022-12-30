@@ -20,7 +20,9 @@ class AppThemes {
       cursorColor: secondaryColor,
       selectionHandleColor: secondaryColor,
     ),
-    colorScheme: ColorScheme.fromSwatch().copyWith(
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: primaryColor,
+      primary: primaryColor,
       secondary: secondaryColor,
       background: whiteColor,
     ),
@@ -52,6 +54,7 @@ class AppThemes {
       ),
       labelStyle: TextStyle(color: blackColor),
       floatingLabelStyle: TextStyle(color: secondaryColor),
+      focusColor: secondaryColor,
     ),
     textButtonTheme: TextButtonThemeData(
         style: ButtonStyle(

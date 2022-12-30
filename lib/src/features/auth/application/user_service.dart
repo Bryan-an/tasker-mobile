@@ -1,63 +1,29 @@
-import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
-import 'package:http/http.dart' as http;
-import 'package:localstorage/localstorage.dart';
+import 'package:tasker_mobile/src/config/export.dart';
 import 'package:tasker_mobile/src/errors/export.dart';
 
 class UserService {
-  final http.Client _httpClient;
-  final String _baseUrl = '192.168.68.107:8080';
-  final String _endpoint = '/api/v1/users';
-  final LocalStorage storage = LocalStorage('tasker');
+  final String _endpoint = '/users';
 
-  UserService({http.Client? httpClient})
-      : _httpClient = httpClient ?? http.Client();
+  UserService();
 
   Future<dynamic> get() async {
-    String accessToken = storage.getItem('accessToken') ?? '';
-    final url = Uri.http(_baseUrl, _endpoint);
-
-    var response = await _httpClient.get(
-      url,
-      headers: {'Authorization': 'Bearer $accessToken'},
-    );
-
-    var data = jsonDecode(response.body);
+    var response = await dio.get(_endpoint);
+    var data = response.data;
 
     if (response.statusCode != 200) {
-      dynamic error = data['error'] ?? data['errors'];
-
-      if (kDebugMode) {
-        print(error);
-      }
-
-      throw HttpException(error);
+      throw HttpException();
     }
 
     return data['user'];
   }
 
   Future<void> update(Map<String, dynamic> user) async {
-    String accessToken = storage.getItem('accessToken') ?? '';
-    final url = Uri.http(_baseUrl, _endpoint);
-
-    var response = await _httpClient.put(
-      url,
-      body: user,
-      headers: {'Authorization': 'Bearer $accessToken'},
-    );
-
-    var data = jsonDecode(response.body);
+    var response = await dio.put(_endpoint, data: user);
+    var data = response.data;
 
     if (response.statusCode != 200) {
-      dynamic error = data['error'] ?? data['errors'];
-
-      if (kDebugMode) {
-        print(error);
-      }
-
-      throw HttpException(error);
+      throw HttpException();
     }
 
     if (kDebugMode) {
@@ -66,24 +32,11 @@ class UserService {
   }
 
   Future<void> delete() async {
-    String accessToken = storage.getItem('accessToken') ?? '';
-    final url = Uri.http(_baseUrl, _endpoint);
-
-    var response = await _httpClient.delete(
-      url,
-      headers: {'Authorization': 'Bearer $accessToken'},
-    );
-
-    var data = jsonDecode(response.body);
+    var response = await dio.delete(_endpoint);
+    var data = response.data;
 
     if (response.statusCode != 200) {
-      dynamic error = data['error'] ?? data['errors'];
-
-      if (kDebugMode) {
-        print(error);
-      }
-
-      throw HttpException(error);
+      throw HttpException();
     }
 
     if (kDebugMode) {
