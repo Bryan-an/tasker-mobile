@@ -44,94 +44,84 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
                 key: _formGlobalKey,
                 child: Column(
                   children: [
-                    Theme(
-                      data: Theme.of(context).copyWith(
-                          colorScheme: ColorScheme.fromSeed(
-                        seedColor: secondaryColor,
-                        primary: secondaryColor,
-                      )),
-                      child: Column(children: [
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 32,
-                                  vertical: 10,
-                                ),
-                                child: TextFieldWidget(
-                                  keyboardType: TextInputType.emailAddress,
-                                  controller: _emailInputController,
-                                  label: 'Email',
-                                  hint: 'Enter your email',
-                                  suffixIcon: IconButton(
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 32,
+                              vertical: 10,
+                            ),
+                            child: TextFieldWidget(
+                              keyboardType: TextInputType.emailAddress,
+                              controller: _emailInputController,
+                              label: 'Email',
+                              hint: 'Enter your email',
+                              suffixIcon: IconButton(
+                                onPressed: () => _emailInputController.clear(),
+                                icon: const Icon(Icons.clear),
+                              ),
+                              validator: (email) {
+                                if (email == null || email.isEmpty) {
+                                  return 'Email required';
+                                } else {
+                                  if (isEmailValid(email)) {
+                                    return null;
+                                  } else {
+                                    return 'Invalid email';
+                                  }
+                                }
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 32,
+                              vertical: 10,
+                            ),
+                            child: TextFieldWidget(
+                              keyboardType: TextInputType.visiblePassword,
+                              controller: _passwordInputController,
+                              label: 'Password',
+                              hint: 'Enter your password',
+                              obscureText: !_passwordVisible,
+                              suffixIcon: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  IconButton(
+                                    onPressed: () => setState(() {
+                                      _passwordVisible = !_passwordVisible;
+                                    }),
+                                    icon: Icon(_passwordVisible
+                                        ? Icons.visibility_off
+                                        : Icons.visibility),
+                                  ),
+                                  IconButton(
+                                    highlightColor: secondaryColor,
                                     onPressed: () =>
-                                        _emailInputController.clear(),
+                                        _passwordInputController.clear(),
                                     icon: const Icon(Icons.clear),
                                   ),
-                                  validator: (email) {
-                                    if (email == null || email.isEmpty) {
-                                      return 'Email required';
-                                    } else {
-                                      if (isEmailValid(email)) {
-                                        return null;
-                                      } else {
-                                        return 'Invalid email';
-                                      }
-                                    }
-                                  },
-                                ),
+                                ],
                               ),
+                              validator: (password) {
+                                if (password == null || password.isEmpty) {
+                                  return 'Password required';
+                                } else {
+                                  return null;
+                                }
+                              },
                             ),
-                          ],
+                          ),
                         ),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 32,
-                                  vertical: 10,
-                                ),
-                                child: TextFieldWidget(
-                                  keyboardType: TextInputType.visiblePassword,
-                                  controller: _passwordInputController,
-                                  label: 'Password',
-                                  hint: 'Enter your password',
-                                  obscureText: !_passwordVisible,
-                                  suffixIcon: Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      IconButton(
-                                        onPressed: () => setState(() {
-                                          _passwordVisible = !_passwordVisible;
-                                        }),
-                                        icon: Icon(_passwordVisible
-                                            ? Icons.visibility_off
-                                            : Icons.visibility),
-                                      ),
-                                      IconButton(
-                                        highlightColor: secondaryColor,
-                                        onPressed: () =>
-                                            _passwordInputController.clear(),
-                                        icon: const Icon(Icons.clear),
-                                      ),
-                                    ],
-                                  ),
-                                  validator: (password) {
-                                    if (password == null || password.isEmpty) {
-                                      return 'Password required';
-                                    } else {
-                                      return null;
-                                    }
-                                  },
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ]),
+                      ],
                     ),
                     Row(
                       children: [

@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:tasker_mobile/src/config/export.dart';
 import 'package:tasker_mobile/src/errors/export.dart';
 
@@ -39,20 +40,48 @@ class AuthService {
   }
 
   Future<void> loginWithFacebook() async {
-    var response = await dio.get('$_endpoint/login/facebook');
-    var data = response.data;
+    final fb = FacebookLogin();
 
-    if (response.statusCode != 200) {
-      throw HttpException();
-    }
+    final res = await fb.logIn(
+      permissions: [
+        FacebookPermission.publicProfile,
+        FacebookPermission.email,
+      ],
+    );
 
-    String accessToken = data['token'];
-    final prefs = await futurePrefs;
-    prefs.setString('accessToken', accessToken);
-    dio.options.headers['authorization'] = 'Bearer $accessToken';
+    switch (res.status) {
+      case FacebookLoginStatus.success:
+        final String token = res.accessToken?.token ?? '';
 
-    if (kDebugMode) {
-      print(data);
+        var response = await dio.post(
+          '$_endpoint/login/facebook/mobile',
+          data: {'token': token},
+        );
+
+        var data = response.data;
+
+        if (response.statusCode != 200) {
+          throw HttpException();
+        }
+
+        String accessToken = data['token'];
+        final prefs = await futurePrefs;
+        prefs.setString('accessToken', accessToken);
+        dio.options.headers['authorization'] = 'Bearer $accessToken';
+
+        if (kDebugMode) {
+          print(data);
+        }
+
+        break;
+      case FacebookLoginStatus.cancel:
+        if (kDebugMode) {
+          print('User has cancelled the login');
+        }
+
+        break;
+      case FacebookLoginStatus.error:
+        throw Exception('Error while loggin with Facebook');
     }
   }
 

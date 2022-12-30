@@ -63,6 +63,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(state.copyWith(
         status: AuthStatus.success,
         user: user,
+        authenticated: true,
       ));
     } on DioError catch (e) {
       showDioErrors(e);
@@ -163,8 +164,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           initialized: true,
         ));
       }
-
-      print('accessToken: ' + (accessToken ?? 'null'));
     } on DioError catch (e) {
       showDioErrors(e);
       emit(state.copyWith(status: AuthStatus.error));
