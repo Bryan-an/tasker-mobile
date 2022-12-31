@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:tasker_mobile/src/config/export.dart';
 import 'package:tasker_mobile/src/errors/export.dart';
 
@@ -86,7 +87,22 @@ class AuthService {
   }
 
   Future<void> loginWithGoogle() async {
-    var response = await dio.get('$_endpoint/login/google');
+    final GoogleSignIn googleSignIn = GoogleSignIn(
+      scopes: <String>[
+        "https://www.googleapis.com/auth/userinfo.email",
+        "https://www.googleapis.com/auth/userinfo.profile",
+      ],
+    );
+
+    final result = await googleSignIn.signIn();
+    final ggAuth = await result?.authentication;
+    final token = ggAuth?.accessToken ?? '';
+
+    var response = await dio.post(
+      '$_endpoint/login/google/mobile',
+      data: {'token': token},
+    );
+
     var data = response.data;
 
     if (response.statusCode != 200) {

@@ -85,6 +85,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(state.copyWith(
         status: AuthStatus.success,
         user: user,
+        authenticated: true,
       ));
     } on DioError catch (e) {
       showDioErrors(e);

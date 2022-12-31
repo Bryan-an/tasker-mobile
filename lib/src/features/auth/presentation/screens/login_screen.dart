@@ -238,7 +238,8 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
                               'assets/img/logo_google.png',
                             ),
                             iconSize: 50,
-                            onPressed: () => print('Google'),
+                            onPressed: () =>
+                                context.read<AuthBloc>().add(LoginWithGoogle()),
                           ),
                         ),
                       ],
