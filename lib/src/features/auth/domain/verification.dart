@@ -14,7 +14,7 @@ class Verification extends Equatable {
     return Verification(
       email: json['email'],
       code: json['code'],
-      expiresAt: json['expires_at'],
+      expiresAt: DateTime.parse(json['expires_at']),
     );
   }
 
@@ -22,7 +22,7 @@ class Verification extends Equatable {
     return {
       'email': email,
       'code': code,
-      'expires_at': expiresAt,
+      'expires_at': expiresAt == null ? null : expiresAt!.toIso8601String(),
     };
   }
 }

@@ -1,4 +1,4 @@
 import 'package:flutter/material.dart';
 
-final GlobalKey<ScaffoldMessengerState> snackBarKey =
+final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
     GlobalKey<ScaffoldMessengerState>();

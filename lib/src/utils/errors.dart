@@ -7,7 +7,12 @@ import 'package:tasker_mobile/src/utils/export.dart';
 List<String> extractErrorMessages(dynamic error) {
   final errorList = List<Map<String, dynamic>>.from(error);
 
-  return errorList.map((e) => '${e['field']}: ${e['message']}').toList();
+  return errorList.map((e) {
+    final String field = e['field'];
+    final String message = e['message'];
+
+    return '${field.capitalize()}: ${message.capitalize()}';
+  }).toList();
 }
 
 void showDioErrors(DioError e) {
@@ -18,16 +23,16 @@ void showDioErrors(DioError e) {
     print(error);
   }
 
-  final snackBarState = snackBarKey.currentState;
+  final snackBarState = scaffoldMessengerKey.currentState;
 
   if (error is List) {
-    var errorMessages = extractErrorMessages(error);
-
     if (statusCode == 400) {
+      var errorMessages = extractErrorMessages(error);
+
       for (final message in errorMessages) {
         snackBarState?.showSnackBar(
           SnackBar(
-            content: Text(message.capitalize()),
+            content: Text(message),
           ),
         );
       }
@@ -48,7 +53,7 @@ void showGeneralError(Object error) {
     print(error);
   }
 
-  final snackBarState = snackBarKey.currentState;
+  final snackBarState = scaffoldMessengerKey.currentState;
 
   snackBarState?.showSnackBar(
     const SnackBar(

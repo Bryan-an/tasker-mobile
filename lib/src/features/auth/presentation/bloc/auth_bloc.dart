@@ -18,8 +18,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     required this.userRepository,
   }) : super(const AuthState()) {
     on<LoginUser>(_mapLoginUserEventToState);
-    on<ResendVerificationCode>(_mapResendVerificationCodeEventToState);
-    on<VerifyEmail>(_mapVerifyEmailEventToState);
     on<AppStart>(_mapAppStartEventToState);
     on<LogoutUser>(_mapLogoutUserEventToState);
   }
@@ -30,28 +28,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       user: event.user,
       authenticated: true,
     ));
-  }
-
-  void _mapResendVerificationCodeEventToState(
-      ResendVerificationCode event, Emitter<AuthState> emit) async {
-    try {
-      await authRepository.resendVerificationCode(event.data);
-    } on DioError catch (e) {
-      showDioErrors(e);
-    } catch (error) {
-      showGeneralError(error);
-    }
-  }
-
-  void _mapVerifyEmailEventToState(
-      VerifyEmail event, Emitter<AuthState> emit) async {
-    try {
-      await authRepository.verifyEmail(event.data);
-    } on DioError catch (e) {
-      showDioErrors(e);
-    } catch (error) {
-      showGeneralError(error);
-    }
   }
 
   void _mapAppStartEventToState(AppStart event, Emitter<AuthState> emit) async {

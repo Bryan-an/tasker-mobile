@@ -1,18 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tasker_mobile/src/constants/colors.dart';
+import 'package:tasker_mobile/src/common_widgets/export.dart';
+import 'package:tasker_mobile/src/constants/export.dart';
 import 'package:tasker_mobile/src/features/auth/export.dart';
 import 'package:tasker_mobile/src/features/auth/presentation/screens/login/bloc/login_screen_bloc.dart';
 import 'package:tasker_mobile/src/routes/export.dart';
 import 'package:tasker_mobile/src/utils/export.dart';
 
-class LoginScreen extends StatelessWidget with InputValidationMixin {
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => LoginScreenBloc(
+        authBloc: context.read<AuthBloc>(),
+        authRepository: context.read<AuthRepository>(),
+        userRepository: context.read<UserRepository>(),
+      ),
+      child: _LoginScreen(),
+    );
+  }
+}
+
+class _LoginScreen extends StatelessWidget with InputValidationMixin {
   final _emailInputController = TextEditingController();
   final _passwordInputController = TextEditingController();
   final _formGlobalKey = GlobalKey<FormState>();
 
-  LoginScreen({super.key});
+  _LoginScreen();
 
   @override
   Widget build(BuildContext context) {
@@ -90,13 +107,9 @@ class LoginScreen extends StatelessWidget with InputValidationMixin {
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       IconButton(
-                                        onPressed: state.passwordVisible
-                                            ? () => context
-                                                .read<LoginScreenBloc>()
-                                                .add(HidePassword())
-                                            : () => context
-                                                .read<LoginScreenBloc>()
-                                                .add(ShowPassword()),
+                                        onPressed: () => context
+                                            .read<LoginScreenBloc>()
+                                            .add(TogglePasswordVisibility()),
                                         icon: Icon(state.passwordVisible
                                             ? Icons.visibility_off
                                             : Icons.visibility),
@@ -186,7 +199,8 @@ class LoginScreen extends StatelessWidget with InputValidationMixin {
                       ),
                       child: FilledButtonWidget(
                         child: const Text('Sign up'),
-                        onPressed: () => context.go(AppScreen.register.toPath),
+                        onPressed: () =>
+                            context.push(AppScreen.register.toPath),
                       ),
                     ),
                   ),

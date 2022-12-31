@@ -3,10 +3,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:tasker_mobile/src/features/auth/export.dart';
-import 'package:tasker_mobile/src/routes/export.dart';
 import 'package:tasker_mobile/src/utils/export.dart';
 
 part 'register_screen_event.dart';
@@ -19,19 +16,13 @@ class RegisterScreenBloc
   RegisterScreenBloc({
     required this.authRepository,
   }) : super(const RegisterScreenState()) {
-    on<ShowPassword>(_mapShowPasswordEventToState);
-    on<HidePassword>(_mapHidePasswordEventToState);
+    on<TogglePasswordVisibility>(_mapTogglePasswordVisibilityEventToState);
     on<Register>(_mapRegisterEventToState);
   }
 
-  void _mapShowPasswordEventToState(
-      ShowPassword event, Emitter<RegisterScreenState> emit) async {
-    emit(state.copyWith(passwordVisible: true));
-  }
-
-  void _mapHidePasswordEventToState(
-      HidePassword event, Emitter<RegisterScreenState> emit) async {
-    emit(state.copyWith(passwordVisible: false));
+  void _mapTogglePasswordVisibilityEventToState(
+      TogglePasswordVisibility event, Emitter<RegisterScreenState> emit) async {
+    emit(state.copyWith(passwordVisible: !state.passwordVisible));
   }
 
   void _mapRegisterEventToState(
@@ -40,8 +31,7 @@ class RegisterScreenBloc
 
     try {
       await authRepository.register(event.user);
-      emit(state.copyWith(status: Status.success));
-      event.context.go(AppScreen.verifyEmail.toPath);
+      emit(state.copyWith(status: Status.success, user: event.user));
     } on DioError catch (e) {
       showDioErrors(e);
       emit(state.copyWith(status: Status.error));

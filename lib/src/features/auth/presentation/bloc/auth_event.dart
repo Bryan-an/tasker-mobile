@@ -18,22 +18,4 @@ class LoginUser extends AuthEvent {
 
 class LogoutUser extends AuthEvent {}
 
-class ResendVerificationCode extends AuthEvent {
-  final Verification data;
-
-  ResendVerificationCode(this.data);
-
-  @override
-  List<Object?> get props => [data];
-}
-
-class VerifyEmail extends AuthEvent {
-  final Verification data;
-
-  VerifyEmail(this.data);
-
-  @override
-  List<Object?> get props => [data];
-}
-
 class AppStart extends AuthEvent {}

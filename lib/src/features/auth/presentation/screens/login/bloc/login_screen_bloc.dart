@@ -20,8 +20,7 @@ class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
     on<Login>(_mapLoginEventToState);
     on<LoginWithFacebook>(_mapLoginWithFacebookEventToState);
     on<LoginWithGoogle>(_mapLoginWithGoogleEventToState);
-    on<ShowPassword>(_mapShowPasswordEventToState);
-    on<HidePassword>(_mapHidePasswordEventToState);
+    on<TogglePasswordVisibility>(_mapTogglePasswordVisibilityEventToState);
   }
 
   void _mapLoginEventToState(
@@ -78,13 +77,8 @@ class LoginScreenBloc extends Bloc<LoginScreenEvent, LoginScreenState> {
     }
   }
 
-  void _mapShowPasswordEventToState(
-      ShowPassword event, Emitter<LoginScreenState> emit) async {
-    emit(state.copyWith(passwordVisible: true));
-  }
-
-  void _mapHidePasswordEventToState(
-      HidePassword event, Emitter<LoginScreenState> emit) async {
-    emit(state.copyWith(passwordVisible: false));
+  void _mapTogglePasswordVisibilityEventToState(
+      TogglePasswordVisibility event, Emitter<LoginScreenState> emit) async {
+    emit(state.copyWith(passwordVisible: !state.passwordVisible));
   }
 }

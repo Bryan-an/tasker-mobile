@@ -18,6 +18,4 @@ class LoginWithFacebook extends LoginScreenEvent {}
 
 class LoginWithGoogle extends LoginScreenEvent {}
 
-class ShowPassword extends LoginScreenEvent {}
-
-class HidePassword extends LoginScreenEvent {}
+class TogglePasswordVisibility extends LoginScreenEvent {}

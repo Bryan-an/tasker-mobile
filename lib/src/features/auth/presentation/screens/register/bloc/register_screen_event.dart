@@ -7,18 +7,12 @@ class RegisterScreenEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class ShowPassword extends RegisterScreenEvent {}
-
-class HidePassword extends RegisterScreenEvent {}
+class TogglePasswordVisibility extends RegisterScreenEvent {}
 
 class Register extends RegisterScreenEvent {
   final User user;
-  final BuildContext context;
 
-  const Register({
-    required this.user,
-    required this.context,
-  });
+  const Register(this.user);
 
   @override
   List<Object> get props => [user];
