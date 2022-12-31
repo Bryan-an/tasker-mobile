@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tasker_mobile/src/features/auth/export.dart';
 import 'package:tasker_mobile/src/routes/export.dart';
+import 'package:tasker_mobile/src/utils/export.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -35,19 +36,11 @@ class HomeScreen extends StatelessWidget {
                     Expanded(
                       child: Center(
                         child: TextButton(
-                          onPressed: (state.status == AuthStatus.loading)
-                              ? null
-                              : () {
-                                  context.read<AuthBloc>().add(LogoutUser());
-                                  context.go(AppScreen.login.toPath);
-                                },
-                          child: (state.status == AuthStatus.loading)
-                              ? const SizedBox(
-                                  height: 25,
-                                  width: 25,
-                                  child: CircularProgressIndicator(),
-                                )
-                              : const Text('Log out'),
+                          onPressed: () {
+                            context.read<AuthBloc>().add(LogoutUser());
+                            context.go(AppScreen.login.toPath);
+                          },
+                          child: const Text('Log out'),
                         ),
                       ),
                     ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tasker_mobile/src/constants/colors.dart';
+import 'package:tasker_mobile/src/constants/export.dart';
 
 class FilledButtonWidget extends StatelessWidget {
   final Widget child;
