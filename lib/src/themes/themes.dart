@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:tasker_mobile/src/constants/colors.dart';
+import 'package:tasker_mobile/src/constants/export.dart';
 
 enum AppThemeKeys { light, dark }
 
@@ -20,7 +20,9 @@ class AppThemes {
       cursorColor: secondaryColor,
       selectionHandleColor: secondaryColor,
     ),
-    colorScheme: ColorScheme.fromSwatch().copyWith(
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: primaryColor,
+      primary: primaryColor,
       secondary: secondaryColor,
       background: whiteColor,
     ),
@@ -52,6 +54,7 @@ class AppThemes {
       ),
       labelStyle: TextStyle(color: blackColor),
       floatingLabelStyle: TextStyle(color: secondaryColor),
+      focusColor: secondaryColor,
     ),
     textButtonTheme: TextButtonThemeData(
         style: ButtonStyle(

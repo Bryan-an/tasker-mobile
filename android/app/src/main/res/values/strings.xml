@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+  <string name="app_name">Tasker</string>
+  <string name="facebook_app_id">542118674480509</string>
+  <string name="fb_login_protocol_scheme">fb542118674480509</string>
+  <string name="facebook_client_token">b788f81327d5c5f044583033237a13e1</string>
+</resources>

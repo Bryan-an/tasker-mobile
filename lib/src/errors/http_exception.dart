@@ -1,0 +1,1 @@
+class HttpException implements Exception {}

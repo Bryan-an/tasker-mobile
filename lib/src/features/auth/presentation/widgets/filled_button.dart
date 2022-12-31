@@ -3,7 +3,7 @@ import 'package:tasker_mobile/src/constants/colors.dart';
 
 class FilledButtonWidget extends StatelessWidget {
   final Widget child;
-  final void Function() onPressed;
+  final void Function()? onPressed;
 
   const FilledButtonWidget(
       {super.key, required this.child, required this.onPressed});
