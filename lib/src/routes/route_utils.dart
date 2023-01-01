@@ -15,7 +15,7 @@ extension AppScreenExtension on AppScreen {
       case AppScreen.register:
         return '/register';
       case AppScreen.verifyEmail:
-        return '/verifyEmail';
+        return '/verifyEmail/:email';
       default:
         return '/';
     }

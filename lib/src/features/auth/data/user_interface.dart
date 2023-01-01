@@ -1,4 +1,4 @@
-import 'package:tasker_mobile/src/features/auth/domain/user.dart';
+import 'package:tasker_mobile/src/features/auth/export.dart';
 
 abstract class IUserRepository {
   Future<User> getInfo();

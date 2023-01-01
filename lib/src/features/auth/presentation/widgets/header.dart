@@ -8,7 +8,7 @@ class HeaderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      'Log In',
+      title,
       style: Theme.of(context).textTheme.headline1,
       textAlign: TextAlign.center,
     );

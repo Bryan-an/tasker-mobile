@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tasker_mobile/src/features/auth/export.dart';
 import 'package:tasker_mobile/src/features/tasks/export.dart';
-import 'package:tasker_mobile/src/routes/route_utils.dart';
+import 'package:tasker_mobile/src/routes/export.dart';
 
 GoRouter router(AuthState authState) {
   return GoRouter(
@@ -24,10 +24,12 @@ GoRouter router(AuthState authState) {
         builder: (context, state) => const RegisterScreen(),
       ),
       GoRoute(
-        path: AppScreen.verifyEmail.toPath,
-        name: AppScreen.verifyEmail.name,
-        builder: (context, state) => const VerifyEmailScreen(),
-      ),
+          path: AppScreen.verifyEmail.toPath,
+          name: AppScreen.verifyEmail.name,
+          builder: (context, state) {
+            User user = state.extra as User;
+            return VerifyEmailScreen(user: user);
+          }),
     ],
     redirect: (BuildContext context, GoRouterState state) {
       final bool isGoingToRegister = state.subloc == AppScreen.register.toPath;

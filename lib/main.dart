@@ -67,7 +67,7 @@ class _MyAppState extends State<MyApp> {
               theme: AppTheme.of(context),
               title: 'Tasker',
               routerConfig: router(state),
-              scaffoldMessengerKey: snackBarKey,
+              scaffoldMessengerKey: scaffoldMessengerKey,
             );
           },
         ),

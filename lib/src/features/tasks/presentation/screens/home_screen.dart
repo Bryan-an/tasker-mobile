@@ -35,19 +35,11 @@ class HomeScreen extends StatelessWidget {
                     Expanded(
                       child: Center(
                         child: TextButton(
-                          onPressed: (state.status == AuthStatus.loading)
-                              ? null
-                              : () {
-                                  context.read<AuthBloc>().add(LogoutUser());
-                                  context.go(AppScreen.login.toPath);
-                                },
-                          child: (state.status == AuthStatus.loading)
-                              ? const SizedBox(
-                                  height: 25,
-                                  width: 25,
-                                  child: CircularProgressIndicator(),
-                                )
-                              : const Text('Log out'),
+                          onPressed: () {
+                            context.read<AuthBloc>().add(LogoutUser());
+                            context.go(AppScreen.login.toPath);
+                          },
+                          child: const Text('Log out'),
                         ),
                       ),
                     ),

@@ -45,8 +45,8 @@ class User extends Equatable {
       'password': password,
       'role': role,
       'status': status,
-      'created_at': createdAt != null ? createdAt!.toIso8601String() : null,
-      'updated_at': updatedAt != null ? updatedAt!.toIso8601String() : null,
+      'created_at': createdAt == null ? null : createdAt!.toIso8601String(),
+      'updated_at': updatedAt == null ? null : updatedAt!.toIso8601String(),
     };
   }
 }
