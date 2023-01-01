@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,19 +30,55 @@ class VerifyEmailScreen extends StatelessWidget {
   }
 }
 
-class _VerifyEmailScreen extends StatelessWidget {
+class _VerifyEmailScreen extends StatefulWidget {
+  final VerifyEmailScreen screen;
+
+  const _VerifyEmailScreen(this.screen);
+
+  @override
+  State<_VerifyEmailScreen> createState() => _VerifyEmailScreenState();
+}
+
+class _VerifyEmailScreenState extends State<_VerifyEmailScreen> {
   final _codeInputController = TextEditingController();
   final _formGlobalKey = GlobalKey<FormState>();
-  final VerifyEmailScreen widget;
+  late Timer _timer;
+  int _count = 59;
 
-  _VerifyEmailScreen(this.widget);
+  void startTimer() {
+    const oneSec = Duration(seconds: 1);
+
+    _timer = Timer.periodic(oneSec, (timer) {
+      if (_count == 0) {
+        setState(() {
+          timer.cancel();
+        });
+      } else {
+        setState(() {
+          _count--;
+        });
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    startTimer();
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<VerifyEmailScreenBloc, VerifyEmailScreenState>(
       listener: (context, state) {
         if (state.status == Status.success) {
-          context.read<AuthBloc>().add(LoginUser(user: widget.user));
+          context.read<AuthBloc>().add(LoginUser(user: widget.screen.user));
         }
       },
       child: SafeArea(
@@ -112,6 +150,30 @@ class _VerifyEmailScreen extends StatelessWidget {
                           ),
                         ],
                       ),
+                      BlocBuilder<VerifyEmailScreenBloc,
+                          VerifyEmailScreenState>(
+                        builder: (context, state) {
+                          return Row(
+                            children: [
+                              Expanded(
+                                child: Center(
+                                  child: Column(
+                                    children: [
+                                      const Padding(
+                                        padding:
+                                            EdgeInsets.symmetric(vertical: 10),
+                                        child: Text('Your code expires in'),
+                                      ),
+                                      Text(
+                                          '0:${_count.toString().padLeft(2, '0')}'),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -119,12 +181,19 @@ class _VerifyEmailScreen extends StatelessWidget {
                             padding: const EdgeInsets.all(22),
                             child: TextButton(
                               onPressed: () {
-                                final email = widget.user.email;
+                                final email = widget.screen.user.email;
                                 final data = Verification(email: email);
 
                                 context
                                     .read<VerifyEmailScreenBloc>()
                                     .add(ResendCode(data));
+
+                                setState(() {
+                                  _timer.cancel();
+                                  _count = 59;
+                                });
+
+                                startTimer();
                               },
                               child: const Text(
                                 'Resend code',
@@ -169,7 +238,8 @@ class _VerifyEmailScreen extends StatelessWidget {
                                             if (_formGlobalKey.currentState!
                                                 .validate()) {
                                               final String email =
-                                                  widget.user.email ?? '';
+                                                  widget.screen.user.email ??
+                                                      '';
                                               final String code =
                                                   _codeInputController.text;
                                               final data = Verification(
