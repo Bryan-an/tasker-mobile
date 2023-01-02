@@ -24,3 +24,7 @@ class ResendCode extends VerifyEmailScreenEvent {
   @override
   List<Object> get props => [data];
 }
+
+class Tik extends VerifyEmailScreenEvent {}
+
+class RestartTimer extends VerifyEmailScreenEvent {}

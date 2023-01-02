@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:tasker_mobile/src/constants/export.dart';
 import 'package:tasker_mobile/src/features/auth/export.dart';
-import 'package:tasker_mobile/src/routes/export.dart';
+import 'package:tasker_mobile/src/router/export.dart';
 import 'package:tasker_mobile/src/themes/export.dart';
 
 void main() {
@@ -33,10 +33,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  @override
-  void initState() {
-    super.initState();
-  }
+  final _router = AppRouter();
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +63,7 @@ class _MyAppState extends State<MyApp> {
               debugShowCheckedModeBanner: false,
               theme: AppTheme.of(context),
               title: 'Tasker',
-              routerConfig: router(state),
+              routerConfig: _router.getRouterConfig(state),
               scaffoldMessengerKey: scaffoldMessengerKey,
             );
           },

@@ -1,7 +1,7 @@
-import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tasker_mobile/src/constants/export.dart';
 import 'package:tasker_mobile/src/features/auth/export.dart';
 import 'package:tasker_mobile/src/utils/export.dart';
@@ -18,6 +18,8 @@ class VerifyEmailScreenBloc
   }) : super(const VerifyEmailScreenState()) {
     on<VerifyEmail>(_mapVerifyEmailEventToState);
     on<ResendCode>(_mapResendCodeEventToState);
+    on<Tik>(_mapTikEventToState);
+    on<RestartTimer>(_mapRestartTimerEventToState);
   }
 
   void _mapVerifyEmailEventToState(
@@ -54,5 +56,15 @@ class VerifyEmailScreenBloc
       showGeneralError(error);
       emit(state.copyWith(status: Status.error));
     }
+  }
+
+  void _mapTikEventToState(
+      Tik event, Emitter<VerifyEmailScreenState> emit) async {
+    emit(state.copyWith(timerCount: state.timerCount - 1));
+  }
+
+  void _mapRestartTimerEventToState(
+      RestartTimer event, Emitter<VerifyEmailScreenState> emit) async {
+    emit(state.copyWith(timerCount: 59));
   }
 }

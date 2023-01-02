@@ -57,12 +57,13 @@ class AppThemes {
       focusColor: secondaryColor,
     ),
     textButtonTheme: TextButtonThemeData(
-        style: ButtonStyle(
-      foregroundColor: MaterialStateProperty.all<Color>(primaryColor),
-      overlayColor: MaterialStateProperty.all<Color>(
-        primaryLightColor.withOpacity(0.1),
+      style: ButtonStyle(
+        foregroundColor: MaterialStateProperty.all<Color>(primaryColor),
+        overlayColor: MaterialStateProperty.all<Color>(
+          primaryLightColor.withOpacity(0.1),
+        ),
       ),
-    )),
+    ),
   );
 
   static final ThemeData darkTheme = ThemeData(

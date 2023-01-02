@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:tasker_mobile/src/common_widgets/export.dart';
 import 'package:tasker_mobile/src/constants/export.dart';
 import 'package:tasker_mobile/src/features/auth/export.dart';
-import 'package:tasker_mobile/src/routes/export.dart';
+import 'package:tasker_mobile/src/router/export.dart';
 import 'package:tasker_mobile/src/utils/export.dart';
 
 import 'bloc/register_screen_bloc.dart';
@@ -18,24 +18,86 @@ class RegisterScreen extends StatelessWidget {
       create: (context) => RegisterScreenBloc(
         authRepository: context.read<AuthRepository>(),
       ),
-      child: _RegisterScreen(),
+      child: const _RegisterScreen(),
     );
   }
 }
 
-class _RegisterScreen extends StatelessWidget with InputValidationMixin {
+class _RegisterScreen extends StatefulWidget {
+  const _RegisterScreen();
+
+  @override
+  State<_RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<_RegisterScreen>
+    with InputValidationMixin {
   final _nameInputController = TextEditingController();
   final _emailInputController = TextEditingController();
   final _passwordInputController = TextEditingController();
   final _formGlobalKey = GlobalKey<FormState>();
 
-  _RegisterScreen();
+  void _clearNameInput() {
+    _nameInputController.clear();
+  }
+
+  void _clearEmailInput() {
+    _emailInputController.clear();
+  }
+
+  String? _validateEmail(String? email) {
+    if (email == null || email.isEmpty) {
+      return 'Email required';
+    } else {
+      if (isEmailValid(email)) {
+        return null;
+      } else {
+        return 'Invalid email';
+      }
+    }
+  }
+
+  void _togglePasswordVisibility() {
+    context.read<RegisterScreenBloc>().add(TogglePasswordVisibility());
+  }
+
+  void _clearPasswordInput() {
+    _passwordInputController.clear();
+  }
+
+  String? _validatePassword(String? password) {
+    if (password == null || password.isEmpty) {
+      return 'Password required';
+    } else {
+      return null;
+    }
+  }
+
+  void _registerUser() {
+    if (_formGlobalKey.currentState!.validate()) {
+      final String name = _nameInputController.text;
+      final String email = _emailInputController.text;
+      final String password = _passwordInputController.text;
+
+      final user = User(
+        name: name,
+        email: email,
+        password: password,
+      );
+
+      context.read<RegisterScreenBloc>().add(Register(user));
+    }
+  }
+
+  void _goToLogin() {
+    context.pop();
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<RegisterScreenBloc, RegisterScreenState>(
       listener: (context, state) {
-        if (state.status == Status.success) {
+        if (state.status.isSuccess) {
           context.push(AppScreen.verifyEmail.toPath, extra: state.user);
         }
       },
@@ -87,7 +149,7 @@ class _RegisterScreen extends StatelessWidget with InputValidationMixin {
                                 label: 'Name',
                                 hint: 'Enter your name',
                                 suffixIcon: IconButton(
-                                  onPressed: () => _nameInputController.clear(),
+                                  onPressed: _clearNameInput,
                                   icon: const Icon(Icons.clear),
                                 ),
                               ),
@@ -109,21 +171,10 @@ class _RegisterScreen extends StatelessWidget with InputValidationMixin {
                                 label: 'Email',
                                 hint: 'Enter your email',
                                 suffixIcon: IconButton(
-                                  onPressed: () =>
-                                      _emailInputController.clear(),
+                                  onPressed: _clearEmailInput,
                                   icon: const Icon(Icons.clear),
                                 ),
-                                validator: (email) {
-                                  if (email == null || email.isEmpty) {
-                                    return 'Email required';
-                                  } else {
-                                    if (isEmailValid(email)) {
-                                      return null;
-                                    } else {
-                                      return 'Invalid email';
-                                    }
-                                  }
-                                },
+                                validator: _validateEmail,
                               ),
                             ),
                           ),
@@ -137,43 +188,34 @@ class _RegisterScreen extends StatelessWidget with InputValidationMixin {
                                 horizontal: 32,
                                 vertical: 10,
                               ),
-                              child: BlocBuilder<RegisterScreenBloc,
-                                  RegisterScreenState>(
+                              child: BlocSelector<RegisterScreenBloc,
+                                  RegisterScreenState, bool>(
+                                selector: (state) => state.passwordVisible,
                                 builder: (context, state) {
                                   return TextFieldWidget(
                                     keyboardType: TextInputType.visiblePassword,
                                     controller: _passwordInputController,
                                     label: 'Password',
                                     hint: 'Enter your password',
-                                    obscureText: !state.passwordVisible,
+                                    obscureText: !state,
                                     suffixIcon: Row(
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         IconButton(
-                                          onPressed: () => context
-                                              .read<RegisterScreenBloc>()
-                                              .add(TogglePasswordVisibility()),
-                                          icon: Icon(state.passwordVisible
-                                              ? Icons.visibility_off
-                                              : Icons.visibility),
+                                          onPressed: _togglePasswordVisibility,
+                                          icon: Icon(state
+                                              ? Icons.visibility
+                                              : Icons.visibility_off),
                                         ),
                                         IconButton(
                                           highlightColor: secondaryColor,
-                                          onPressed: () =>
-                                              _passwordInputController.clear(),
+                                          onPressed: _clearPasswordInput,
                                           icon: const Icon(Icons.clear),
                                         ),
                                       ],
                                     ),
-                                    validator: (password) {
-                                      if (password == null ||
-                                          password.isEmpty) {
-                                        return 'Password required';
-                                      } else {
-                                        return null;
-                                      }
-                                    },
+                                    validator: _validatePassword,
                                   );
                                 },
                               ),
@@ -191,34 +233,15 @@ class _RegisterScreen extends StatelessWidget with InputValidationMixin {
                                 bottom: 10,
                                 top: 32,
                               ),
-                              child: BlocBuilder<RegisterScreenBloc,
-                                  RegisterScreenState>(
+                              child: BlocSelector<RegisterScreenBloc,
+                                  RegisterScreenState, Status>(
+                                selector: (state) => state.status,
                                 builder: (context, state) {
                                   return FilledButtonWidget(
-                                    onPressed: (state.status == Status.loading)
+                                    onPressed: (state.isLoading)
                                         ? null
-                                        : () {
-                                            if (_formGlobalKey.currentState!
-                                                .validate()) {
-                                              final String name =
-                                                  _nameInputController.text;
-                                              final String email =
-                                                  _emailInputController.text;
-                                              final String password =
-                                                  _passwordInputController.text;
-
-                                              final user = User(
-                                                name: name,
-                                                email: email,
-                                                password: password,
-                                              );
-
-                                              context
-                                                  .read<RegisterScreenBloc>()
-                                                  .add(Register(user));
-                                            }
-                                          },
-                                    child: (state.status == Status.loading)
+                                        : _registerUser,
+                                    child: (state.isLoading)
                                         ? const SizedBox(
                                             height: 25,
                                             width: 25,
@@ -245,10 +268,13 @@ class _RegisterScreen extends StatelessWidget with InputValidationMixin {
                     Padding(
                       padding: const EdgeInsets.all(22),
                       child: TextButton(
-                        onPressed: () => context.pop(),
-                        child: const Text('I already have an account',
-                            style: TextStyle(
-                                decoration: TextDecoration.underline)),
+                        onPressed: _goToLogin,
+                        child: const Text(
+                          'I already have an account',
+                          style: TextStyle(
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
                       ),
                     ),
                   ],

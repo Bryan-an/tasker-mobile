@@ -35,64 +35,58 @@ class TextFieldWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => TextFieldBloc(),
-      child: _TextField(this),
-    );
-  }
-}
+      child: Builder(
+        builder: (context) {
+          return BlocSelector<TextFieldBloc, TextFieldState, bool>(
+            selector: (state) => state.isError,
+            builder: (context, state) {
+              return Theme(
+                data: Theme.of(context).copyWith(
+                    colorScheme: ColorScheme.fromSeed(
+                  seedColor: secondaryColor,
+                  primary:
+                      state ? Theme.of(context).errorColor : secondaryColor,
+                )),
+                child: TextFormField(
+                  maxLength: maxLength,
+                  keyboardType: keyboardType,
+                  controller: controller,
+                  obscureText: obscureText == null ? false : obscureText!,
+                  decoration: InputDecoration(
+                    border: const OutlineInputBorder(),
+                    labelText: label,
+                    hintText: hint,
+                    errorText: error,
+                    suffixIcon: suffixIcon,
+                    floatingLabelStyle: TextStyle(
+                      color:
+                          state ? Theme.of(context).errorColor : secondaryColor,
+                    ),
+                  ),
+                  validator: (validator != null)
+                      ? (text) {
+                          String? error = validator!(text);
 
-class _TextField extends StatelessWidget {
-  final TextFieldWidget widget;
+                          if (error == null) {
+                            context
+                                .read<TextFieldBloc>()
+                                .add(const SetIsError(false));
+                          } else {
+                            context
+                                .read<TextFieldBloc>()
+                                .add(const SetIsError(true));
+                          }
 
-  const _TextField(this.widget);
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<TextFieldBloc, TextFieldState>(
-      builder: (context, state) {
-        return Theme(
-          data: Theme.of(context).copyWith(
-              colorScheme: ColorScheme.fromSeed(
-            seedColor: secondaryColor,
-            primary:
-                state.isError ? Theme.of(context).errorColor : secondaryColor,
-          )),
-          child: TextFormField(
-            maxLength: widget.maxLength,
-            keyboardType: widget.keyboardType,
-            controller: widget.controller,
-            obscureText:
-                widget.obscureText == null ? false : widget.obscureText!,
-            decoration: InputDecoration(
-              border: const OutlineInputBorder(),
-              labelText: widget.label,
-              hintText: widget.hint,
-              errorText: widget.error,
-              suffixIcon: widget.suffixIcon,
-              floatingLabelStyle: TextStyle(
-                color: state.isError
-                    ? Theme.of(context).errorColor
-                    : secondaryColor,
-              ),
-            ),
-            validator: (widget.validator != null)
-                ? (text) {
-                    String? error = widget.validator!(text);
-
-                    if (error == null) {
-                      context
-                          .read<TextFieldBloc>()
-                          .add(const SetIsError(false));
-                    } else {
-                      context.read<TextFieldBloc>().add(const SetIsError(true));
-                    }
-
-                    return error;
-                  }
-                : null,
-            inputFormatters: widget.inputFormatters,
-          ),
-        );
-      },
+                          return error;
+                        }
+                      : null,
+                  inputFormatters: inputFormatters,
+                ),
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }

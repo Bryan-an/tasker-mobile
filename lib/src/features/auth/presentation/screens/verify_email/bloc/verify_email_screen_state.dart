@@ -2,18 +2,22 @@ part of 'verify_email_screen_bloc.dart';
 
 class VerifyEmailScreenState extends Equatable {
   final Status status;
+  final int timerCount;
 
   const VerifyEmailScreenState({
     this.status = Status.initial,
+    this.timerCount = 59,
   });
 
   @override
-  List<Object> get props => [status];
+  List<Object> get props => [status, timerCount];
 
   VerifyEmailScreenState copyWith({
     Status? status,
+    int? timerCount,
   }) =>
       VerifyEmailScreenState(
         status: status ?? this.status,
+        timerCount: timerCount ?? this.timerCount,
       );
 }

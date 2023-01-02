@@ -5,7 +5,7 @@ import 'package:tasker_mobile/src/common_widgets/export.dart';
 import 'package:tasker_mobile/src/constants/export.dart';
 import 'package:tasker_mobile/src/features/auth/export.dart';
 import 'package:tasker_mobile/src/features/auth/presentation/screens/login/bloc/login_screen_bloc.dart';
-import 'package:tasker_mobile/src/routes/export.dart';
+import 'package:tasker_mobile/src/router/export.dart';
 import 'package:tasker_mobile/src/utils/export.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -19,17 +19,76 @@ class LoginScreen extends StatelessWidget {
         authRepository: context.read<AuthRepository>(),
         userRepository: context.read<UserRepository>(),
       ),
-      child: _LoginScreen(),
+      child: const _LoginScreen(),
     );
   }
 }
 
-class _LoginScreen extends StatelessWidget with InputValidationMixin {
+class _LoginScreen extends StatefulWidget {
+  const _LoginScreen();
+
+  @override
+  State<_LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<_LoginScreen> with InputValidationMixin {
   final _emailInputController = TextEditingController();
   final _passwordInputController = TextEditingController();
   final _formGlobalKey = GlobalKey<FormState>();
 
-  _LoginScreen();
+  String? _validateEmail(String? email) {
+    if (email == null || email.isEmpty) {
+      return 'Email required';
+    } else {
+      if (isEmailValid(email)) {
+        return null;
+      } else {
+        return 'Invalid email';
+      }
+    }
+  }
+
+  String? _validatePassword(String? password) {
+    if (password == null || password.isEmpty) {
+      return 'Password required';
+    } else {
+      return null;
+    }
+  }
+
+  void _login() {
+    if (_formGlobalKey.currentState!.validate()) {
+      final String email = _emailInputController.text;
+      final String password = _passwordInputController.text;
+      final user = User(email: email, password: password);
+
+      context.read<LoginScreenBloc>().add(Login(user));
+    }
+  }
+
+  void _clearEmailInput() {
+    _emailInputController.clear();
+  }
+
+  void _clearPasswordInput() {
+    _passwordInputController.clear();
+  }
+
+  void _togglePasswordVisibility() {
+    context.read<LoginScreenBloc>().add(TogglePasswordVisibility());
+  }
+
+  void _goToRegister() {
+    context.push(AppScreen.register.toPath);
+  }
+
+  void _loginWithFacebook() {
+    context.read<LoginScreenBloc>().add(LoginWithFacebook());
+  }
+
+  void _loginWithGoogle() {
+    context.read<LoginScreenBloc>().add(LoginWithGoogle());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,20 +125,10 @@ class _LoginScreen extends StatelessWidget with InputValidationMixin {
                               label: 'Email',
                               hint: 'Enter your email',
                               suffixIcon: IconButton(
-                                onPressed: () => _emailInputController.clear(),
+                                onPressed: _clearEmailInput,
                                 icon: const Icon(Icons.clear),
                               ),
-                              validator: (email) {
-                                if (email == null || email.isEmpty) {
-                                  return 'Email required';
-                                } else {
-                                  if (isEmailValid(email)) {
-                                    return null;
-                                  } else {
-                                    return 'Invalid email';
-                                  }
-                                }
-                              },
+                              validator: _validateEmail,
                             ),
                           ),
                         ),
@@ -93,42 +142,34 @@ class _LoginScreen extends StatelessWidget with InputValidationMixin {
                               horizontal: 32,
                               vertical: 10,
                             ),
-                            child:
-                                BlocBuilder<LoginScreenBloc, LoginScreenState>(
+                            child: BlocSelector<LoginScreenBloc,
+                                LoginScreenState, bool>(
+                              selector: (state) => state.passwordVisible,
                               builder: (context, state) {
                                 return TextFieldWidget(
                                   keyboardType: TextInputType.visiblePassword,
                                   controller: _passwordInputController,
                                   label: 'Password',
                                   hint: 'Enter your password',
-                                  obscureText: !state.passwordVisible,
+                                  obscureText: !state,
                                   suffixIcon: Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       IconButton(
-                                        onPressed: () => context
-                                            .read<LoginScreenBloc>()
-                                            .add(TogglePasswordVisibility()),
-                                        icon: Icon(state.passwordVisible
-                                            ? Icons.visibility_off
-                                            : Icons.visibility),
+                                        onPressed: _togglePasswordVisibility,
+                                        icon: Icon(state
+                                            ? Icons.visibility
+                                            : Icons.visibility_off),
                                       ),
                                       IconButton(
                                         highlightColor: secondaryColor,
-                                        onPressed: () =>
-                                            _passwordInputController.clear(),
+                                        onPressed: _clearPasswordInput,
                                         icon: const Icon(Icons.clear),
                                       ),
                                     ],
                                   ),
-                                  validator: (password) {
-                                    if (password == null || password.isEmpty) {
-                                      return 'Password required';
-                                    } else {
-                                      return null;
-                                    }
-                                  },
+                                  validator: _validatePassword,
                                 );
                               },
                             ),
@@ -146,29 +187,13 @@ class _LoginScreen extends StatelessWidget with InputValidationMixin {
                               bottom: 10,
                               top: 32,
                             ),
-                            child:
-                                BlocBuilder<LoginScreenBloc, LoginScreenState>(
+                            child: BlocSelector<LoginScreenBloc,
+                                LoginScreenState, Status>(
+                              selector: (state) => state.status,
                               builder: (context, state) {
                                 return FilledButtonWidget(
-                                  onPressed: (state.status == Status.loading)
-                                      ? null
-                                      : () {
-                                          if (_formGlobalKey.currentState!
-                                              .validate()) {
-                                            final String email =
-                                                _emailInputController.text;
-                                            final String password =
-                                                _passwordInputController.text;
-                                            final user = User(
-                                                email: email,
-                                                password: password);
-
-                                            context
-                                                .read<LoginScreenBloc>()
-                                                .add(Login(user));
-                                          }
-                                        },
-                                  child: (state.status == Status.loading)
+                                  onPressed: (state.isLoading) ? null : _login,
+                                  child: (state.isLoading)
                                       ? const SizedBox(
                                           height: 25,
                                           width: 25,
@@ -198,9 +223,8 @@ class _LoginScreen extends StatelessWidget with InputValidationMixin {
                         vertical: 10,
                       ),
                       child: FilledButtonWidget(
+                        onPressed: _goToRegister,
                         child: const Text('Sign up'),
-                        onPressed: () =>
-                            context.push(AppScreen.register.toPath),
                       ),
                     ),
                   ),
@@ -233,9 +257,7 @@ class _LoginScreen extends StatelessWidget with InputValidationMixin {
                               'assets/img/logo_facebook.png',
                             ),
                             iconSize: 50,
-                            onPressed: () => context
-                                .read<LoginScreenBloc>()
-                                .add(LoginWithFacebook()),
+                            onPressed: _loginWithFacebook,
                           ),
                         ),
                       ],
@@ -252,9 +274,7 @@ class _LoginScreen extends StatelessWidget with InputValidationMixin {
                               'assets/img/logo_google.png',
                             ),
                             iconSize: 50,
-                            onPressed: () => context
-                                .read<LoginScreenBloc>()
-                                .add(LoginWithGoogle()),
+                            onPressed: _loginWithGoogle,
                           ),
                         ),
                       ],

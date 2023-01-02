@@ -1,8 +1,7 @@
-// ignore_for_file: use_build_context_synchronously
-
-import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tasker_mobile/src/constants/export.dart';
 import 'package:tasker_mobile/src/features/auth/export.dart';
 import 'package:tasker_mobile/src/utils/export.dart';
 
