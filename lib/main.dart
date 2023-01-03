@@ -6,6 +6,7 @@ import 'package:tasker_mobile/src/constants/export.dart';
 import 'package:tasker_mobile/src/features/auth/export.dart';
 import 'package:tasker_mobile/src/router/export.dart';
 import 'package:tasker_mobile/src/themes/export.dart';
+import 'package:tasker_mobile/src/utils/export.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
@@ -16,6 +17,8 @@ void main() {
 
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
+  Bloc.observer = AppBlocObserver();
 
   runApp(
     const AppTheme(

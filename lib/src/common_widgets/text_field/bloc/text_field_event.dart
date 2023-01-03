@@ -11,4 +11,7 @@ class SetIsError extends TextFieldEvent {
   final bool value;
 
   const SetIsError(this.value);
+
+  @override
+  List<Object> get props => [value];
 }

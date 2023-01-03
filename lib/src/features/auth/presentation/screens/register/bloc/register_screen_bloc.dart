@@ -31,6 +31,7 @@ class RegisterScreenBloc
     try {
       await authRepository.register(event.user);
       emit(state.copyWith(status: Status.success, user: event.user));
+      emit(state.copyWith(status: Status.initial));
     } on DioError catch (e) {
       showDioErrors(e);
       emit(state.copyWith(status: Status.error));

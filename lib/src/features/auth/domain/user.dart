@@ -22,31 +22,36 @@ class User extends Equatable {
   });
 
   @override
-  List<Object?> get props => [id, email];
-
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
-      id: json['id'],
-      name: json['name'],
-      email: json['email'],
-      password: json['password'],
-      role: json['role'],
-      status: json['status'],
-      createdAt: DateTime.parse(json['created_at']),
-      updatedAt: DateTime.parse(json['updated_at']),
-    );
-  }
+  List<Object?> get props =>
+      [id, name, email, role, status, createdAt, updatedAt];
 
   Map<String, dynamic> toJson() {
-    return {
+    return <String, dynamic>{
       'id': id,
       'name': name,
       'email': email,
       'password': password,
       'role': role,
       'status': status,
-      'created_at': createdAt == null ? null : createdAt!.toIso8601String(),
-      'updated_at': updatedAt == null ? null : updatedAt!.toIso8601String(),
+      'createdAt': createdAt?.millisecondsSinceEpoch,
+      'updatedAt': updatedAt?.millisecondsSinceEpoch,
     };
+  }
+
+  factory User.fromJson(Map<String, dynamic> map) {
+    return User(
+      id: map['id'] != null ? map['id'] as String : null,
+      name: map['name'] != null ? map['name'] as String : null,
+      email: map['email'] != null ? map['email'] as String : null,
+      password: map['password'] != null ? map['password'] as String : null,
+      role: map['role'] != null ? map['role'] as String : null,
+      status: map['status'] != null ? map['status'] as String : null,
+      createdAt: map['createdAt'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int)
+          : null,
+      updatedAt: map['updatedAt'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(map['updatedAt'] as int)
+          : null,
+    );
   }
 }

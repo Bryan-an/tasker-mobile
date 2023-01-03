@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'login_screen_bloc.dart';
 
 class LoginScreenState extends Equatable {
@@ -17,4 +18,7 @@ class LoginScreenState extends Equatable {
         status: status ?? this.status,
         passwordVisible: passwordVisible ?? this.passwordVisible,
       );
+
+  @override
+  bool get stringify => true;
 }
