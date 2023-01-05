@@ -5,7 +5,7 @@ import 'package:tasker_mobile/src/features/tasks/export.dart';
 import 'package:tasker_mobile/src/router/export.dart';
 
 class AppRouter {
-  GoRouter getRouterConfig(AuthState authState) {
+  GoRouter getConfig(SessionState sessionState) {
     return GoRouter(
       initialLocation: AppScreen.home.toPath,
       routes: <RouteBase>[
@@ -38,14 +38,18 @@ class AppRouter {
         ),
       ],
       redirect: (BuildContext context, GoRouterState state) {
+        final authenticated = sessionState is Authenticated;
+
         final bool isGoingToRegister =
             state.subloc == AppScreen.register.toPath;
+
         final bool isGoingToLogin = state.subloc == AppScreen.login.toPath;
+
         final bool isGoingToVerifyEmail =
             state.subloc == AppScreen.verifyEmail.toPath;
 
         if (!(isGoingToRegister || isGoingToLogin || isGoingToVerifyEmail) &&
-            !authState.authenticated) {
+            !authenticated) {
           return AppScreen.login.toPath;
         } else {
           return null;

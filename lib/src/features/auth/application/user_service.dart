@@ -15,6 +15,10 @@ class UserService {
       throw HttpException();
     }
 
+    if (kDebugMode) {
+      print(data);
+    }
+
     return data['user'];
   }
 

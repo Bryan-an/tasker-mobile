@@ -5,17 +5,46 @@ class AuthEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class LoginUser extends AuthEvent {
+class Login extends AuthEvent {
   final User user;
 
-  LoginUser({
-    required this.user,
-  });
+  Login(this.user);
 
   @override
-  List<Object?> get props => [user];
+  List<Object> get props => [user];
 }
 
-class LogoutUser extends AuthEvent {}
+class LoginWithFacebook extends AuthEvent {}
+
+class LoginWithGoogle extends AuthEvent {}
+
+class Register extends AuthEvent {
+  final User user;
+
+  Register(this.user);
+
+  @override
+  List<Object> get props => [user];
+}
+
+class Logout extends AuthEvent {}
 
 class AppStart extends AuthEvent {}
+
+class VerifyEmail extends AuthEvent {
+  final Verification data;
+
+  VerifyEmail(this.data);
+
+  @override
+  List<Object> get props => [data];
+}
+
+class ResendCode extends AuthEvent {
+  final Verification data;
+
+  ResendCode(this.data);
+
+  @override
+  List<Object> get props => [data];
+}

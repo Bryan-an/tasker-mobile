@@ -14,7 +14,7 @@ class Verification extends Equatable {
     return <String, dynamic>{
       'email': email,
       'code': code,
-      'expiresAt': expiresAt?.millisecondsSinceEpoch,
+      'expires_at': expiresAt?.toIso8601String(),
     };
   }
 
@@ -22,8 +22,8 @@ class Verification extends Equatable {
     return Verification(
       email: map['email'] != null ? map['email'] as String : null,
       code: map['code'] != null ? map['code'] as String : null,
-      expiresAt: map['expiresAt'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['expiresAt'] as int)
+      expiresAt: map['expires_at'] != null
+          ? DateTime.parse(map['expires_at'] as String)
           : null,
     );
   }

@@ -4,9 +4,10 @@ import 'package:go_router/go_router.dart';
 import 'package:tasker_mobile/src/common_widgets/export.dart';
 import 'package:tasker_mobile/src/constants/export.dart';
 import 'package:tasker_mobile/src/features/auth/export.dart';
-import 'package:tasker_mobile/src/features/auth/presentation/screens/login/bloc/login_screen_bloc.dart';
 import 'package:tasker_mobile/src/router/export.dart';
 import 'package:tasker_mobile/src/utils/export.dart';
+
+import 'cubit/login_screen_cubit.dart';
 
 class LoginScreen extends StatelessWidget with InputValidationMixin {
   final _emailInputController = TextEditingController();
@@ -45,7 +46,7 @@ class LoginScreen extends StatelessWidget with InputValidationMixin {
 
   VoidCallback _togglePasswordVisibility(BuildContext context) {
     return () {
-      context.read<LoginScreenBloc>().add(TogglePasswordVisibility());
+      context.read<LoginScreenCubit>().togglePasswordVisibility();
     };
   }
 
@@ -56,7 +57,7 @@ class LoginScreen extends StatelessWidget with InputValidationMixin {
         final String password = _passwordInputController.text;
         final user = User(email: email, password: password);
 
-        context.read<LoginScreenBloc>().add(Login(user));
+        context.read<AuthBloc>().add(Login(user));
       }
     };
   }
@@ -69,28 +70,26 @@ class LoginScreen extends StatelessWidget with InputValidationMixin {
 
   VoidCallback _loginWithFacebook(BuildContext context) {
     return () {
-      context.read<LoginScreenBloc>().add(LoginWithFacebook());
+      context.read<AuthBloc>().add(LoginWithFacebook());
     };
   }
 
   VoidCallback _loginWithGoogle(BuildContext context) {
     return () {
-      context.read<LoginScreenBloc>().add(LoginWithGoogle());
+      context.read<AuthBloc>().add(LoginWithGoogle());
     };
   }
 
-  LoginScreenBloc _createBloc(BuildContext context) {
-    return LoginScreenBloc(
-      authBloc: context.read<AuthBloc>(),
-      authRepository: context.read<AuthRepository>(),
-      userRepository: context.read<UserRepository>(),
-    );
+  bool _isLoading(AuthState state) {
+    return (state.loginStatus.isLoading ||
+        state.loginFacebookStatus.isLoading ||
+        state.loginGoogleStatus.isLoading);
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: _createBloc,
+      create: (context) => LoginScreenCubit(),
       child: Builder(
         builder: (context) {
           return SafeArea(
@@ -143,7 +142,7 @@ class LoginScreen extends StatelessWidget with InputValidationMixin {
                                     horizontal: 32,
                                     vertical: 10,
                                   ),
-                                  child: BlocSelector<LoginScreenBloc,
+                                  child: BlocSelector<LoginScreenCubit,
                                       LoginScreenState, bool>(
                                     selector: (state) => state.passwordVisible,
                                     builder: (context, state) {
@@ -192,15 +191,13 @@ class LoginScreen extends StatelessWidget with InputValidationMixin {
                                     bottom: 10,
                                     top: 32,
                                   ),
-                                  child: BlocSelector<LoginScreenBloc,
-                                      LoginScreenState, Status>(
-                                    selector: (state) => state.status,
+                                  child: BlocBuilder<AuthBloc, AuthState>(
                                     builder: (context, state) {
                                       return FilledButtonWidget(
-                                        onPressed: (state.isLoading)
+                                        onPressed: _isLoading(state)
                                             ? null
                                             : _login(context),
-                                        child: (state.isLoading)
+                                        child: _isLoading(state)
                                             ? const SizedBox(
                                                 height: 25,
                                                 width: 25,
@@ -260,12 +257,18 @@ class LoginScreen extends StatelessWidget with InputValidationMixin {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.all(20),
-                                child: IconButton(
-                                  icon: Image.asset(
-                                    'assets/img/logo_facebook.png',
-                                  ),
-                                  iconSize: 50,
-                                  onPressed: _loginWithFacebook(context),
+                                child: BlocBuilder<AuthBloc, AuthState>(
+                                  builder: (context, state) {
+                                    return IconButton(
+                                      icon: Image.asset(
+                                        'assets/img/logo_facebook.png',
+                                      ),
+                                      iconSize: 50,
+                                      onPressed: _isLoading(state)
+                                          ? null
+                                          : _loginWithFacebook(context),
+                                    );
+                                  },
                                 ),
                               ),
                             ],
@@ -277,12 +280,18 @@ class LoginScreen extends StatelessWidget with InputValidationMixin {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.all(20),
-                                child: IconButton(
-                                  icon: Image.asset(
-                                    'assets/img/logo_google.png',
-                                  ),
-                                  iconSize: 50,
-                                  onPressed: _loginWithGoogle(context),
+                                child: BlocBuilder<AuthBloc, AuthState>(
+                                  builder: (context, state) {
+                                    return IconButton(
+                                      icon: Image.asset(
+                                        'assets/img/logo_google.png',
+                                      ),
+                                      iconSize: 50,
+                                      onPressed: _isLoading(state)
+                                          ? null
+                                          : _loginWithGoogle(context),
+                                    );
+                                  },
                                 ),
                               ),
                             ],

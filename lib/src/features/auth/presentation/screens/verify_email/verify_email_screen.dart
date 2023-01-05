@@ -6,7 +6,7 @@ import 'package:tasker_mobile/src/common_widgets/export.dart';
 import 'package:tasker_mobile/src/constants/export.dart';
 import 'package:tasker_mobile/src/features/auth/export.dart';
 
-import 'bloc/verify_email_screen_bloc.dart';
+import 'cubit/verify_email_screen_cubit.dart';
 
 class VerifyEmailScreen extends StatelessWidget {
   final _codeInputController = TextEditingController();
@@ -34,7 +34,8 @@ class VerifyEmailScreen extends StatelessWidget {
       final email = user.email;
       final data = Verification(email: email);
 
-      context.read<VerifyEmailScreenBloc>().add(ResendCode(data));
+      context.read<AuthBloc>().add(ResendCode(data));
+      context.read<VerifyEmailScreenCubit>().resetTimer();
     };
   }
 
@@ -54,32 +55,24 @@ class VerifyEmailScreen extends StatelessWidget {
           code: code,
         );
 
-        context.read<VerifyEmailScreenBloc>().add(VerifyEmail(data));
+        context.read<AuthBloc>().add(VerifyEmail(data));
       }
     };
   }
 
-  void _blocListener(BuildContext context, VerifyEmailScreenState state) {
-    if (state.status.isSuccess) {
-      context.read<AuthBloc>().add(LoginUser(user: user));
+  void _blocListener(BuildContext context, AuthState state) {
+    if (state.verifyEmailStatus.isSuccess) {
+      context.read<AuthBloc>().add(Login(user));
     }
-  }
-
-  VerifyEmailScreenBloc _createBloc(BuildContext context) {
-    return VerifyEmailScreenBloc(
-      authRepository: context.read<AuthRepository>(),
-    )..add(
-        StartTimer(),
-      );
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: _createBloc,
+      create: (_) => VerifyEmailScreenCubit()..startTimer(),
       child: Builder(
         builder: (context) {
-          return BlocListener<VerifyEmailScreenBloc, VerifyEmailScreenState>(
+          return BlocListener<AuthBloc, AuthState>(
             listener: _blocListener,
             child: SafeArea(
               child: Scaffold(
@@ -156,7 +149,7 @@ class VerifyEmailScreen extends StatelessWidget {
                                               vertical: 10),
                                           child: Text('Your code expires in'),
                                         ),
-                                        BlocSelector<VerifyEmailScreenBloc,
+                                        BlocSelector<VerifyEmailScreenCubit,
                                             VerifyEmailScreenState, int>(
                                           selector: (state) => state.timerCount,
                                           builder: (context, state) {
@@ -175,14 +168,30 @@ class VerifyEmailScreen extends StatelessWidget {
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.all(22),
-                                  child: TextButton(
-                                    onPressed: _resendCode(context),
-                                    child: const Text(
-                                      'Resend code',
-                                      style: TextStyle(
-                                        decoration: TextDecoration.underline,
-                                      ),
-                                    ),
+                                  child:
+                                      BlocSelector<AuthBloc, AuthState, Status>(
+                                    selector: (state) => state.resendCodeStatus,
+                                    builder: (context, state) {
+                                      return TextButton(
+                                        onPressed: (state == Status.loading)
+                                            ? null
+                                            : _resendCode(context),
+                                        child: (state == Status.loading)
+                                            ? const SizedBox(
+                                                height: 25,
+                                                width: 25,
+                                                child:
+                                                    CircularProgressIndicator(),
+                                              )
+                                            : const Text(
+                                                'Resend code',
+                                                style: TextStyle(
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                ),
+                                              ),
+                                      );
+                                    },
                                   ),
                                 ),
                               ],
@@ -211,15 +220,18 @@ class VerifyEmailScreen extends StatelessWidget {
                                       bottom: 10,
                                       top: 32,
                                     ),
-                                    child: BlocSelector<VerifyEmailScreenBloc,
-                                        VerifyEmailScreenState, Status>(
-                                      selector: (state) => state.status,
+                                    child: BlocBuilder<AuthBloc, AuthState>(
                                       builder: (context, state) {
                                         return FilledButtonWidget(
-                                          onPressed: (state.isLoading)
-                                              ? null
-                                              : _verifyEmail(context),
-                                          child: (state.isLoading)
+                                          onPressed:
+                                              (state.loginStatus.isLoading ||
+                                                      state.verifyEmailStatus
+                                                          .isLoading)
+                                                  ? null
+                                                  : _verifyEmail(context),
+                                          child: (state.loginStatus.isLoading ||
+                                                  state.verifyEmailStatus
+                                                      .isLoading)
                                               ? const SizedBox(
                                                   height: 25,
                                                   width: 25,

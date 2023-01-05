@@ -33,8 +33,8 @@ class User extends Equatable {
       'password': password,
       'role': role,
       'status': status,
-      'createdAt': createdAt?.millisecondsSinceEpoch,
-      'updatedAt': updatedAt?.millisecondsSinceEpoch,
+      'created_at': createdAt?.toIso8601String(),
+      'updated_at': updatedAt?.toIso8601String(),
     };
   }
 
@@ -46,11 +46,11 @@ class User extends Equatable {
       password: map['password'] != null ? map['password'] as String : null,
       role: map['role'] != null ? map['role'] as String : null,
       status: map['status'] != null ? map['status'] as String : null,
-      createdAt: map['createdAt'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int)
+      createdAt: map['created_at'] != null
+          ? DateTime.parse(map['created_at'] as String)
           : null,
-      updatedAt: map['updatedAt'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['updatedAt'] as int)
+      updatedAt: map['updated_at'] != null
+          ? DateTime.parse(map['updated_at'] as String)
           : null,
     );
   }

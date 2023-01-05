@@ -7,7 +7,7 @@ import 'package:tasker_mobile/src/features/auth/export.dart';
 import 'package:tasker_mobile/src/router/export.dart';
 import 'package:tasker_mobile/src/utils/export.dart';
 
-import 'bloc/register_screen_bloc.dart';
+import 'cubit/register_screen_cubit.dart';
 
 class RegisterScreen extends StatelessWidget with InputValidationMixin {
   final _nameInputController = TextEditingController();
@@ -49,21 +49,19 @@ class RegisterScreen extends StatelessWidget with InputValidationMixin {
     }
   }
 
-  RegisterScreenBloc _createBloc(BuildContext context) {
-    return RegisterScreenBloc(
-      authRepository: context.read<AuthRepository>(),
-    );
-  }
+  void _blocListener(BuildContext context, AuthState state) {
+    if (state.registerStatus.isSuccess) {
+      final user = BlocProvider.of<RegisterScreenCubit>(context, listen: false)
+          .state
+          .user;
 
-  void _blocListener(BuildContext context, RegisterScreenState state) {
-    if (state.status.isSuccess) {
-      context.push(AppScreen.verifyEmail.toPath, extra: state.user);
+      context.push(AppScreen.verifyEmail.toPath, extra: user);
     }
   }
 
   VoidCallback _togglePasswordVisibility(BuildContext context) {
     return () {
-      context.read<RegisterScreenBloc>().add(TogglePasswordVisibility());
+      context.read<RegisterScreenCubit>().togglePasswordVisibility();
     };
   }
 
@@ -80,7 +78,8 @@ class RegisterScreen extends StatelessWidget with InputValidationMixin {
           password: password,
         );
 
-        context.read<RegisterScreenBloc>().add(Register(user));
+        context.read<AuthBloc>().add(Register(user));
+        context.read<RegisterScreenCubit>().setUser(user);
       }
     };
   }
@@ -94,10 +93,10 @@ class RegisterScreen extends StatelessWidget with InputValidationMixin {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: _createBloc,
+      create: (context) => RegisterScreenCubit(),
       child: Builder(
         builder: (context) {
-          return BlocListener<RegisterScreenBloc, RegisterScreenState>(
+          return BlocListener<AuthBloc, AuthState>(
             listener: _blocListener,
             child: SafeArea(
               child: Scaffold(
@@ -186,7 +185,7 @@ class RegisterScreen extends StatelessWidget with InputValidationMixin {
                                       horizontal: 32,
                                       vertical: 10,
                                     ),
-                                    child: BlocSelector<RegisterScreenBloc,
+                                    child: BlocSelector<RegisterScreenCubit,
                                         RegisterScreenState, bool>(
                                       selector: (state) =>
                                           state.passwordVisible,
@@ -236,9 +235,9 @@ class RegisterScreen extends StatelessWidget with InputValidationMixin {
                                       bottom: 10,
                                       top: 32,
                                     ),
-                                    child: BlocSelector<RegisterScreenBloc,
-                                        RegisterScreenState, Status>(
-                                      selector: (state) => state.status,
+                                    child: BlocSelector<AuthBloc, AuthState,
+                                        Status>(
+                                      selector: (state) => state.registerStatus,
                                       builder: (context, state) {
                                         return FilledButtonWidget(
                                           onPressed: (state.isLoading)

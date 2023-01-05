@@ -21,22 +21,17 @@ void main() {
   Bloc.observer = AppBlocObserver();
 
   runApp(
-    const AppTheme(
+    AppTheme(
       initialThemeKey: AppThemeKeys.light,
       child: MyApp(),
     ),
   );
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
+class MyApp extends StatelessWidget {
   final _router = AppRouter();
+
+  MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -52,21 +47,25 @@ class _MyAppState extends State<MyApp> {
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
+            create: (context) => SessionCubit(),
+          ),
+          BlocProvider(
             create: (context) => AuthBloc(
               authRepository: context.read<AuthRepository>(),
               userRepository: context.read<UserRepository>(),
+              sessionCubit: context.read<SessionCubit>(),
             )..add(
                 AppStart(),
               ),
           ),
         ],
-        child: BlocBuilder<AuthBloc, AuthState>(
+        child: BlocBuilder<SessionCubit, SessionState>(
           builder: (context, state) {
             return MaterialApp.router(
               debugShowCheckedModeBanner: false,
               theme: AppTheme.of(context),
               title: 'Tasker',
-              routerConfig: _router.getRouterConfig(state),
+              routerConfig: _router.getConfig(state),
               scaffoldMessengerKey: scaffoldMessengerKey,
             );
           },

@@ -3,27 +3,61 @@ part of 'auth_bloc.dart';
 
 class AuthState extends Equatable {
   final User user;
-  final bool authenticated;
   final bool initialized;
+  final Status loginStatus;
+  final Status loginFacebookStatus;
+  final Status loginGoogleStatus;
+  final Status logoutStatus;
+  final Status registerStatus;
+  final Status verifyEmailStatus;
+  final Status resendCodeStatus;
 
   const AuthState({
     this.user = const User(),
-    this.authenticated = false,
     this.initialized = false,
+    this.loginStatus = Status.initial,
+    this.loginFacebookStatus = Status.initial,
+    this.loginGoogleStatus = Status.initial,
+    this.logoutStatus = Status.initial,
+    this.registerStatus = Status.initial,
+    this.verifyEmailStatus = Status.initial,
+    this.resendCodeStatus = Status.initial,
   });
 
   @override
-  List<Object?> get props => [user, authenticated, initialized];
+  List<Object?> get props => [
+        user,
+        initialized,
+        loginStatus,
+        loginFacebookStatus,
+        loginGoogleStatus,
+        logoutStatus,
+        registerStatus,
+        verifyEmailStatus,
+        resendCodeStatus,
+      ];
 
   AuthState copyWith({
     User? user,
-    bool? authenticated,
     bool? initialized,
+    Status? loginStatus,
+    Status? loginFacebookStatus,
+    Status? loginGoogleStatus,
+    Status? logoutStatus,
+    Status? registerStatus,
+    Status? verifyEmailStatus,
+    Status? resendCodeStatus,
   }) =>
       AuthState(
         user: user ?? this.user,
-        authenticated: authenticated ?? this.authenticated,
         initialized: initialized ?? this.initialized,
+        loginStatus: loginStatus ?? this.loginStatus,
+        loginFacebookStatus: loginFacebookStatus ?? this.loginFacebookStatus,
+        loginGoogleStatus: loginGoogleStatus ?? this.loginGoogleStatus,
+        logoutStatus: logoutStatus ?? this.logoutStatus,
+        registerStatus: registerStatus ?? this.registerStatus,
+        verifyEmailStatus: verifyEmailStatus ?? this.verifyEmailStatus,
+        resendCodeStatus: resendCodeStatus ?? this.resendCodeStatus,
       );
 
   @override

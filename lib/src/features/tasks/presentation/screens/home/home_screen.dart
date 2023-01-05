@@ -73,7 +73,7 @@ class HomeScreen extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () => context.read<AuthBloc>().add(
-                LogoutUser(),
+                Logout(),
               ),
           child: const Icon(Icons.add),
         ),
