@@ -44,6 +44,7 @@ dependencies:
   shared_preferences: ^2.0.15
   flutter_login_facebook: ^1.7.0
   google_sign_in: ^5.4.2
+  intl: ^0.18.0
 
 dev_dependencies:
   flutter_test:
@@ -71,6 +72,7 @@ flutter:
     - assets/img/logo_facebook.png
     - assets/img/logo_google.png
     - assets/img/logo_orange.png
+    - assets/gif/emptystate.gif
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:tasker_mobile/src/config/export.dart';
-import 'package:tasker_mobile/src/constants/export.dart';
 import 'package:tasker_mobile/src/errors/export.dart';
 
 class TaskService {
@@ -52,7 +51,7 @@ class TaskService {
   }
 
   Future<void> update(String id, Map<String, dynamic> task) async {
-    var response = await dio.put('$_endpoint/$id', data: task);
+    var response = await dio.patch('$_endpoint/$id', data: task);
     var data = response.data;
 
     if (response.statusCode != 200) {

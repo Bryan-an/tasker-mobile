@@ -12,7 +12,7 @@ class AppRouter {
         GoRoute(
           path: AppScreen.home.toPath,
           name: AppScreen.home.name,
-          builder: (context, state) => HomeScreen(),
+          builder: (context, state) => const HomeScreen(),
         ),
         GoRoute(
           path: AppScreen.login.toPath,

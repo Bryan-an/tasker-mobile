@@ -20,6 +20,17 @@ extension TaskLevelExtension on TaskLevel {
         return 'high';
     }
   }
+
+  String get toName {
+    switch (this) {
+      case TaskLevel.low:
+        return 'low';
+      case TaskLevel.medium:
+        return 'medium';
+      case TaskLevel.high:
+        return 'high';
+    }
+  }
 }
 
 extension TaskOrderExtension on TaskOrder {

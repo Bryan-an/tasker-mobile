@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 
 class Task extends Equatable {
@@ -8,6 +9,9 @@ class Task extends Equatable {
   final List<String>? labels;
   final String? priority;
   final String? complexity;
+  final DateTime? from;
+  final DateTime? to;
+  final bool? done;
   final String? status;
   final DateTime? createdAt;
   final DateTime? updatedAt;
@@ -20,6 +24,9 @@ class Task extends Equatable {
     this.labels,
     this.priority,
     this.complexity,
+    this.from,
+    this.to,
+    this.done,
     this.status,
     this.createdAt,
     this.updatedAt,
@@ -34,6 +41,9 @@ class Task extends Equatable {
         labels,
         priority,
         complexity,
+        from,
+        to,
+        done,
         status,
         createdAt,
         updatedAt,
@@ -48,6 +58,9 @@ class Task extends Equatable {
       'labels': labels,
       'priority': priority,
       'complexity': complexity,
+      'from': from?.toIso8601String(),
+      'to': to?.toIso8601String(),
+      'done': done,
       'status': status,
       'created_at': createdAt?.toIso8601String(),
       'updated_at': updatedAt?.toIso8601String(),
@@ -62,11 +75,14 @@ class Task extends Equatable {
       description:
           map['description'] != null ? map['description'] as String : null,
       labels: map['labels'] != null
-          ? List<String>.from(map['labels'] as List<String>)
+          ? List<String>.from(map['labels'] as List<dynamic>)
           : null,
       priority: map['priority'] != null ? map['priority'] as String : null,
       complexity:
           map['complexity'] != null ? map['complexity'] as String : null,
+      from: map['from'] != null ? DateTime.parse(map['from'] as String) : null,
+      to: map['to'] != null ? DateTime.parse(map['to'] as String) : null,
+      done: map['done'] != null ? map['done'] as bool : null,
       status: map['status'] != null ? map['status'] as String : null,
       createdAt: map['created_at'] != null
           ? DateTime.parse(map['created_at'] as String)
@@ -74,6 +90,38 @@ class Task extends Equatable {
       updatedAt: map['updated_at'] != null
           ? DateTime.parse(map['updated_at'] as String)
           : null,
+    );
+  }
+
+  Task copyWith({
+    String? id,
+    String? userId,
+    String? title,
+    String? description,
+    List<String>? labels,
+    String? priority,
+    String? complexity,
+    DateTime? from,
+    DateTime? to,
+    bool? done,
+    String? status,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return Task(
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      labels: labels ?? this.labels,
+      priority: priority ?? this.priority,
+      complexity: complexity ?? this.complexity,
+      from: from ?? this.from,
+      to: to ?? this.to,
+      done: done ?? this.done,
+      status: status ?? this.status,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
     );
   }
 }

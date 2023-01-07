@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tasker_mobile/src/constants/export.dart';
 
-import 'bloc/text_field_bloc.dart';
+import 'cubit/text_field_cubit.dart';
 
 class TextFieldWidget extends StatelessWidget {
   final String? label;
@@ -34,10 +34,10 @@ class TextFieldWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => TextFieldBloc(),
+      create: (context) => TextFieldCubit(),
       child: Builder(
         builder: (context) {
-          return BlocSelector<TextFieldBloc, TextFieldState, bool>(
+          return BlocSelector<TextFieldCubit, TextFieldState, bool>(
             selector: (state) => state.isError,
             builder: (context, state) {
               return Theme(
@@ -68,13 +68,9 @@ class TextFieldWidget extends StatelessWidget {
                           String? error = validator!(text);
 
                           if (error == null) {
-                            context
-                                .read<TextFieldBloc>()
-                                .add(const SetIsError(false));
+                            context.read<TextFieldCubit>().setIsError(false);
                           } else {
-                            context
-                                .read<TextFieldBloc>()
-                                .add(const SetIsError(true));
+                            context.read<TextFieldCubit>().setIsError(true);
                           }
 
                           return error;

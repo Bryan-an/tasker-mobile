@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:tasker_mobile/src/constants/export.dart';
 import 'package:tasker_mobile/src/features/auth/export.dart';
+import 'package:tasker_mobile/src/features/tasks/export.dart';
 import 'package:tasker_mobile/src/router/export.dart';
 import 'package:tasker_mobile/src/themes/export.dart';
 import 'package:tasker_mobile/src/utils/export.dart';
@@ -43,6 +44,9 @@ class MyApp extends StatelessWidget {
         RepositoryProvider(
           create: (context) => UserRepository(service: UserService()),
         ),
+        RepositoryProvider(
+          create: (context) => TaskRepository(service: TaskService()),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -57,6 +61,11 @@ class MyApp extends StatelessWidget {
             )..add(
                 AppStart(),
               ),
+          ),
+          BlocProvider(
+            create: (context) => TaskBloc(
+              taskRepository: context.read<TaskRepository>(),
+            ),
           ),
         ],
         child: BlocBuilder<SessionCubit, SessionState>(
