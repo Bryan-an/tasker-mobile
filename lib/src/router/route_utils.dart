@@ -3,6 +3,7 @@ enum AppScreen {
   register,
   verifyEmail,
   home,
+  filter,
 }
 
 extension AppScreenExtension on AppScreen {
@@ -16,6 +17,8 @@ extension AppScreenExtension on AppScreen {
         return '/register';
       case AppScreen.verifyEmail:
         return '/verifyEmail/:email';
+      case AppScreen.filter:
+        return '/filter';
       default:
         return '/';
     }
@@ -31,6 +34,8 @@ extension AppScreenExtension on AppScreen {
         return 'register';
       case AppScreen.verifyEmail:
         return 'verify email';
+      case AppScreen.filter:
+        return 'filter';
       default:
         return 'home';
     }
@@ -46,6 +51,8 @@ extension AppScreenExtension on AppScreen {
         return 'Create Account';
       case AppScreen.verifyEmail:
         return 'Verify Email';
+      case AppScreen.filter:
+        return 'Filter';
       default:
         return 'Tasks';
     }

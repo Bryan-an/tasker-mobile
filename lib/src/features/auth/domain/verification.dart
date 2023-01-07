@@ -10,19 +10,21 @@ class Verification extends Equatable {
   @override
   List<Object?> get props => [email, code, expiresAt];
 
-  factory Verification.fromJson(Map<String, dynamic> json) {
-    return Verification(
-      email: json['email'],
-      code: json['code'],
-      expiresAt: DateTime.parse(json['expires_at']),
-    );
-  }
-
   Map<String, dynamic> toJson() {
-    return {
+    return <String, dynamic>{
       'email': email,
       'code': code,
-      'expires_at': expiresAt == null ? null : expiresAt!.toIso8601String(),
+      'expires_at': expiresAt?.toIso8601String(),
     };
+  }
+
+  factory Verification.fromJson(Map<String, dynamic> map) {
+    return Verification(
+      email: map['email'] != null ? map['email'] as String : null,
+      code: map['code'] != null ? map['code'] as String : null,
+      expiresAt: map['expires_at'] != null
+          ? DateTime.parse(map['expires_at'] as String)
+          : null,
+    );
   }
 }

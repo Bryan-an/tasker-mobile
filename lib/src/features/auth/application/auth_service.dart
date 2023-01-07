@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tasker_mobile/src/config/export.dart';
 import 'package:tasker_mobile/src/errors/export.dart';
 
@@ -31,7 +32,7 @@ class AuthService {
     }
 
     String accessToken = data['token'];
-    final prefs = await futurePrefs;
+    final prefs = await SharedPreferences.getInstance();
     prefs.setString('accessToken', accessToken);
     dio.options.headers['authorization'] = 'Bearer $accessToken';
 
@@ -66,7 +67,7 @@ class AuthService {
         }
 
         String accessToken = data['token'];
-        final prefs = await futurePrefs;
+        final prefs = await SharedPreferences.getInstance();
         prefs.setString('accessToken', accessToken);
         dio.options.headers['authorization'] = 'Bearer $accessToken';
 
@@ -110,7 +111,7 @@ class AuthService {
     }
 
     String accessToken = data['token'];
-    final prefs = await futurePrefs;
+    final prefs = await SharedPreferences.getInstance();
     prefs.setString('accessToken', accessToken);
     dio.options.headers['authorization'] = 'Bearer $accessToken';
 

@@ -25,8 +25,14 @@ void showDioErrors(DioError e) {
 
   final snackBarState = scaffoldMessengerKey.currentState;
 
-  if (error is List) {
-    if (statusCode == 400) {
+  if (statusCode == 401) {
+    snackBarState?.showSnackBar(
+      const SnackBar(
+        content: Text('Your session has expired, please log in again'),
+      ),
+    );
+  } else if (statusCode != null && statusCode >= 400 && statusCode <= 499) {
+    if (error is List) {
       var errorMessages = extractErrorMessages(error);
 
       for (final message in errorMessages) {
@@ -37,14 +43,14 @@ void showDioErrors(DioError e) {
         );
       }
     } else {
-      showGeneralError(error);
+      snackBarState?.showSnackBar(
+        SnackBar(
+          content: Text((error as String).capitalize()),
+        ),
+      );
     }
   } else {
-    snackBarState?.showSnackBar(
-      SnackBar(
-        content: Text((error as String).capitalize()),
-      ),
-    );
+    showGeneralError(error);
   }
 }
 

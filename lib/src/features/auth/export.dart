@@ -10,10 +10,10 @@ export 'domain/user.dart';
 export 'domain/verification.dart';
 
 export 'presentation/bloc/auth_bloc.dart';
+export 'presentation/cubit/session_cubit.dart';
 
 export 'presentation/screens/login/login_screen.dart';
 export 'presentation/screens/register/register_screen.dart';
 export 'presentation/screens/verify_email/verify_email_screen.dart';
 
-export 'presentation/widgets/filled_button.dart';
-export 'presentation/widgets/header.dart';
+export 'presentation/widgets/header/header.dart';

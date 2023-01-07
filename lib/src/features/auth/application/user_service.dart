@@ -15,11 +15,15 @@ class UserService {
       throw HttpException();
     }
 
+    if (kDebugMode) {
+      print(data);
+    }
+
     return data['user'];
   }
 
   Future<void> update(Map<String, dynamic> user) async {
-    var response = await dio.put(_endpoint, data: user);
+    var response = await dio.patch(_endpoint, data: user);
     var data = response.data;
 
     if (response.statusCode != 200) {

@@ -1,4 +1,4 @@
-part of 'text_field_bloc.dart';
+part of 'text_field_cubit.dart';
 
 class TextFieldState extends Equatable {
   final bool isError;
@@ -16,4 +16,7 @@ class TextFieldState extends Equatable {
       TextFieldState(
         isError: isError ?? this.isError,
       );
+
+  @override
+  bool get stringify => true;
 }
