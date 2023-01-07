@@ -50,6 +50,39 @@ class DrawerNavigator extends StatelessWidget {
               context.pop();
             },
           ),
+          ListTile(
+            leading: const Icon(Icons.calendar_month),
+            title: const Text('Timeline'),
+            onTap: () {
+              print('go to timeline');
+              context.pop();
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.developer_board),
+            title: const Text('Board'),
+            onTap: () {
+              print('go to board');
+              context.pop();
+            },
+          ),
+          const Divider(),
+          ListTile(
+            leading: const Icon(Icons.settings),
+            title: const Text('Settings'),
+            onTap: () {
+              print('go to settings');
+              context.pop();
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.logout),
+            title: const Text('Log out'),
+            onTap: () {
+              context.read<AuthBloc>().add(Logout());
+              context.pop();
+            },
+          ),
         ],
       ),
     );
