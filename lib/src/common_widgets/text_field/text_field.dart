@@ -16,20 +16,21 @@ class TextFieldWidget extends StatelessWidget {
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? inputFormatters;
   final int? maxLength;
+  final int? maxLines;
 
-  const TextFieldWidget({
-    super.key,
-    this.label,
-    this.hint,
-    this.error,
-    this.obscureText,
-    this.controller,
-    this.suffixIcon,
-    this.validator,
-    this.keyboardType,
-    this.inputFormatters,
-    this.maxLength,
-  });
+  const TextFieldWidget(
+      {super.key,
+      this.label,
+      this.hint,
+      this.error,
+      this.obscureText,
+      this.controller,
+      this.suffixIcon,
+      this.validator,
+      this.keyboardType,
+      this.inputFormatters,
+      this.maxLength,
+      this.maxLines});
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +49,7 @@ class TextFieldWidget extends StatelessWidget {
                       state ? Theme.of(context).errorColor : secondaryColor,
                 )),
                 child: TextFormField(
+                  maxLines: maxLines,
                   maxLength: maxLength,
                   keyboardType: keyboardType,
                   controller: controller,
