@@ -9,9 +9,11 @@ class Task extends Equatable {
   final List<String>? labels;
   final String? priority;
   final String? complexity;
+  final DateTime? date;
   final DateTime? from;
   final DateTime? to;
   final bool? done;
+  final bool? remind;
   final String? status;
   final DateTime? createdAt;
   final DateTime? updatedAt;
@@ -24,9 +26,11 @@ class Task extends Equatable {
     this.labels,
     this.priority,
     this.complexity,
+    this.date,
     this.from,
     this.to,
     this.done,
+    this.remind,
     this.status,
     this.createdAt,
     this.updatedAt,
@@ -41,9 +45,11 @@ class Task extends Equatable {
         labels,
         priority,
         complexity,
+        date,
         from,
         to,
         done,
+        remind,
         status,
         createdAt,
         updatedAt,
@@ -58,9 +64,11 @@ class Task extends Equatable {
       'labels': labels,
       'priority': priority,
       'complexity': complexity,
+      'date': date?.toIso8601String(),
       'from': from?.toIso8601String(),
       'to': to?.toIso8601String(),
       'done': done,
+      'remind': remind,
       'status': status,
       'created_at': createdAt?.toIso8601String(),
       'updated_at': updatedAt?.toIso8601String(),
@@ -80,9 +88,11 @@ class Task extends Equatable {
       priority: map['priority'] != null ? map['priority'] as String : null,
       complexity:
           map['complexity'] != null ? map['complexity'] as String : null,
+      date: map['date'] != null ? DateTime.parse(map['date'] as String) : null,
       from: map['from'] != null ? DateTime.parse(map['from'] as String) : null,
       to: map['to'] != null ? DateTime.parse(map['to'] as String) : null,
       done: map['done'] != null ? map['done'] as bool : null,
+      remind: map['remind'] != null ? map['remind'] as bool : null,
       status: map['status'] != null ? map['status'] as String : null,
       createdAt: map['created_at'] != null
           ? DateTime.parse(map['created_at'] as String)
@@ -101,9 +111,11 @@ class Task extends Equatable {
     List<String>? labels,
     String? priority,
     String? complexity,
+    DateTime? date,
     DateTime? from,
     DateTime? to,
     bool? done,
+    bool? remind,
     String? status,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -116,9 +128,11 @@ class Task extends Equatable {
       labels: labels ?? this.labels,
       priority: priority ?? this.priority,
       complexity: complexity ?? this.complexity,
+      date: date ?? this.date,
       from: from ?? this.from,
       to: to ?? this.to,
       done: done ?? this.done,
+      remind: remind ?? this.remind,
       status: status ?? this.status,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,

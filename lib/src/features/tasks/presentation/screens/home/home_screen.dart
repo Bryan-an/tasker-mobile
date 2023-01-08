@@ -6,8 +6,19 @@ import 'package:tasker_mobile/src/constants/export.dart';
 import 'package:tasker_mobile/src/features/tasks/export.dart';
 import 'package:tasker_mobile/src/router/export.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<TaskBloc>().add(const GetTasks());
+  }
 
   String _getProgressPercentage(double progress) {
     if (progress.isNaN || progress.isInfinite) {
@@ -27,8 +38,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<TaskBloc>().add(const GetTasks());
-
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(

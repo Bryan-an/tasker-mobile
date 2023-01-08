@@ -3,7 +3,7 @@ import 'package:tasker_mobile/src/config/export.dart';
 import 'package:tasker_mobile/src/errors/export.dart';
 
 class TaskService {
-  final String _endpoint = '/tasks';
+  final String _endpoint = '/tasks/';
 
   TaskService();
 
@@ -23,7 +23,7 @@ class TaskService {
   }
 
   Future<dynamic> findOne(String id) async {
-    var response = await dio.get('$_endpoint/$id');
+    var response = await dio.get('$_endpoint$id');
     var data = response.data;
 
     if (response.statusCode != 200) {
@@ -51,7 +51,7 @@ class TaskService {
   }
 
   Future<void> update(String id, Map<String, dynamic> task) async {
-    var response = await dio.patch('$_endpoint/$id', data: task);
+    var response = await dio.patch('$_endpoint$id', data: task);
     var data = response.data;
 
     if (response.statusCode != 200) {
@@ -64,7 +64,7 @@ class TaskService {
   }
 
   Future<void> delete(String id) async {
-    var response = await dio.delete('$_endpoint/$id');
+    var response = await dio.delete('$_endpoint$id');
     var data = response.data;
 
     if (response.statusCode != 200) {

@@ -45,3 +45,12 @@ class ReorderTaskList extends TaskEvent {
   @override
   List<Object> get props => [oldIndex, newIndex];
 }
+
+class AddTask extends TaskEvent {
+  final Task task;
+
+  const AddTask(this.task);
+
+  @override
+  List<Object> get props => [task];
+}

@@ -5,7 +5,14 @@ import 'package:tasker_mobile/src/constants/export.dart';
 part 'task_form_screen_state.dart';
 
 class TaskFormScreenCubit extends Cubit<TaskFormScreenState> {
-  TaskFormScreenCubit() : super(const TaskFormScreenState());
+  TaskFormScreenCubit()
+      : super(
+          TaskFormScreenState(
+            date: DateTime.now(),
+            from: DateTime.now(),
+            to: DateTime.now(),
+          ),
+        );
 
   void setPriority(double priority) {
     if (priority == TaskLevel.high.toValue) {
@@ -38,4 +45,15 @@ class TaskFormScreenCubit extends Cubit<TaskFormScreenState> {
     labels.removeAt(index);
     emit(state.copyWith(labels: labels));
   }
+
+  void setDate(DateTime date) => emit(state.copyWith(date: date));
+
+  void setIncludeTime(bool includeTime) =>
+      emit(state.copyWith(includeTime: includeTime));
+
+  void setFrom(DateTime from) => emit(state.copyWith(from: from));
+
+  void setTo(DateTime to) => emit(state.copyWith(from: to));
+
+  void setRemind(bool remind) => emit(state.copyWith(remind: remind));
 }
