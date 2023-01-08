@@ -38,8 +38,8 @@ class TaskCardWidget extends StatelessWidget {
     final title = task.title;
     final labels = task.labels;
     final description = task.description;
-    final from = task.from;
-    final to = task.to;
+    final from = task.from?.toLocal();
+    final to = task.to?.toLocal();
     final done = task.done;
     final priority = task.priority;
     final complexity = task.complexity;

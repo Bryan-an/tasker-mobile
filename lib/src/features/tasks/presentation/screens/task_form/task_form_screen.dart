@@ -91,6 +91,8 @@ class TaskFormScreen extends StatelessWidget {
                                 vertical: 10,
                               ),
                               child: TextFieldWidget(
+                                textCapitalization:
+                                    TextCapitalization.sentences,
                                 controller: _titleInputController,
                                 label: 'Title',
                                 hint: 'Enter the title',
@@ -113,6 +115,8 @@ class TaskFormScreen extends StatelessWidget {
                                 vertical: 10,
                               ),
                               child: TextFieldWidget(
+                                textCapitalization:
+                                    TextCapitalization.sentences,
                                 maxLines: 3,
                                 keyboardType: TextInputType.multiline,
                                 controller: _descriptionInputController,

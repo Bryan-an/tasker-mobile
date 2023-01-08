@@ -141,6 +141,8 @@ class RegisterScreen extends StatelessWidget with InputValidationMixin {
                                       vertical: 10,
                                     ),
                                     child: TextFieldWidget(
+                                      textCapitalization:
+                                          TextCapitalization.words,
                                       keyboardType: TextInputType.name,
                                       controller: _nameInputController,
                                       label: 'Name',
