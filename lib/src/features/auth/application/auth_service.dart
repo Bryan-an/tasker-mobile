@@ -6,12 +6,12 @@ import 'package:tasker_mobile/src/config/export.dart';
 import 'package:tasker_mobile/src/errors/export.dart';
 
 class AuthService {
-  final String _endpoint = '/auth';
+  final String _endpoint = '/auth/';
 
   AuthService();
 
   Future<void> register(Map<String, dynamic> user) async {
-    var response = await dio.post('$_endpoint/register', data: user);
+    var response = await dio.post('${_endpoint}register', data: user);
     var data = response.data;
 
     if (response.statusCode != 201) {
@@ -24,7 +24,7 @@ class AuthService {
   }
 
   Future<void> login(Map<String, dynamic> user) async {
-    var response = await dio.post('$_endpoint/login', data: user);
+    var response = await dio.post('${_endpoint}login', data: user);
     var data = response.data;
 
     if (response.statusCode != 200) {
@@ -56,7 +56,7 @@ class AuthService {
         final String token = res.accessToken?.token ?? '';
 
         var response = await dio.post(
-          '$_endpoint/login/facebook/mobile',
+          '${_endpoint}login/facebook/mobile',
           data: {'token': token},
         );
 
@@ -100,7 +100,7 @@ class AuthService {
     final token = ggAuth?.accessToken ?? '';
 
     var response = await dio.post(
-      '$_endpoint/login/google/mobile',
+      '${_endpoint}login/google/mobile',
       data: {'token': token},
     );
 
@@ -122,7 +122,7 @@ class AuthService {
 
   Future<void> verifyEmail(Map<String, dynamic> verificationData) async {
     var response =
-        await dio.post('$_endpoint/verify/email', data: verificationData);
+        await dio.post('${_endpoint}verify/email', data: verificationData);
     var data = response.data;
 
     if (response.statusCode != 200) {
@@ -137,7 +137,7 @@ class AuthService {
   Future<void> resendVerificationCode(
       Map<String, dynamic> verificationData) async {
     var response =
-        await dio.post('$_endpoint/verify/resendCode', data: verificationData);
+        await dio.post('${_endpoint}verify/resendCode', data: verificationData);
     var data = response.data;
 
     if (response.statusCode != 200) {

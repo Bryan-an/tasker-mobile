@@ -3,7 +3,7 @@ import 'package:tasker_mobile/src/config/export.dart';
 import 'package:tasker_mobile/src/errors/export.dart';
 
 class UserService {
-  final String _endpoint = '/users';
+  final String _endpoint = '/users/';
 
   UserService();
 

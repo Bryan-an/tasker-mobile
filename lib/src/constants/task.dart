@@ -31,6 +31,17 @@ extension TaskLevelExtension on TaskLevel {
         return 'high';
     }
   }
+
+  double get toValue {
+    switch (this) {
+      case TaskLevel.high:
+        return 100;
+      case TaskLevel.medium:
+        return 50;
+      case TaskLevel.low:
+        return 0;
+    }
+  }
 }
 
 extension TaskOrderExtension on TaskOrder {

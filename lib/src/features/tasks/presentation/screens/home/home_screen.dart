@@ -1,19 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tasker_mobile/src/common_widgets/export.dart';
 import 'package:tasker_mobile/src/constants/export.dart';
-import 'package:tasker_mobile/src/features/auth/export.dart';
 import 'package:tasker_mobile/src/features/tasks/export.dart';
+import 'package:tasker_mobile/src/router/export.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<TaskBloc>().add(const GetTasks());
+  }
 
   String _getProgressPercentage(double progress) {
     if (progress.isNaN || progress.isInfinite) {
       return '0%';
     }
 
-    return '${(progress * 100).toInt()}%';
+    return '${(progress * 100).round()}%';
   }
 
   double _getProgressValue(double progress) {
@@ -26,8 +38,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<TaskBloc>().add(const GetTasks());
-
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -94,23 +104,6 @@ class HomeScreen extends StatelessWidget {
                         );
                       }
 
-                      // return ListView.separated(
-                      //   padding: const EdgeInsets.only(
-                      //     top: 16,
-                      //     right: 16,
-                      //     left: 16,
-                      //     bottom: 80,
-                      //   ),
-                      //   itemBuilder: (context, index) {
-                      //     final task = tasks[index];
-                      //     return TaskCardWidget(task: task);
-                      //   },
-                      //   separatorBuilder: (context, index) => const SizedBox(
-                      //     height: 20,
-                      //   ),
-                      //   itemCount: tasks.length,
-                      // );
-
                       return ReorderableListView(
                         buildDefaultDragHandles: false,
                         padding: const EdgeInsets.only(
@@ -146,7 +139,7 @@ class HomeScreen extends StatelessWidget {
           },
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () => print('add task'),
+          onPressed: () => context.push(AppScreen.taskForm.toPath),
           child: const Icon(Icons.add),
         ),
       ),

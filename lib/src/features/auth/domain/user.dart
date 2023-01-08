@@ -1,5 +1,8 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
+part 'user.g.dart';
 
+@JsonSerializable(fieldRename: FieldRename.snake)
 class User extends Equatable {
   final String? id;
   final String? name;
@@ -25,33 +28,7 @@ class User extends Equatable {
   List<Object?> get props =>
       [id, name, email, role, status, createdAt, updatedAt];
 
-  Map<String, dynamic> toJson() {
-    return <String, dynamic>{
-      'id': id,
-      'name': name,
-      'email': email,
-      'password': password,
-      'role': role,
-      'status': status,
-      'created_at': createdAt?.toIso8601String(),
-      'updated_at': updatedAt?.toIso8601String(),
-    };
-  }
+  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
-  factory User.fromJson(Map<String, dynamic> map) {
-    return User(
-      id: map['id'] != null ? map['id'] as String : null,
-      name: map['name'] != null ? map['name'] as String : null,
-      email: map['email'] != null ? map['email'] as String : null,
-      password: map['password'] != null ? map['password'] as String : null,
-      role: map['role'] != null ? map['role'] as String : null,
-      status: map['status'] != null ? map['status'] as String : null,
-      createdAt: map['created_at'] != null
-          ? DateTime.parse(map['created_at'] as String)
-          : null,
-      updatedAt: map['updated_at'] != null
-          ? DateTime.parse(map['updated_at'] as String)
-          : null,
-    );
-  }
+  Map<String, dynamic> toJson() => _$UserToJson(this);
 }

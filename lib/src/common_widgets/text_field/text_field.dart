@@ -16,6 +16,8 @@ class TextFieldWidget extends StatelessWidget {
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? inputFormatters;
   final int? maxLength;
+  final int? maxLines;
+  final TextCapitalization textCapitalization;
 
   const TextFieldWidget({
     super.key,
@@ -29,6 +31,8 @@ class TextFieldWidget extends StatelessWidget {
     this.keyboardType,
     this.inputFormatters,
     this.maxLength,
+    this.maxLines,
+    this.textCapitalization = TextCapitalization.none,
   });
 
   @override
@@ -48,6 +52,9 @@ class TextFieldWidget extends StatelessWidget {
                       state ? Theme.of(context).errorColor : secondaryColor,
                 )),
                 child: TextFormField(
+                  textCapitalization: textCapitalization,
+                  maxLines:
+                      (obscureText == null && maxLines != null) ? maxLines : 1,
                   maxLength: maxLength,
                   keyboardType: keyboardType,
                   controller: controller,

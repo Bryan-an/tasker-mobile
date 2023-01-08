@@ -36,6 +36,11 @@ class AppRouter {
           name: AppScreen.filter.name,
           builder: (context, state) => const FilterScreen(),
         ),
+        GoRoute(
+          path: AppScreen.taskForm.toPath,
+          name: AppScreen.taskForm.name,
+          builder: (context, state) => TaskFormScreen(),
+        ),
       ],
       redirect: (BuildContext context, GoRouterState state) {
         final authenticated = sessionState is Authenticated;

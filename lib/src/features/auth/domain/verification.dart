@@ -1,5 +1,9 @@
 import 'package:equatable/equatable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'verification.g.dart';
+
+@JsonSerializable(fieldRename: FieldRename.snake)
 class Verification extends Equatable {
   final String? email;
   final String? code;
@@ -10,21 +14,8 @@ class Verification extends Equatable {
   @override
   List<Object?> get props => [email, code, expiresAt];
 
-  Map<String, dynamic> toJson() {
-    return <String, dynamic>{
-      'email': email,
-      'code': code,
-      'expires_at': expiresAt?.toIso8601String(),
-    };
-  }
+  factory Verification.fromJson(Map<String, dynamic> json) =>
+      _$VerificationFromJson(json);
 
-  factory Verification.fromJson(Map<String, dynamic> map) {
-    return Verification(
-      email: map['email'] != null ? map['email'] as String : null,
-      code: map['code'] != null ? map['code'] as String : null,
-      expiresAt: map['expires_at'] != null
-          ? DateTime.parse(map['expires_at'] as String)
-          : null,
-    );
-  }
+  Map<String, dynamic> toJson() => _$VerificationToJson(this);
 }

@@ -4,6 +4,7 @@ enum AppScreen {
   verifyEmail,
   home,
   filter,
+  taskForm,
 }
 
 extension AppScreenExtension on AppScreen {
@@ -19,6 +20,8 @@ extension AppScreenExtension on AppScreen {
         return '/verifyEmail/:email';
       case AppScreen.filter:
         return '/filter';
+      case AppScreen.taskForm:
+        return '/taskForm';
       default:
         return '/';
     }
@@ -36,6 +39,8 @@ extension AppScreenExtension on AppScreen {
         return 'verify email';
       case AppScreen.filter:
         return 'filter';
+      case AppScreen.taskForm:
+        return 'task form';
       default:
         return 'home';
     }
@@ -53,6 +58,8 @@ extension AppScreenExtension on AppScreen {
         return 'Verify Email';
       case AppScreen.filter:
         return 'Filter';
+      case AppScreen.taskForm:
+        return 'Task';
       default:
         return 'Tasks';
     }

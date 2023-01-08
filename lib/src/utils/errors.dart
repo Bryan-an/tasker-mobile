@@ -16,6 +16,11 @@ List<String> extractErrorMessages(dynamic error) {
 }
 
 void showDioErrors(DioError e) {
+  if (e.response?.data is! Map) {
+    showGeneralError(e);
+    return;
+  }
+
   var error = e.response?.data['error'] ?? e.response?.data['errors'];
   var statusCode = e.response?.statusCode;
 
