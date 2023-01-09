@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tasker_mobile/src/common_widgets/export.dart';
 import 'package:tasker_mobile/src/constants/export.dart';
@@ -127,7 +128,42 @@ class _HomeScreenState extends State<HomeScreen> {
                                 top: 2.0,
                                 bottom: 2.0,
                               ),
-                              child: TaskCardWidget(task: task),
+                              child: Slidable(
+                                key: ValueKey(task.id!),
+                                startActionPane: ActionPane(
+                                  motion: const StretchMotion(),
+                                  children: [
+                                    SlidableAction(
+                                      onPressed: (context) => context
+                                          .push(AppScreen.taskForm.toPath),
+                                      icon: Icons.edit,
+                                      backgroundColor: secondaryColor,
+                                      foregroundColor: whiteColor,
+                                    ),
+                                  ],
+                                ),
+                                endActionPane: ActionPane(
+                                  dismissible: DismissiblePane(
+                                    onDismissed: () =>
+                                        context.read<TaskBloc>().add(
+                                              DeleteTask(task.id!),
+                                            ),
+                                  ),
+                                  motion: const StretchMotion(),
+                                  children: [
+                                    SlidableAction(
+                                      onPressed: (context) =>
+                                          context.read<TaskBloc>().add(
+                                                DeleteTask(task.id!),
+                                              ),
+                                      icon: Icons.delete,
+                                      backgroundColor: primaryColor,
+                                      foregroundColor: whiteColor,
+                                    ),
+                                  ],
+                                ),
+                                child: TaskCardWidget(task: task),
+                              ),
                             ),
                         ],
                       );
