@@ -15,5 +15,7 @@ abstract class ITaskRepository {
 
   Future<void> update(String id, Task task);
 
+  Future<void> replace(String id, Task task);
+
   Future<void> delete(String id);
 }

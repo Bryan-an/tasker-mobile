@@ -39,7 +39,10 @@ class AppRouter {
         GoRoute(
           path: AppScreen.taskForm.toPath,
           name: AppScreen.taskForm.name,
-          builder: (context, state) => TaskFormScreen(),
+          builder: (context, state) {
+            final taskToUpdate = state.extra as Task?;
+            return TaskFormScreen(taskToUpdate: taskToUpdate);
+          },
         ),
       ],
       redirect: (BuildContext context, GoRouterState state) {

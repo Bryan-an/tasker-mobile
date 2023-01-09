@@ -6,12 +6,16 @@ class TimeInputWidget extends StatefulWidget {
   final String? label;
   final String? hint;
   final void Function(DateTime) onPicked;
+  final TextEditingController controller;
+  final String? Function(String?)? validator;
 
   const TimeInputWidget({
     super.key,
     this.label,
     this.hint,
     required this.onPicked,
+    required this.controller,
+    this.validator,
   });
 
   @override
@@ -19,7 +23,7 @@ class TimeInputWidget extends StatefulWidget {
 }
 
 class _TimeInputWidgetState extends State<TimeInputWidget> {
-  final controller = TextEditingController();
+  bool isError = false;
 
   @override
   Widget build(BuildContext context) {
@@ -27,20 +31,37 @@ class _TimeInputWidgetState extends State<TimeInputWidget> {
       data: Theme.of(context).copyWith(
           colorScheme: ColorScheme.fromSeed(
         seedColor: secondaryColor,
-        primary: secondaryColor,
+        primary: isError ? Theme.of(context).errorColor : secondaryColor,
       )),
       child: TextFormField(
-        controller: controller,
+        controller: widget.controller,
         readOnly: true,
         decoration: InputDecoration(
           border: const OutlineInputBorder(),
           labelText: widget.label,
           hintText: widget.hint,
           prefixIcon: const Icon(Icons.access_time),
-          floatingLabelStyle: const TextStyle(
-            color: secondaryColor,
+          floatingLabelStyle: TextStyle(
+            color: isError ? Theme.of(context).errorColor : secondaryColor,
           ),
         ),
+        validator: (widget.validator != null)
+            ? (text) {
+                String? error = widget.validator!(text);
+
+                if (error == null) {
+                  setState(() {
+                    isError = false;
+                  });
+                } else {
+                  setState(() {
+                    isError = true;
+                  });
+                }
+
+                return error;
+              }
+            : null,
         onTap: () async {
           final now = DateTime.now();
 
@@ -64,7 +85,7 @@ class _TimeInputWidgetState extends State<TimeInputWidget> {
           String formattedTime = DateFormat('HH:mm').format(time);
 
           setState(() {
-            controller.text = formattedTime;
+            widget.controller.text = formattedTime;
           });
 
           widget.onPicked(time);

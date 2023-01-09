@@ -134,8 +134,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                   motion: const StretchMotion(),
                                   children: [
                                     SlidableAction(
-                                      onPressed: (context) => context
-                                          .push(AppScreen.taskForm.toPath),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(10),
+                                        bottomLeft: Radius.circular(10),
+                                      ),
+                                      onPressed: (context) => context.push(
+                                          AppScreen.taskForm.toPath,
+                                          extra: task),
                                       icon: Icons.edit,
                                       backgroundColor: secondaryColor,
                                       foregroundColor: whiteColor,
@@ -152,6 +157,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                   motion: const StretchMotion(),
                                   children: [
                                     SlidableAction(
+                                      borderRadius: const BorderRadius.only(
+                                        topRight: Radius.circular(10),
+                                        bottomRight: Radius.circular(10),
+                                      ),
                                       onPressed: (context) =>
                                           context.read<TaskBloc>().add(
                                                 DeleteTask(task.id!),

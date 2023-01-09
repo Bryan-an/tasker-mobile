@@ -33,6 +33,15 @@ class UpdateTask extends TaskEvent {
   List<Object> get props => [task];
 }
 
+class ReplaceTask extends TaskEvent {
+  final Task task;
+
+  const ReplaceTask(this.task);
+
+  @override
+  List<Object> get props => [task];
+}
+
 class ReorderTaskList extends TaskEvent {
   final int oldIndex;
   final int newIndex;

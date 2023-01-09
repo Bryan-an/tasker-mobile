@@ -7,6 +7,7 @@ class TaskState extends Equatable {
   final Status updateTaskStatus;
   final Status addTaskStatus;
   final Status deleteTaskStatus;
+  final Status replaceTaskStatus;
 
   const TaskState({
     this.tasks = const [],
@@ -14,6 +15,7 @@ class TaskState extends Equatable {
     this.updateTaskStatus = Status.initial,
     this.addTaskStatus = Status.initial,
     this.deleteTaskStatus = Status.initial,
+    this.replaceTaskStatus = Status.initial,
   });
 
   @override
@@ -23,6 +25,7 @@ class TaskState extends Equatable {
         updateTaskStatus,
         addTaskStatus,
         deleteTaskStatus,
+        replaceTaskStatus,
       ];
 
   TaskState copyWith({
@@ -31,6 +34,7 @@ class TaskState extends Equatable {
     Status? updateTaskStatus,
     Status? addTaskStatus,
     Status? deleteTaskStatus,
+    Status? replaceTaskStatus,
   }) {
     return TaskState(
       tasks: tasks ?? this.tasks,
@@ -38,6 +42,7 @@ class TaskState extends Equatable {
       updateTaskStatus: updateTaskStatus ?? this.updateTaskStatus,
       addTaskStatus: addTaskStatus ?? this.addTaskStatus,
       deleteTaskStatus: deleteTaskStatus ?? this.deleteTaskStatus,
+      replaceTaskStatus: replaceTaskStatus ?? this.replaceTaskStatus,
     );
   }
 

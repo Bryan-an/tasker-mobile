@@ -54,4 +54,9 @@ class TaskRepository implements ITaskRepository {
   Future<void> update(String id, Task task) async {
     await _service.update(id, task.toJson());
   }
+
+  @override
+  Future<void> replace(String id, Task task) async {
+    await _service.replace(id, task.toJson());
+  }
 }
