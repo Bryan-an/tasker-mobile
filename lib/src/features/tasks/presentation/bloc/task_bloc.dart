@@ -16,6 +16,7 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     on<UpdateTask>(_mapUpdateTaskEventToState);
     on<ReorderTaskList>(_mapReorderTaskListEventToState);
     on<AddTask>(_mapAddTaskEventToState);
+    on<DeleteTask>(_mapDeleteTaskEventToState);
   }
 
   void _mapGetTasksEventToState(GetTasks event, Emitter<TaskState> emit) async {
@@ -104,5 +105,28 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     final Task task = taskList.removeAt(oldIndex);
     taskList.insert(newIndex, task);
     emit(state.copyWith(tasks: taskList));
+  }
+
+  void _mapDeleteTaskEventToState(
+      DeleteTask event, Emitter<TaskState> emit) async {
+    emit(state.copyWith(deleteTaskStatus: Status.loading));
+
+    try {
+      final tasks = state.tasks.where((task) => task.id != event.id).toList();
+      emit(state.copyWith(tasks: tasks));
+      await taskRepository.delete(event.id);
+
+      emit(state.copyWith(
+        deleteTaskStatus: Status.success,
+      ));
+    } on DioError catch (e) {
+      showDioErrors(e);
+      emit(state.copyWith(deleteTaskStatus: Status.error));
+    } catch (e) {
+      showGeneralError(e);
+      emit(state.copyWith(deleteTaskStatus: Status.error));
+    }
+
+    emit(state.copyWith(deleteTaskStatus: Status.initial));
   }
 }

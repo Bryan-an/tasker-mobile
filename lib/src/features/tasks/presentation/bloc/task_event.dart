@@ -54,3 +54,12 @@ class AddTask extends TaskEvent {
   @override
   List<Object> get props => [task];
 }
+
+class DeleteTask extends TaskEvent {
+  final String id;
+
+  const DeleteTask(this.id);
+
+  @override
+  List<Object> get props => [id];
+}
