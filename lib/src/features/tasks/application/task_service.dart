@@ -63,6 +63,19 @@ class TaskService {
     }
   }
 
+  Future<void> replace(String id, Map<String, dynamic> task) async {
+    var response = await dio.put('$_endpoint$id', data: task);
+    var data = response.data;
+
+    if (response.statusCode != 200) {
+      throw HttpException();
+    }
+
+    if (kDebugMode) {
+      print(data);
+    }
+  }
+
   Future<void> delete(String id) async {
     var response = await dio.delete('$_endpoint$id');
     var data = response.data;

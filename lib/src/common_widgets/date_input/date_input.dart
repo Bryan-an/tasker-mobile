@@ -6,12 +6,14 @@ class DateInputWidget extends StatefulWidget {
   final String? label;
   final String? hint;
   final void Function(DateTime) onPicked;
+  final TextEditingController controller;
 
   const DateInputWidget({
     super.key,
     this.label,
     this.hint,
     required this.onPicked,
+    required this.controller,
   });
 
   @override
@@ -19,8 +21,6 @@ class DateInputWidget extends StatefulWidget {
 }
 
 class _DateInputWidgetState extends State<DateInputWidget> {
-  final controller = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Theme(
@@ -30,7 +30,7 @@ class _DateInputWidgetState extends State<DateInputWidget> {
         primary: secondaryColor,
       )),
       child: TextFormField(
-        controller: controller,
+        controller: widget.controller,
         readOnly: true,
         decoration: InputDecoration(
           border: const OutlineInputBorder(),
@@ -51,7 +51,7 @@ class _DateInputWidgetState extends State<DateInputWidget> {
             lastDate: DateTime(now.year + 1, now.month, now.day),
           );
 
-          if (pickedDate == null && controller.text.isNotEmpty) {
+          if (pickedDate == null && widget.controller.text.isNotEmpty) {
             return;
           }
 
@@ -59,7 +59,7 @@ class _DateInputWidgetState extends State<DateInputWidget> {
               DateFormat('dd/MM/yyyy').format(pickedDate ?? now);
 
           setState(() {
-            controller.text = formattedDate;
+            widget.controller.text = formattedDate;
           });
 
           widget.onPicked(pickedDate ?? now);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:tasker_mobile/src/common_widgets/export.dart';
 import 'package:tasker_mobile/src/constants/export.dart';
 import 'package:tasker_mobile/src/features/tasks/export.dart';
@@ -12,8 +13,12 @@ class TaskFormScreen extends StatelessWidget {
   final _formGlobalKey = GlobalKey<FormState>();
   final _titleInputController = TextEditingController();
   final _descriptionInputController = TextEditingController();
+  final _dateInputController = TextEditingController();
+  final _fromInputController = TextEditingController();
+  final _toInputController = TextEditingController();
+  final Task? taskToUpdate;
 
-  TaskFormScreen({super.key});
+  TaskFormScreen({super.key, this.taskToUpdate});
 
   VoidCallback _clearInput(TextEditingController controller) {
     return () => controller.clear();
@@ -27,37 +32,79 @@ class TaskFormScreen extends StatelessWidget {
     }
   }
 
+  String? _validateFrom(String? from) {
+    if (from == null || from.isEmpty) {
+      return 'From time required';
+    } else {
+      return null;
+    }
+  }
+
+  Task _prepareTask(BuildContext context) {
+    final state = context.read<TaskFormScreenCubit>().state;
+    final String title = _titleInputController.text;
+    final String description = _descriptionInputController.text;
+    final TaskLevel priority = state.priority;
+    final TaskLevel complexity = state.complexity;
+    final List<String> labels = state.labels;
+    final DateTime date = state.date;
+    final DateTime? from = state.includeTime ? state.from : null;
+    DateTime? to;
+    final bool remind = state.remind;
+
+    if (state.includeTime) {
+      if (_toInputController.text.isNotEmpty) {
+        if (state.to.isAfter(state.from)) {
+          to = state.to;
+        }
+      }
+    }
+
+    final task = Task(
+      id: taskToUpdate?.id,
+      title: title,
+      description: description.isEmpty ? null : description,
+      priority: priority.toName,
+      complexity: complexity.toName,
+      labels: labels.isEmpty ? null : labels,
+      date: date,
+      from: from,
+      to: to,
+      remind: remind,
+      done: false,
+    );
+
+    return task;
+  }
+
   VoidCallback _addTask(BuildContext context) {
     return () {
       if (_formGlobalKey.currentState!.validate()) {
-        final state = context.read<TaskFormScreenCubit>().state;
-
-        final String title = _titleInputController.text;
-        final String description = _descriptionInputController.text;
-        final TaskLevel priority = state.priority;
-        final TaskLevel complexity = state.complexity;
-        final List<String> labels = state.labels;
-        final DateTime date = state.date;
-        final DateTime? from = state.includeTime ? state.from : null;
-        final DateTime? to = state.includeTime ? state.to : null;
-        final bool remind = state.remind;
-
-        final task = Task(
-          title: title,
-          description: description.isEmpty ? null : description,
-          priority: priority.toName,
-          complexity: complexity.toName,
-          labels: labels.isEmpty ? null : labels,
-          date: date,
-          from: from,
-          to: to,
-          remind: remind,
-          done: false,
-        );
-
+        final task = _prepareTask(context);
         context.read<TaskBloc>().add(AddTask(task));
       }
     };
+  }
+
+  VoidCallback _updateTask(BuildContext context) {
+    return () {
+      if (_formGlobalKey.currentState!.validate()) {
+        final task = _prepareTask(context);
+        context.read<TaskBloc>().add(ReplaceTask(task));
+      }
+    };
+  }
+
+  double _getLevelValue(String field) {
+    if (field == TaskLevel.high.toName) {
+      return TaskLevel.high.toValue;
+    } else if (field == TaskLevel.medium.toName) {
+      return TaskLevel.medium.toValue;
+    } else if (field == TaskLevel.low.toName) {
+      return TaskLevel.low.toValue;
+    } else {
+      return 0;
+    }
   }
 
   @override
@@ -65,9 +112,65 @@ class TaskFormScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => TaskFormScreenCubit(),
       child: Builder(builder: (context) {
+        if (taskToUpdate != null) {
+          final title = taskToUpdate?.title;
+          final description = taskToUpdate?.description;
+          final priority = taskToUpdate?.priority;
+          final complexity = taskToUpdate?.complexity;
+          final labels = taskToUpdate?.labels;
+          final date = taskToUpdate?.date;
+          final from = taskToUpdate?.from;
+          final to = taskToUpdate?.to;
+          final remind = taskToUpdate?.remind;
+
+          _titleInputController.text = title ?? '';
+          _descriptionInputController.text = description ?? '';
+
+          if (priority != null) {
+            double value = _getLevelValue(priority);
+            context.read<TaskFormScreenCubit>().setPriority(value);
+          }
+
+          if (complexity != null) {
+            double value = _getLevelValue(complexity);
+            context.read<TaskFormScreenCubit>().setComplexity(value);
+          }
+
+          if (labels != null) {
+            context.read<TaskFormScreenCubit>().setLabels(labels);
+          }
+
+          if (date != null) {
+            context.read<TaskFormScreenCubit>().setDate(date);
+            String formattedDate = DateFormat('dd/MM/yyyy').format(date);
+            _dateInputController.text = formattedDate;
+          }
+
+          if (from != null) {
+            context.read<TaskFormScreenCubit>().setIncludeTime(true);
+            context.read<TaskFormScreenCubit>().setFrom(from);
+            String formattedTime = DateFormat('HH:mm').format(from.toLocal());
+            _fromInputController.text = formattedTime;
+
+            if (to != null) {
+              context.read<TaskFormScreenCubit>().setTo(to);
+              String formattedTime = DateFormat('HH:mm').format(to.toLocal());
+              _toInputController.text = formattedTime;
+            }
+          }
+
+          if (remind != null) {
+            context.read<TaskFormScreenCubit>().setRemind(remind);
+          }
+        }
+
         return BlocListener<TaskBloc, TaskState>(
           listener: (context, state) {
             if (state.addTaskStatus.isSuccess) {
+              context.pop();
+            }
+
+            if (state.replaceTaskStatus.isSuccess) {
               context.pop();
             }
           },
@@ -271,6 +374,7 @@ class TaskFormScreen extends StatelessWidget {
                                 vertical: 10,
                               ),
                               child: DateInputWidget(
+                                controller: _dateInputController,
                                 label: 'Date',
                                 hint: 'Pick a date',
                                 onPicked: (date) => context
@@ -348,11 +452,13 @@ class TaskFormScreen extends StatelessWidget {
                                               vertical: 10,
                                             ),
                                             child: TimeInputWidget(
+                                              controller: _fromInputController,
                                               label: 'From',
                                               hint: 'Set from',
                                               onPicked: (time) => context
                                                   .read<TaskFormScreenCubit>()
                                                   .setFrom(time),
+                                              validator: _validateFrom,
                                             ),
                                           ),
                                         ),
@@ -383,6 +489,7 @@ class TaskFormScreen extends StatelessWidget {
                                               vertical: 10,
                                             ),
                                             child: TimeInputWidget(
+                                              controller: _toInputController,
                                               label: 'To',
                                               hint: 'Set to',
                                               onPicked: (time) => context
@@ -441,27 +548,52 @@ class TaskFormScreen extends StatelessWidget {
                                 horizontal: 32,
                                 vertical: 10,
                               ),
-                              child: BlocSelector<TaskBloc, TaskState, Status>(
-                                selector: (state) => state.addTaskStatus,
-                                builder: (context, state) {
-                                  return FilledButtonWidget(
-                                    onPressed: state.isLoading
-                                        ? null
-                                        : _addTask(context),
-                                    child: state.isLoading
-                                        ? const SizedBox(
-                                            height: 25,
-                                            width: 25,
-                                            child: CircularProgressIndicator(
-                                              valueColor:
-                                                  AlwaysStoppedAnimation<Color>(
-                                                      whiteColor),
-                                            ),
-                                          )
-                                        : const Text('Add task'),
-                                  );
-                                },
-                              ),
+                              child: (taskToUpdate == null)
+                                  ? BlocSelector<TaskBloc, TaskState, Status>(
+                                      selector: (state) => state.addTaskStatus,
+                                      builder: (context, state) {
+                                        return FilledButtonWidget(
+                                          onPressed: state.isLoading
+                                              ? null
+                                              : _addTask(context),
+                                          child: state.isLoading
+                                              ? const SizedBox(
+                                                  height: 25,
+                                                  width: 25,
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                    valueColor:
+                                                        AlwaysStoppedAnimation<
+                                                            Color>(whiteColor),
+                                                  ),
+                                                )
+                                              : const Text('Add task'),
+                                        );
+                                      },
+                                    )
+                                  : BlocSelector<TaskBloc, TaskState, Status>(
+                                      selector: (state) =>
+                                          state.replaceTaskStatus,
+                                      builder: (context, state) {
+                                        return FilledButtonWidget(
+                                          onPressed: state.isLoading
+                                              ? null
+                                              : _updateTask(context),
+                                          child: state.isLoading
+                                              ? const SizedBox(
+                                                  height: 25,
+                                                  width: 25,
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                    valueColor:
+                                                        AlwaysStoppedAnimation<
+                                                            Color>(whiteColor),
+                                                  ),
+                                                )
+                                              : const Text('Update task'),
+                                        );
+                                      },
+                                    ),
                             ),
                           ),
                         ],

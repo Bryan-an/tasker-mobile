@@ -56,4 +56,6 @@ class TaskFormScreenCubit extends Cubit<TaskFormScreenState> {
   void setTo(DateTime to) => emit(state.copyWith(to: to));
 
   void setRemind(bool remind) => emit(state.copyWith(remind: remind));
+
+  void setLabels(List<String> labels) => emit(state.copyWith(labels: labels));
 }
