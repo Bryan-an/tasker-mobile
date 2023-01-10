@@ -53,4 +53,13 @@ extension TaskOrderExtension on TaskOrder {
         return 'des';
     }
   }
+
+  String get toName {
+    switch (this) {
+      case TaskOrder.ascending:
+        return 'Older first';
+      case TaskOrder.descending:
+        return 'Recent first';
+    }
+  }
 }

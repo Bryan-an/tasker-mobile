@@ -7,8 +7,13 @@ import 'package:tasker_mobile/src/features/tasks/export.dart';
 class TaskCardWidget extends StatelessWidget {
   final Task task;
   final _dateFormat = DateFormat('HH:mm');
+  final bool isEditable;
 
-  TaskCardWidget({super.key, required this.task});
+  TaskCardWidget({
+    super.key,
+    required this.task,
+    this.isEditable = true,
+  });
 
   double _getLevelValue(String level) {
     if (level == TaskLevel.high.toName) {
@@ -56,13 +61,14 @@ class TaskCardWidget extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            ReorderableDragStartListener(
-              index: context.watch<TaskBloc>().state.tasks.indexOf(task),
-              child: const Padding(
-                padding: EdgeInsets.only(right: 8.0),
-                child: Icon(Icons.drag_indicator),
+            if (isEditable)
+              ReorderableDragStartListener(
+                index: context.watch<TaskBloc>().state.tasks.indexOf(task),
+                child: const Padding(
+                  padding: EdgeInsets.only(right: 8.0),
+                  child: Icon(Icons.drag_indicator),
+                ),
               ),
-            ),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -127,63 +133,75 @@ class TaskCardWidget extends StatelessWidget {
                 ],
               ),
             ),
-            Column(
-              children: [
-                Checkbox(
-                  value: done,
-                  onChanged: (bool? value) => context.read<TaskBloc>().add(
-                        UpdateTask(
-                          task.copyWith(done: value),
+            Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: Column(
+                children: [
+                  if (isEditable)
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Checkbox(
+                          value: done,
+                          onChanged: (bool? value) =>
+                              context.read<TaskBloc>().add(
+                                    UpdateTask(
+                                      task.copyWith(done: value),
+                                    ),
+                                  ),
                         ),
-                      ),
-                ),
-                Row(
-                  children: [
-                    if (priority != null)
-                      Column(
-                        children: [
-                          SizedBox(
-                            width: 5,
-                            height: 50,
-                            child: RotatedBox(
-                              quarterTurns: -1,
-                              child: LinearProgressIndicator(
-                                color: _getLevelColor(priority),
-                                value: _getLevelValue(priority),
-                                backgroundColor: (done) ? null : highlightColor,
+                      ],
+                    ),
+                  Row(
+                    children: [
+                      if (priority != null)
+                        Column(
+                          children: [
+                            SizedBox(
+                              width: 5,
+                              height: 50,
+                              child: RotatedBox(
+                                quarterTurns: -1,
+                                child: LinearProgressIndicator(
+                                  color: _getLevelColor(priority),
+                                  value: _getLevelValue(priority),
+                                  backgroundColor:
+                                      (done) ? null : highlightColor,
+                                ),
                               ),
                             ),
-                          ),
-                          const SizedBox(height: 8),
-                          const Text('P'),
-                        ],
-                      ),
-                    if (complexity != null)
-                      const SizedBox(
-                        width: 8,
-                      ),
-                    if (complexity != null)
-                      Column(
-                        children: [
-                          SizedBox(
-                            width: 5,
-                            height: 50,
-                            child: RotatedBox(
-                              quarterTurns: -1,
-                              child: LinearProgressIndicator(
-                                color: _getLevelColor(complexity),
-                                value: _getLevelValue(complexity),
-                                backgroundColor: (done) ? null : highlightColor,
+                            const SizedBox(height: 8),
+                            const Text('P'),
+                          ],
+                        ),
+                      if (complexity != null)
+                        const SizedBox(
+                          width: 8,
+                        ),
+                      if (complexity != null)
+                        Column(
+                          children: [
+                            SizedBox(
+                              width: 5,
+                              height: 50,
+                              child: RotatedBox(
+                                quarterTurns: -1,
+                                child: LinearProgressIndicator(
+                                  color: _getLevelColor(complexity),
+                                  value: _getLevelValue(complexity),
+                                  backgroundColor:
+                                      (done) ? null : highlightColor,
+                                ),
                               ),
                             ),
-                          ),
-                          const SizedBox(height: 8),
-                          const Text('C'),
-                        ],
-                      ),
-                  ],
-                ),
-              ],
+                            const SizedBox(height: 8),
+                            const Text('C'),
+                          ],
+                        ),
+                    ],
+                  ),
+                ],
+              ),
             )
           ],
         ),
