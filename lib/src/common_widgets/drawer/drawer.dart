@@ -54,7 +54,7 @@ class DrawerNavigator extends StatelessWidget {
             leading: const Icon(Icons.calendar_month),
             title: const Text('Timeline'),
             onTap: () {
-              print('go to timeline');
+              context.go(AppScreen.timeline.toPath);
               context.pop();
             },
           ),

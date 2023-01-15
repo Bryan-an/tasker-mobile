@@ -16,8 +16,8 @@ class FilterScreen extends StatefulWidget {
 
 class _FilterScreenState extends State<FilterScreen> {
   final _formGlobalKey = GlobalKey<FormState>();
-  List<TaskLevel> levels = [TaskLevel.low, TaskLevel.medium, TaskLevel.high];
-  List<TaskOrder> orders = [TaskOrder.descending, TaskOrder.ascending];
+  List<TaskLevel> levels = TaskLevel.values;
+  List<TaskOrder> orders = TaskOrder.values;
   TaskLevel? _priority;
   TaskLevel? _complexity;
   TaskOrder _order = TaskOrder.descending;

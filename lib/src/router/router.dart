@@ -25,12 +25,13 @@ class AppRouter {
           builder: (context, state) => RegisterScreen(),
         ),
         GoRoute(
-            path: AppScreen.verifyEmail.toPath,
-            name: AppScreen.verifyEmail.name,
-            builder: (context, state) {
-              User user = state.extra as User;
-              return VerifyEmailScreen(user: user);
-            }),
+          path: AppScreen.verifyEmail.toPath,
+          name: AppScreen.verifyEmail.name,
+          builder: (context, state) {
+            User user = state.extra as User;
+            return VerifyEmailScreen(user: user);
+          },
+        ),
         GoRoute(
           path: AppScreen.filter.toPath,
           name: AppScreen.filter.name,
@@ -43,6 +44,11 @@ class AppRouter {
             final taskToUpdate = state.extra as Task?;
             return TaskFormScreen(taskToUpdate: taskToUpdate);
           },
+        ),
+        GoRoute(
+          path: AppScreen.timeline.toPath,
+          name: AppScreen.timeline.name,
+          builder: (context, state) => const TimelineScreen(),
         ),
       ],
       redirect: (BuildContext context, GoRouterState state) {

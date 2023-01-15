@@ -35,7 +35,7 @@ class ChipInputWidget extends StatelessWidget {
         itemBuilder: (context, index) {
           colorIndex++;
 
-          if (colorIndex == chipColors.length) {
+          if (colorIndex == colorPalette.length) {
             colorIndex = 0;
           }
 
@@ -62,7 +62,7 @@ class ChipInputWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              backgroundColor: chipColors[colorIndex],
+              backgroundColor: colorPalette[colorIndex],
               onDeleted: () {
                 final label = _inputController.text;
 
@@ -84,7 +84,7 @@ class ChipInputWidget extends StatelessWidget {
                 color: whiteColor,
               ),
             ),
-            backgroundColor: chipColors[colorIndex],
+            backgroundColor: colorPalette[colorIndex],
             onDeleted: () => onDeleted(index),
             deleteIconColor: whiteColor,
           );
