@@ -5,8 +5,18 @@ enum TaskLevel {
 }
 
 enum TaskOrder {
-  ascending,
   descending,
+  ascending,
+}
+
+enum TaskDay {
+  monday,
+  tuesday,
+  wednesday,
+  thursday,
+  friday,
+  saturday,
+  sunday,
 }
 
 extension TaskLevelExtension on TaskLevel {
@@ -60,6 +70,27 @@ extension TaskOrderExtension on TaskOrder {
         return 'Older first';
       case TaskOrder.descending:
         return 'Recent first';
+    }
+  }
+}
+
+extension TaskDayExtension on TaskDay {
+  String get toShorName {
+    switch (this) {
+      case TaskDay.monday:
+        return 'Mo';
+      case TaskDay.tuesday:
+        return 'Tu';
+      case TaskDay.wednesday:
+        return 'We';
+      case TaskDay.thursday:
+        return 'Th';
+      case TaskDay.friday:
+        return 'Fr';
+      case TaskDay.saturday:
+        return 'Sa';
+      case TaskDay.sunday:
+        return 'Su';
     }
   }
 }

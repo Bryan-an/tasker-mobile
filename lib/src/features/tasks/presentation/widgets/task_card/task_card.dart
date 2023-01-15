@@ -94,7 +94,7 @@ class TaskCardWidget extends StatelessWidget {
                                 final label = labels[index];
                                 colorIndex++;
 
-                                if (colorIndex == chipColors.length) {
+                                if (colorIndex == colorPalette.length) {
                                   colorIndex = 0;
                                 }
 
@@ -105,7 +105,7 @@ class TaskCardWidget extends StatelessWidget {
                                       color: whiteColor,
                                     ),
                                   ),
-                                  backgroundColor: chipColors[colorIndex],
+                                  backgroundColor: colorPalette[colorIndex],
                                 );
                               },
                               separatorBuilder: (context, index) =>

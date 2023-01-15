@@ -14,7 +14,7 @@ const Color highlightColor = Color(0xFFFEEFEC);
 const Color greenColor = Color(0xFF9DE47C);
 const Color purpleColor = Color(0xFFDC9CFD);
 
-const List<Color> chipColors = [
+const List<Color> colorPalette = [
   primaryColor,
   secondaryColor,
   greenColor,
