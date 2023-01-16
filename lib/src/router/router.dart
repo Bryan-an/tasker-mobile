@@ -50,6 +50,11 @@ class AppRouter {
           name: AppScreen.timeline.name,
           builder: (context, state) => const TimelineScreen(),
         ),
+        GoRoute(
+          path: AppScreen.pending.toPath,
+          name: AppScreen.pending.name,
+          builder: (context, state) => const PendingTasksScreen(),
+        ),
       ],
       redirect: (BuildContext context, GoRouterState state) {
         final authenticated = sessionState is Authenticated;

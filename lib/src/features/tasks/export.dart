@@ -2,6 +2,7 @@ export 'presentation/screens/home/home_screen.dart';
 export 'presentation/screens/filter/filter_screen.dart';
 export 'presentation/screens/task_form/task_form_screen.dart';
 export 'presentation/screens/timeline/timeline_screen.dart';
+export 'presentation/screens/pending_tasks/pending_tasks_screen.dart';
 export 'application/task_service.dart';
 export 'domain/task.dart';
 export 'data/task_interface.dart';
