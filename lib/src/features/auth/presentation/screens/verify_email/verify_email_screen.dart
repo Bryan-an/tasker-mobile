@@ -8,12 +8,24 @@ import 'package:tasker_mobile/src/features/auth/export.dart';
 
 import 'cubit/verify_email_screen_cubit.dart';
 
-class VerifyEmailScreen extends StatelessWidget {
-  final _codeInputController = TextEditingController();
-  final _formGlobalKey = GlobalKey<FormState>();
+class VerifyEmailScreen extends StatefulWidget {
   final User user;
 
-  VerifyEmailScreen({super.key, required this.user});
+  const VerifyEmailScreen({super.key, required this.user});
+
+  @override
+  State<VerifyEmailScreen> createState() => _VerifyEmailScreenState();
+}
+
+class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
+  final _codeInputController = TextEditingController();
+  final _formGlobalKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    _codeInputController.dispose();
+    super.dispose();
+  }
 
   void _clearCodeInput() {
     _codeInputController.clear();
@@ -31,7 +43,7 @@ class VerifyEmailScreen extends StatelessWidget {
 
   VoidCallback _resendCode(BuildContext context) {
     return () {
-      final email = user.email;
+      final email = widget.user.email;
       final data = Verification(email: email);
 
       context.read<AuthBloc>().add(ResendCode(data));
@@ -48,7 +60,7 @@ class VerifyEmailScreen extends StatelessWidget {
   VoidCallback _verifyEmail(BuildContext context) {
     return () {
       if (_formGlobalKey.currentState!.validate()) {
-        final String email = user.email ?? '';
+        final String email = widget.user.email ?? '';
         final String code = _codeInputController.text;
         final data = Verification(
           email: email,
@@ -62,7 +74,7 @@ class VerifyEmailScreen extends StatelessWidget {
 
   void _blocListener(BuildContext context, AuthState state) {
     if (state.verifyEmailStatus.isSuccess) {
-      context.read<AuthBloc>().add(Login(user));
+      context.read<AuthBloc>().add(Login(widget.user));
     }
   }
 
