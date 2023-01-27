@@ -18,9 +18,13 @@ class _FilterScreenState extends State<FilterScreen> {
   final _formGlobalKey = GlobalKey<FormState>();
   List<TaskLevel> levels = TaskLevel.values;
   List<TaskOrder> orders = TaskOrder.values;
+  List<TaskDone> doneValues = TaskDone.values;
+  List<TaskReminder> remindValues = TaskReminder.values;
   TaskLevel? _priority;
   TaskLevel? _complexity;
   TaskOrder _order = TaskOrder.descending;
+  TaskDone? _done;
+  TaskReminder? _remind;
   final List<String> _labels = [];
   late ScrollController _scrollController;
   final GlobalKey _taskListKey = GlobalKey();
@@ -38,6 +42,8 @@ class _FilterScreenState extends State<FilterScreen> {
             complexity: _complexity,
             labels: _labels.isEmpty ? null : _labels,
             order: _order,
+            done: _done,
+            remind: _remind,
           );
     };
   }
@@ -166,6 +172,116 @@ class _FilterScreenState extends State<FilterScreen> {
                                               _complexity = null;
                                             } else {
                                               _complexity = level;
+                                            }
+                                          });
+                                        },
+                                        backgroundColor: highlightColor,
+                                        selectedColor: primaryColor,
+                                        checkmarkColor: whiteColor,
+                                      ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 32,
+                                vertical: 10,
+                              ),
+                              child: Text(
+                                'State',
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 32,
+                                  vertical: 10,
+                                ),
+                                child: Wrap(
+                                  spacing: 8,
+                                  children: <InputChip>[
+                                    for (final value in doneValues)
+                                      InputChip(
+                                        label: Text(
+                                          value.toName.capitalize(),
+                                          style: TextStyle(
+                                            color: _done == value
+                                                ? whiteColor
+                                                : null,
+                                          ),
+                                        ),
+                                        selected: _done == value,
+                                        onSelected: (bool selected) {
+                                          setState(() {
+                                            if (_done == value) {
+                                              _done = null;
+                                            } else {
+                                              _done = value;
+                                            }
+                                          });
+                                        },
+                                        backgroundColor: highlightColor,
+                                        selectedColor: primaryColor,
+                                        checkmarkColor: whiteColor,
+                                      ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 32,
+                                vertical: 10,
+                              ),
+                              child: Text(
+                                'Reminder',
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 32,
+                                  vertical: 10,
+                                ),
+                                child: Wrap(
+                                  spacing: 8,
+                                  children: <InputChip>[
+                                    for (final value in remindValues)
+                                      InputChip(
+                                        label: Text(
+                                          value.toName.capitalize(),
+                                          style: TextStyle(
+                                            color: _remind == value
+                                                ? whiteColor
+                                                : null,
+                                          ),
+                                        ),
+                                        selected: _remind == value,
+                                        onSelected: (bool selected) {
+                                          setState(() {
+                                            if (_remind == value) {
+                                              _remind = null;
+                                            } else {
+                                              _remind = value;
                                             }
                                           });
                                         },

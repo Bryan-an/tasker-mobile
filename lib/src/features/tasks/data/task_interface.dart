@@ -7,6 +7,8 @@ abstract class ITaskRepository {
     TaskLevel? complexity,
     List<String>? labels,
     TaskOrder? order,
+    TaskDone? done,
+    TaskReminder? remind,
   });
 
   Future<Task> getOne(String id);

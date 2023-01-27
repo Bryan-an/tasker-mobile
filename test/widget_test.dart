@@ -5,6 +5,7 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -12,8 +13,13 @@ import 'package:tasker_mobile/main.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+    final deviceInfo = await DeviceInfoPlugin().deviceInfo;
+
+    final androidSdkVersion =
+        deviceInfo is AndroidDeviceInfo ? deviceInfo.version.sdkInt : 0;
+
     // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
+    await tester.pumpWidget(MyApp(androidSdkVersion: androidSdkVersion));
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

@@ -18,6 +18,8 @@ class FilterScreenCubit extends Cubit<FilterScreenState> {
     TaskLevel? complexity,
     List<String>? labels,
     TaskOrder? order,
+    TaskDone? done,
+    TaskReminder? remind,
   }) async {
     emit(state.copyWith(searchStatus: Status.loading));
 
@@ -27,6 +29,8 @@ class FilterScreenCubit extends Cubit<FilterScreenState> {
         complexity: complexity,
         labels: labels,
         order: order,
+        done: done,
+        remind: remind,
       );
 
       emit(state.copyWith(
