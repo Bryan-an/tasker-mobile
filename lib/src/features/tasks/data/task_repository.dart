@@ -7,11 +7,14 @@ class TaskRepository implements ITaskRepository {
   TaskRepository({TaskService? service}) : _service = service ?? TaskService();
 
   @override
-  Future<List<Task>> getAll(
-      {TaskLevel? priority,
-      TaskLevel? complexity,
-      List<String>? labels,
-      TaskOrder? order}) async {
+  Future<List<Task>> getAll({
+    TaskLevel? priority,
+    TaskLevel? complexity,
+    List<String>? labels,
+    TaskOrder? order,
+    TaskDone? done,
+    TaskReminder? remind,
+  }) async {
     Map<String, dynamic> queryParams = {};
 
     if (priority != null) {
@@ -28,6 +31,14 @@ class TaskRepository implements ITaskRepository {
 
     if (order != null) {
       queryParams['order'] = order.toQueryParam;
+    }
+
+    if (done != null) {
+      queryParams['done'] = done.toQueryParam;
+    }
+
+    if (remind != null) {
+      queryParams['remind'] = remind.toQueryParam;
     }
 
     final tasks = await _service.list(queryParams);
