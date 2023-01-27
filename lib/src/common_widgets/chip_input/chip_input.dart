@@ -79,6 +79,7 @@ class _ChipInputWidgetState extends State<ChipInputWidget> {
 
                 if (label.isNotEmpty) {
                   widget.onAdded(label);
+                  _inputController.text = "";
                 }
               },
               deleteIcon: const Icon(Icons.add_circle),
