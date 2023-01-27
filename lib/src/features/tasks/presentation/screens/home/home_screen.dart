@@ -1,3 +1,4 @@
+import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -17,10 +18,20 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late ConfettiController _confettiController;
+
   @override
   void initState() {
     super.initState();
+    _confettiController =
+        ConfettiController(duration: const Duration(seconds: 1));
     context.read<TaskBloc>().add(const GetTasks());
+  }
+
+  @override
+  void dispose() {
+    _confettiController.dispose();
+    super.dispose();
   }
 
   String _getProgressPercentage(List<Task> tasks) {
@@ -36,6 +47,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   int _getCurrentStep(List<Task> tasks) {
     final doneTasks = tasks.where((task) => task.done!).toList();
+
+    if (doneTasks.length == tasks.length) {
+      _confettiController.play();
+    }
+
     return doneTasks.length;
   }
 
@@ -140,6 +156,15 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                         ],
+                      ),
+                      ConfettiWidget(
+                        confettiController: _confettiController,
+                        blastDirectionality: BlastDirectionality.explosive,
+                        shouldLoop: false,
+                        emissionFrequency: 0,
+                        numberOfParticles: 20,
+                        maxBlastForce: 8,
+                        colors: colorPalette,
                       ),
                     ],
                   ),
