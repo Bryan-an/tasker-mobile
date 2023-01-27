@@ -6,7 +6,7 @@ enum AppScreen {
   filter,
   taskForm,
   timeline,
-  pending,
+  allTasks,
 }
 
 extension AppScreenExtension on AppScreen {
@@ -26,8 +26,8 @@ extension AppScreenExtension on AppScreen {
         return '/taskForm';
       case AppScreen.timeline:
         return '/timeline';
-      case AppScreen.pending:
-        return '/pending';
+      case AppScreen.allTasks:
+        return '/allTasks';
       default:
         return '/';
     }
@@ -49,8 +49,8 @@ extension AppScreenExtension on AppScreen {
         return 'task form';
       case AppScreen.timeline:
         return 'timeline';
-      case AppScreen.pending:
-        return 'pending';
+      case AppScreen.allTasks:
+        return 'all tasks';
       default:
         return 'home';
     }
@@ -72,8 +72,8 @@ extension AppScreenExtension on AppScreen {
         return 'Task';
       case AppScreen.timeline:
         return 'Timeline';
-      case AppScreen.pending:
-        return 'Pending tasks';
+      case AppScreen.allTasks:
+        return 'All Tasks';
       default:
         return 'Tasks';
     }
