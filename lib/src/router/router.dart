@@ -51,9 +51,9 @@ class AppRouter {
           builder: (context, state) => const TimelineScreen(),
         ),
         GoRoute(
-          path: AppScreen.pending.toPath,
-          name: AppScreen.pending.name,
-          builder: (context, state) => const PendingTasksScreen(),
+          path: AppScreen.allTasks.toPath,
+          name: AppScreen.allTasks.name,
+          builder: (context, state) => const AllTasksScreen(),
         ),
       ],
       redirect: (BuildContext context, GoRouterState state) {
