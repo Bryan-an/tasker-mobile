@@ -59,10 +59,10 @@ class DrawerNavigator extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.developer_board),
-            title: const Text('Board'),
+            leading: const Icon(Icons.pending_actions),
+            title: const Text('Pending tasks'),
             onTap: () {
-              print('go to board');
+              context.go(AppScreen.pending.toPath);
               context.pop();
             },
           ),

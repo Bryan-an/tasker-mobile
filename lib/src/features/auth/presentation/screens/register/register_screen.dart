@@ -9,13 +9,27 @@ import 'package:tasker_mobile/src/utils/export.dart';
 
 import 'cubit/register_screen_cubit.dart';
 
-class RegisterScreen extends StatelessWidget with InputValidationMixin {
+class RegisterScreen extends StatefulWidget {
+  RegisterScreen({super.key});
+
+  @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen>
+    with InputValidationMixin {
   final _nameInputController = TextEditingController();
   final _emailInputController = TextEditingController();
   final _passwordInputController = TextEditingController();
   final _formGlobalKey = GlobalKey<FormState>();
 
-  RegisterScreen({super.key});
+  @override
+  void dispose() {
+    _nameInputController.dispose();
+    _emailInputController.dispose();
+    _passwordInputController.dispose();
+    super.dispose();
+  }
 
   void _clearNameInput() {
     _nameInputController.clear();

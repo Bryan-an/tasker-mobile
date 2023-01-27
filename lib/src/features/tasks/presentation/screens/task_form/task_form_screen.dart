@@ -9,16 +9,32 @@ import 'package:tasker_mobile/src/utils/export.dart';
 
 import 'cubit/task_form_screen_cubit.dart';
 
-class TaskFormScreen extends StatelessWidget {
+class TaskFormScreen extends StatefulWidget {
+  final Task? taskToUpdate;
+
+  const TaskFormScreen({super.key, this.taskToUpdate});
+
+  @override
+  State<TaskFormScreen> createState() => _TaskFormScreenState();
+}
+
+class _TaskFormScreenState extends State<TaskFormScreen> {
   final _formGlobalKey = GlobalKey<FormState>();
   final _titleInputController = TextEditingController();
   final _descriptionInputController = TextEditingController();
   final _dateInputController = TextEditingController();
   final _fromInputController = TextEditingController();
   final _toInputController = TextEditingController();
-  final Task? taskToUpdate;
 
-  TaskFormScreen({super.key, this.taskToUpdate});
+  @override
+  void dispose() {
+    _titleInputController.dispose();
+    _descriptionInputController.dispose();
+    _dateInputController.dispose();
+    _fromInputController.dispose();
+    _toInputController.dispose();
+    super.dispose();
+  }
 
   VoidCallback _clearInput(TextEditingController controller) {
     return () => controller.clear();
@@ -61,7 +77,7 @@ class TaskFormScreen extends StatelessWidget {
     }
 
     final task = Task(
-      id: taskToUpdate?.id,
+      id: widget.taskToUpdate?.id,
       title: title,
       description: description.isEmpty ? null : description,
       priority: priority.toName,
@@ -112,16 +128,16 @@ class TaskFormScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => TaskFormScreenCubit(),
       child: Builder(builder: (context) {
-        if (taskToUpdate != null) {
-          final title = taskToUpdate?.title;
-          final description = taskToUpdate?.description;
-          final priority = taskToUpdate?.priority;
-          final complexity = taskToUpdate?.complexity;
-          final labels = taskToUpdate?.labels;
-          final date = taskToUpdate?.date;
-          final from = taskToUpdate?.from;
-          final to = taskToUpdate?.to;
-          final remind = taskToUpdate?.remind;
+        if (widget.taskToUpdate != null) {
+          final title = widget.taskToUpdate?.title;
+          final description = widget.taskToUpdate?.description;
+          final priority = widget.taskToUpdate?.priority;
+          final complexity = widget.taskToUpdate?.complexity;
+          final labels = widget.taskToUpdate?.labels;
+          final date = widget.taskToUpdate?.date;
+          final from = widget.taskToUpdate?.from;
+          final to = widget.taskToUpdate?.to;
+          final remind = widget.taskToUpdate?.remind;
 
           _titleInputController.text = title ?? '';
           _descriptionInputController.text = description ?? '';
@@ -548,7 +564,7 @@ class TaskFormScreen extends StatelessWidget {
                                 horizontal: 32,
                                 vertical: 10,
                               ),
-                              child: (taskToUpdate == null)
+                              child: (widget.taskToUpdate == null)
                                   ? BlocSelector<TaskBloc, TaskState, Status>(
                                       selector: (state) => state.addTaskStatus,
                                       builder: (context, state) {

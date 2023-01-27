@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tasker_mobile/src/constants/export.dart';
 
-import 'cubit/text_field_cubit.dart';
-
-class TextFieldWidget extends StatelessWidget {
+class TextFieldWidget extends StatefulWidget {
   final String? label;
   final String? hint;
   final String? error;
@@ -36,59 +33,57 @@ class TextFieldWidget extends StatelessWidget {
   });
 
   @override
+  State<TextFieldWidget> createState() => _TextFieldWidgetState();
+}
+
+class _TextFieldWidgetState extends State<TextFieldWidget> {
+  bool isError = false;
+
+  @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => TextFieldCubit(),
-      child: Builder(
-        builder: (context) {
-          return BlocSelector<TextFieldCubit, TextFieldState, bool>(
-            selector: (state) => state.isError,
-            builder: (context, state) {
-              return Theme(
-                data: Theme.of(context).copyWith(
-                    colorScheme: ColorScheme.fromSeed(
-                  seedColor: secondaryColor,
-                  primary:
-                      state ? Theme.of(context).errorColor : secondaryColor,
-                )),
-                child: TextFormField(
-                  textCapitalization: textCapitalization,
-                  maxLines:
-                      (obscureText == null && maxLines != null) ? maxLines : 1,
-                  maxLength: maxLength,
-                  keyboardType: keyboardType,
-                  controller: controller,
-                  obscureText: obscureText == null ? false : obscureText!,
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
-                    labelText: label,
-                    hintText: hint,
-                    errorText: error,
-                    suffixIcon: suffixIcon,
-                    floatingLabelStyle: TextStyle(
-                      color:
-                          state ? Theme.of(context).errorColor : secondaryColor,
-                    ),
-                  ),
-                  validator: (validator != null)
-                      ? (text) {
-                          String? error = validator!(text);
+    return Theme(
+      data: Theme.of(context).copyWith(
+          colorScheme: ColorScheme.fromSeed(
+        seedColor: secondaryColor,
+        primary: isError ? Theme.of(context).errorColor : secondaryColor,
+      )),
+      child: TextFormField(
+        textCapitalization: widget.textCapitalization,
+        maxLines: (widget.obscureText == null && widget.maxLines != null)
+            ? widget.maxLines
+            : 1,
+        maxLength: widget.maxLength,
+        keyboardType: widget.keyboardType,
+        controller: widget.controller,
+        obscureText: widget.obscureText == null ? false : widget.obscureText!,
+        decoration: InputDecoration(
+          border: const OutlineInputBorder(),
+          labelText: widget.label,
+          hintText: widget.hint,
+          errorText: widget.error,
+          suffixIcon: widget.suffixIcon,
+          floatingLabelStyle: TextStyle(
+            color: isError ? Theme.of(context).errorColor : secondaryColor,
+          ),
+        ),
+        validator: (widget.validator != null)
+            ? (text) {
+                String? error = widget.validator!(text);
 
-                          if (error == null) {
-                            context.read<TextFieldCubit>().setIsError(false);
-                          } else {
-                            context.read<TextFieldCubit>().setIsError(true);
-                          }
+                if (error == null) {
+                  setState(() {
+                    isError = false;
+                  });
+                } else {
+                  setState(() {
+                    isError = true;
+                  });
+                }
 
-                          return error;
-                        }
-                      : null,
-                  inputFormatters: inputFormatters,
-                ),
-              );
-            },
-          );
-        },
+                return error;
+              }
+            : null,
+        inputFormatters: widget.inputFormatters,
       ),
     );
   }

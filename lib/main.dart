@@ -1,7 +1,9 @@
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:tasker_mobile/src/common_widgets/export.dart';
 import 'package:tasker_mobile/src/constants/export.dart';
 import 'package:tasker_mobile/src/features/auth/export.dart';
 import 'package:tasker_mobile/src/features/tasks/export.dart';
@@ -9,7 +11,7 @@ import 'package:tasker_mobile/src/router/export.dart';
 import 'package:tasker_mobile/src/themes/export.dart';
 import 'package:tasker_mobile/src/utils/export.dart';
 
-void main() {
+void main() async {
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: primaryColor,
@@ -18,25 +20,31 @@ void main() {
 
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
 
   Bloc.observer = AppBlocObserver();
+  final deviceInfo = await DeviceInfoPlugin().deviceInfo;
+
+  final androidSdkVersion =
+      deviceInfo is AndroidDeviceInfo ? deviceInfo.version.sdkInt : 0;
 
   runApp(
     AppTheme(
       initialThemeKey: AppThemeKeys.light,
-      child: MyApp(),
+      child: MyApp(androidSdkVersion: androidSdkVersion),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  final _router = AppRouter();
+  MyApp({super.key, required this.androidSdkVersion});
 
-  MyApp({super.key});
+  final _router = AppRouter();
+  final int androidSdkVersion;
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +88,8 @@ class MyApp extends StatelessWidget {
               title: 'Tasker',
               routerConfig: _router.getConfig(state),
               scaffoldMessengerKey: scaffoldMessengerKey,
+              scrollBehavior:
+                  CustomScrollBehavior(androidSdkVersion: androidSdkVersion),
             );
           },
         ),

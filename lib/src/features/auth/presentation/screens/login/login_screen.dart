@@ -9,12 +9,24 @@ import 'package:tasker_mobile/src/utils/export.dart';
 
 import 'cubit/login_screen_cubit.dart';
 
-class LoginScreen extends StatelessWidget with InputValidationMixin {
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
   final _emailInputController = TextEditingController();
   final _passwordInputController = TextEditingController();
   final _formGlobalKey = GlobalKey<FormState>();
 
-  LoginScreen({super.key});
+  @override
+  void dispose() {
+    _emailInputController.dispose();
+    _passwordInputController.dispose();
+    super.dispose();
+  }
 
   String? _validateEmail(String? email) {
     if (email == null || email.isEmpty) {

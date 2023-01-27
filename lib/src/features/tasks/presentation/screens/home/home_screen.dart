@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
+import 'package:step_progress_indicator/step_progress_indicator.dart';
 import 'package:tasker_mobile/src/common_widgets/export.dart';
 import 'package:tasker_mobile/src/constants/export.dart';
 import 'package:tasker_mobile/src/features/tasks/export.dart';
@@ -21,7 +23,10 @@ class _HomeScreenState extends State<HomeScreen> {
     context.read<TaskBloc>().add(const GetTasks());
   }
 
-  String _getProgressPercentage(double progress) {
+  String _getProgressPercentage(List<Task> tasks) {
+    final doneTasks = tasks.where((task) => task.done!).toList();
+    final progress = doneTasks.length / tasks.length;
+
     if (progress.isNaN || progress.isInfinite) {
       return '0%';
     }
@@ -29,12 +34,17 @@ class _HomeScreenState extends State<HomeScreen> {
     return '${(progress * 100).round()}%';
   }
 
-  double _getProgressValue(double progress) {
-    if (progress.isNaN || progress.isInfinite) {
-      return 0;
-    }
+  int _getCurrentStep(List<Task> tasks) {
+    final doneTasks = tasks.where((task) => task.done!).toList();
+    return doneTasks.length;
+  }
 
-    return progress;
+  int _getTotalSteps(List<Task> tasks) {
+    if (tasks.isEmpty) {
+      return 1;
+    } else {
+      return tasks.length;
+    }
   }
 
   @override
@@ -54,54 +64,92 @@ class _HomeScreenState extends State<HomeScreen> {
               );
             }
 
-            final progress =
-                state.tasks.where((task) => task.done!).toList().length /
-                    state.tasks.length;
+            final tasksForToday = state.tasks.where((task) {
+              final taskDay = task.date != null
+                  ? DateFormat('dd').format(task.date!.toLocal())
+                  : null;
+
+              final currentDay =
+                  DateFormat('dd').format(DateTime.now().toLocal());
+
+              return taskDay == currentDay;
+            }).toList();
 
             return Column(
               children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Row(
-                          children: [
-                            const Text(
-                              'Your progress: ',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
+                if (tasksForToday.isNotEmpty)
+                  Column(
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(16),
+                              child: Row(
+                                children: [
+                                  const Text(
+                                    'Your progress: ',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(_getProgressPercentage(tasksForToday)),
+                                ],
                               ),
                             ),
-                            Text(_getProgressPercentage(progress)),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: LinearProgressIndicator(
-                          value: _getProgressValue(progress),
-                          backgroundColor: primaryColor.withOpacity(0.1),
-                        ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.all(16),
+                              child: StepProgressIndicator(
+                                totalSteps: _getTotalSteps(tasksForToday),
+                                currentStep: _getCurrentStep(tasksForToday),
+                                size: 12,
+                                selectedColor: primaryColor,
+                                unselectedColor: primaryColor.withOpacity(0.1),
+                                roundedEdges: const Radius.circular(16),
+                                padding: 1,
+                                selectedGradientColor: LinearGradient(
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                  colors: [
+                                    primaryColor.withOpacity(0.8),
+                                    primaryColor
+                                  ],
+                                ),
+                                unselectedGradientColor: LinearGradient(
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                  colors: [
+                                    primaryColor.withOpacity(0.08),
+                                    primaryColor.withOpacity(0.1),
+                                  ],
+                                ),
+                                customStep: (index, color, size) => Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(16)),
+                                    color: color,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
                 Expanded(
                   child: Builder(
                     builder: (context) {
-                      final tasks = state.tasks;
-
-                      if (tasks.isEmpty) {
+                      if (tasksForToday.isEmpty) {
                         return const EmptyWidget(
                           title: 'No tasks',
-                          text: 'No tasks added yet',
+                          text: 'No tasks for today',
                         );
                       }
 
@@ -121,10 +169,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                 ),
                         children: [
-                          for (final task in tasks)
-                            Padding(
+                          for (final task in tasksForToday)
+                            Container(
                               key: Key(task.id!),
-                              padding: const EdgeInsets.only(
+                              margin: const EdgeInsets.only(
                                 top: 2.0,
                                 bottom: 2.0,
                               ),
