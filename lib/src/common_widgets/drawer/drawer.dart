@@ -9,6 +9,8 @@ class DrawerNavigator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final selectedRoute = GoRouter.of(context).location;
+
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -35,6 +37,7 @@ class DrawerNavigator extends StatelessWidget {
             },
           ),
           ListTile(
+            selected: selectedRoute == AppScreen.home.toPath,
             leading: const Icon(Icons.add_task),
             title: const Text('Tasks for today'),
             onTap: () {
@@ -43,6 +46,7 @@ class DrawerNavigator extends StatelessWidget {
             },
           ),
           ListTile(
+            selected: selectedRoute == AppScreen.filter.toPath,
             leading: const Icon(Icons.filter_alt),
             title: const Text('Task filter'),
             onTap: () {
@@ -51,6 +55,7 @@ class DrawerNavigator extends StatelessWidget {
             },
           ),
           ListTile(
+            selected: selectedRoute == AppScreen.timeline.toPath,
             leading: const Icon(Icons.calendar_month),
             title: const Text('Timeline'),
             onTap: () {
@@ -59,6 +64,7 @@ class DrawerNavigator extends StatelessWidget {
             },
           ),
           ListTile(
+            selected: selectedRoute == AppScreen.allTasks.toPath,
             leading: const Icon(Icons.checklist_rtl),
             title: const Text('All tasks'),
             onTap: () {
@@ -68,6 +74,7 @@ class DrawerNavigator extends StatelessWidget {
           ),
           const Divider(),
           ListTile(
+            selected: false,
             leading: const Icon(Icons.settings),
             title: const Text('Settings'),
             onTap: () {
