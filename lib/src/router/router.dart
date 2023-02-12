@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tasker_mobile/src/features/auth/export.dart';
+import 'package:tasker_mobile/src/features/settings/export.dart';
 import 'package:tasker_mobile/src/features/tasks/export.dart';
 import 'package:tasker_mobile/src/router/export.dart';
 
@@ -54,6 +55,11 @@ class AppRouter {
           path: AppScreen.allTasks.toPath,
           name: AppScreen.allTasks.name,
           builder: (context, state) => const AllTasksScreen(),
+        ),
+        GoRoute(
+          path: AppScreen.settings.toPath,
+          name: AppScreen.settings.name,
+          builder: (context, state) => const SettingsScreen(),
         ),
       ],
       redirect: (BuildContext context, GoRouterState state) {

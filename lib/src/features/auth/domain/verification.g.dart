@@ -18,5 +18,5 @@ Map<String, dynamic> _$VerificationToJson(Verification instance) =>
     <String, dynamic>{
       'email': instance.email,
       'code': instance.code,
-      'expires_at': instance.expiresAt?.toUtc().toIso8601String(),
+      'expires_at': instance.expiresAt?.toIso8601String(),
     };

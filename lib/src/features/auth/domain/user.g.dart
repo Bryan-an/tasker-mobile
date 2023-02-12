@@ -28,6 +28,6 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'password': instance.password,
       'role': instance.role,
       'status': instance.status,
-      'created_at': instance.createdAt?.toUtc().toIso8601String(),
-      'updated_at': instance.updatedAt?.toUtc().toIso8601String(),
+      'created_at': instance.createdAt?.toIso8601String(),
+      'updated_at': instance.updatedAt?.toIso8601String(),
     };

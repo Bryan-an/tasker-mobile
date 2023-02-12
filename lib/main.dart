@@ -6,6 +6,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:tasker_mobile/src/common_widgets/export.dart';
 import 'package:tasker_mobile/src/constants/export.dart';
 import 'package:tasker_mobile/src/features/auth/export.dart';
+import 'package:tasker_mobile/src/features/settings/export.dart';
 import 'package:tasker_mobile/src/features/tasks/export.dart';
 import 'package:tasker_mobile/src/router/export.dart';
 import 'package:tasker_mobile/src/themes/export.dart';
@@ -59,6 +60,9 @@ class MyApp extends StatelessWidget {
         RepositoryProvider(
           create: (context) => TaskRepository(service: TaskService()),
         ),
+        RepositoryProvider(
+          create: (context) => SettingsRepository(service: SettingsService()),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -77,6 +81,11 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (context) => TaskBloc(
               taskRepository: context.read<TaskRepository>(),
+            ),
+          ),
+          BlocProvider(
+            create: (context) => SettingsBloc(
+              settingsRepository: context.read<SettingsRepository>(),
             ),
           ),
         ],
