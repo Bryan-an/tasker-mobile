@@ -109,17 +109,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   leading: const Icon(Icons.palette),
                   title: const Text("Theme"),
                   trailing: Switch(
-                    inactiveThumbColor: blackColor,
-                    inactiveTrackColor: blackColor.withOpacity(0.9),
-                    activeColor: secondaryColor,
-                    activeTrackColor: secondaryColor.withOpacity(0.9),
-                    value: state.settings.theme == "light",
-                    activeThumbImage: const AssetImage("assets/img/sun.png"),
-                    inactiveThumbImage: const AssetImage("assets/img/moon.png"),
+                    inactiveThumbColor: secondaryColor,
+                    inactiveTrackColor: secondaryColor.withOpacity(0.9),
+                    activeColor: blackColor,
+                    activeTrackColor: blackColor.withOpacity(0.9),
+                    value: state.settings.theme == "dark",
+                    activeThumbImage: const AssetImage("assets/img/moon.png"),
+                    inactiveThumbImage: const AssetImage("assets/img/sun.png"),
                     onChanged: (bool value) => context.read<SettingsBloc>().add(
                           UpdateSettings(
                             Settings(
-                              theme: value ? "light" : "dark",
+                              theme: value ? "dark" : "light",
                             ),
                           ),
                         ),
