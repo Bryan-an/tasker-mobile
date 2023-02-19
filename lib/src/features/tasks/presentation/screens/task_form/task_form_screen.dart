@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:tasker_mobile/src/common_widgets/export.dart';
 import 'package:tasker_mobile/src/constants/export.dart';
 import 'package:tasker_mobile/src/features/tasks/export.dart';
+import 'package:tasker_mobile/src/themes/export.dart';
 import 'package:tasker_mobile/src/utils/export.dart';
 
 import 'cubit/task_form_screen_cubit.dart';
@@ -125,6 +126,8 @@ class _TaskFormScreenState extends State<TaskFormScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isLightTheme = AppTheme.of(context) == AppThemes.lightTheme;
+
     return BlocProvider(
       create: (context) => TaskFormScreenCubit(),
       child: Builder(builder: (context) {
@@ -425,7 +428,9 @@ class _TaskFormScreenState extends State<TaskFormScreen> {
                               selector: (state) => state.includeTime,
                               builder: (context, state) {
                                 return Switch(
-                                  activeColor: primaryColor,
+                                  activeColor: isLightTheme
+                                      ? primaryColor
+                                      : primaryDarkColor,
                                   value: state,
                                   onChanged: (bool value) => context
                                       .read<TaskFormScreenCubit>()
@@ -545,7 +550,9 @@ class _TaskFormScreenState extends State<TaskFormScreen> {
                               selector: (state) => state.remind,
                               builder: (context, state) {
                                 return Switch(
-                                  activeColor: primaryColor,
+                                  activeColor: isLightTheme
+                                      ? primaryColor
+                                      : primaryDarkColor,
                                   value: state,
                                   onChanged: (bool value) => context
                                       .read<TaskFormScreenCubit>()

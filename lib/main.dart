@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tasker_mobile/src/common_widgets/export.dart';
 import 'package:tasker_mobile/src/constants/export.dart';
 import 'package:tasker_mobile/src/features/auth/export.dart';
@@ -13,14 +14,17 @@ import 'package:tasker_mobile/src/themes/export.dart';
 import 'package:tasker_mobile/src/utils/export.dart';
 
 void main() async {
-  SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarColor: primaryColor,
-    ),
-  );
-
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
+  final prefs = await SharedPreferences.getInstance();
+  String? theme = prefs.getString('theme');
+
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+      statusBarColor: theme == "dark" ? primaryDarkColor : primaryColor,
+    ),
+  );
 
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
@@ -35,7 +39,7 @@ void main() async {
 
   runApp(
     AppTheme(
-      initialThemeKey: AppThemeKeys.light,
+      initialThemeKey: theme == "dark" ? AppThemeKeys.dark : AppThemeKeys.light,
       child: MyApp(androidSdkVersion: androidSdkVersion),
     ),
   );

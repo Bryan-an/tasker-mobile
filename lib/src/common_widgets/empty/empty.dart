@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tasker_mobile/src/constants/export.dart';
+import 'package:tasker_mobile/src/themes/export.dart';
 
 class EmptyWidget extends StatelessWidget {
   final String? title;
@@ -9,12 +10,16 @@ class EmptyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isLightTheme = AppTheme.of(context) == AppThemes.lightTheme;
+
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Image.asset(
-            'assets/gif/emptystate.gif',
+            isLightTheme
+                ? 'assets/gif/emptystate.gif'
+                : 'assets/img/emptystate.png',
             fit: BoxFit.contain,
           ),
           if (title != null)

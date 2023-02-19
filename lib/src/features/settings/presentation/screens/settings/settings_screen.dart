@@ -4,6 +4,7 @@ import 'package:tasker_mobile/src/common_widgets/export.dart';
 import 'package:tasker_mobile/src/constants/export.dart';
 import 'package:tasker_mobile/src/features/settings/export.dart';
 import 'package:tasker_mobile/src/router/export.dart';
+import 'package:tasker_mobile/src/themes/export.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -16,11 +17,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<SettingsBloc>().add(const GetSettings());
   }
 
   @override
   Widget build(BuildContext context) {
+    final isLightTheme = AppTheme.of(context) == AppThemes.lightTheme;
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -48,11 +50,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       bottom: BorderSide(width: 1, color: highlightColor),
                     ),
                   ),
-                  child: Text(
+                  child: const Text(
                     "Notifications",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: blackColor.withOpacity(0.5),
                       fontSize: 16,
                     ),
                   ),
@@ -61,7 +62,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   leading: const Icon(Icons.phone_android),
                   title: const Text("App notifications"),
                   trailing: Switch(
-                    activeColor: primaryColor,
+                    activeColor: isLightTheme ? primaryColor : primaryDarkColor,
                     value: settings.notifications?.mobile ?? false,
                     onChanged: (bool value) => context.read<SettingsBloc>().add(
                           UpdateSettings(
@@ -77,7 +78,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   leading: const Icon(Icons.email),
                   title: const Text("Email notifications"),
                   trailing: Switch(
-                    activeColor: primaryColor,
+                    activeColor: isLightTheme ? primaryColor : primaryDarkColor,
                     value: settings.notifications?.email ?? false,
                     onChanged: (bool value) => context.read<SettingsBloc>().add(
                           UpdateSettings(
@@ -96,11 +97,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       bottom: BorderSide(width: 1, color: highlightColor),
                     ),
                   ),
-                  child: Text(
+                  child: const Text(
                     "Personalization",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: blackColor.withOpacity(0.5),
                       fontSize: 16,
                     ),
                   ),
@@ -109,20 +109,25 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   leading: const Icon(Icons.palette),
                   title: const Text("Theme"),
                   trailing: Switch(
-                    inactiveThumbColor: secondaryColor,
+                    inactiveThumbColor: whiteColor,
                     inactiveTrackColor: secondaryColor.withOpacity(0.9),
                     activeColor: blackColor,
-                    activeTrackColor: blackColor.withOpacity(0.9),
+                    activeTrackColor: primaryDarkColor.withOpacity(0.3),
                     value: state.settings.theme == "dark",
                     activeThumbImage: const AssetImage("assets/img/moon.png"),
                     inactiveThumbImage: const AssetImage("assets/img/sun.png"),
-                    onChanged: (bool value) => context.read<SettingsBloc>().add(
-                          UpdateSettings(
-                            Settings(
-                              theme: value ? "dark" : "light",
+                    onChanged: (bool value) {
+                      context.read<SettingsBloc>().add(
+                            UpdateSettings(
+                              Settings(
+                                theme: value ? "dark" : "light",
+                              ),
                             ),
-                          ),
-                        ),
+                          );
+
+                      AppTheme.instanceOf(context).changeTheme(
+                          value ? AppThemeKeys.dark : AppThemeKeys.light);
+                    },
                   ),
                 ),
               ],

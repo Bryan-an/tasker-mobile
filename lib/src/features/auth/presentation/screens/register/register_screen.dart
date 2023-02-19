@@ -10,7 +10,7 @@ import 'package:tasker_mobile/src/utils/export.dart';
 import 'cubit/register_screen_cubit.dart';
 
 class RegisterScreen extends StatefulWidget {
-  RegisterScreen({super.key});
+  const RegisterScreen({super.key});
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();

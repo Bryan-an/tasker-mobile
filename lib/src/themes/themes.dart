@@ -68,11 +68,71 @@ class AppThemes {
 
   static final ThemeData darkTheme = ThemeData(
     primaryColor: primaryDarkColor,
+    backgroundColor: blackColor,
+    appBarTheme: const AppBarTheme(
+      systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarColor: primaryDarkColor,
+      ),
+      foregroundColor: whiteColor,
+      color: blackColor,
+      elevation: 0,
+    ),
+    textSelectionTheme: const TextSelectionThemeData(
+      selectionColor: secondaryColor,
+      cursorColor: secondaryDarkColor,
+      selectionHandleColor: secondaryDarkColor,
+    ),
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: primaryDarkColor,
+      primary: primaryDarkColor,
+      secondary: secondaryDarkColor,
+      background: blackColor,
+      brightness: Brightness.dark,
+    ),
     brightness: Brightness.dark,
     highlightColor: primaryColor,
-    backgroundColor: blackColor,
-    textSelectionTheme: const TextSelectionThemeData(
-      selectionColor: primaryDarkColor,
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      backgroundColor: primaryDarkColor,
+      focusColor: primaryColor,
+      splashColor: primaryLightColor,
+      foregroundColor: whiteColor,
+    ),
+    scaffoldBackgroundColor: blackColor,
+    textTheme: const TextTheme(
+      headline1: TextStyle(
+        fontSize: 32,
+        fontWeight: FontWeight.bold,
+      ),
+      button: TextStyle(
+        fontSize: 18,
+      ),
+    ).apply(
+      bodyColor: whiteColor,
+      displayColor: whiteColor,
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          color: whiteColor.withOpacity(0.25),
+        ),
+      ),
+      focusedBorder: const OutlineInputBorder(
+        borderSide: BorderSide(
+          color: secondaryDarkColor,
+        ),
+      ),
+      labelStyle: const TextStyle(color: whiteColor),
+      floatingLabelStyle: const TextStyle(color: secondaryLightColor),
+      focusColor: secondaryColor,
+      iconColor: whiteColor,
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: ButtonStyle(
+        foregroundColor: MaterialStateProperty.all<Color>(primaryDarkColor),
+        overlayColor: MaterialStateProperty.all<Color>(
+          primaryColor.withOpacity(0.1),
+        ),
+      ),
     ),
   );
 
@@ -84,6 +144,19 @@ class AppThemes {
         return darkTheme;
       default:
         return lightTheme;
+    }
+  }
+}
+
+extension AppThemeKeysExtension on AppThemeKeys {
+  String get toName {
+    switch (this) {
+      case AppThemeKeys.light:
+        return "light";
+      case AppThemeKeys.dark:
+        return "dark";
+      default:
+        return "light";
     }
   }
 }

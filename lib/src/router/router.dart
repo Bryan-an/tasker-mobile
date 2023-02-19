@@ -18,12 +18,12 @@ class AppRouter {
         GoRoute(
           path: AppScreen.login.toPath,
           name: AppScreen.login.name,
-          builder: (context, state) => LoginScreen(),
+          builder: (context, state) => const LoginScreen(),
         ),
         GoRoute(
           path: AppScreen.register.toPath,
           name: AppScreen.register.name,
-          builder: (context, state) => RegisterScreen(),
+          builder: (context, state) => const RegisterScreen(),
         ),
         GoRoute(
           path: AppScreen.verifyEmail.toPath,

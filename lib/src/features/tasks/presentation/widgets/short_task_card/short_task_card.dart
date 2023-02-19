@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:tasker_mobile/src/constants/export.dart';
 import 'package:tasker_mobile/src/features/tasks/export.dart';
+import 'package:tasker_mobile/src/themes/export.dart';
 
 class ShortTaskCardWidget extends StatelessWidget {
   final Task task;
@@ -11,6 +12,7 @@ class ShortTaskCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isLightTheme = AppTheme.of(context) == AppThemes.lightTheme;
     final title = task.title;
     final description = task.description;
     final from = task.from?.toLocal();
@@ -26,9 +28,9 @@ class ShortTaskCardWidget extends StatelessWidget {
       child: Container(
         constraints: const BoxConstraints(maxWidth: 250),
         padding: const EdgeInsets.all(8),
-        decoration: const BoxDecoration(
-          color: whiteColor,
-          borderRadius: BorderRadius.only(
+        decoration: BoxDecoration(
+          color: isLightTheme ? whiteColor : primaryColor.withOpacity(0.2),
+          borderRadius: const BorderRadius.only(
             topRight: Radius.circular(10),
             bottomLeft: Radius.circular(10),
             bottomRight: Radius.circular(10),

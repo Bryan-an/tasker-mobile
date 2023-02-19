@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:tasker_mobile/src/constants/export.dart';
 import 'package:tasker_mobile/src/features/tasks/export.dart';
+import 'package:tasker_mobile/src/themes/export.dart';
 
 class TaskCardWidget extends StatelessWidget {
   final Task task;
@@ -27,18 +28,20 @@ class TaskCardWidget extends StatelessWidget {
     }
   }
 
-  Color _getLevelColor(String level) {
+  Color _getLevelColor(String level, bool isLightTheme) {
     if (level == TaskLevel.high.toName) {
-      return primaryColor;
+      return isLightTheme ? primaryColor : primaryDarkColor;
     } else if (level == TaskLevel.medium.toName) {
-      return secondaryColor;
+      return isLightTheme ? secondaryColor : secondaryDarkColor;
     } else {
-      return greenColor;
+      return isLightTheme ? greenColor : greenDarkColor;
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final isLightTheme = AppTheme.of(context) == AppThemes.lightTheme;
+
     int colorIndex = -1;
     final title = task.title;
     final labels = task.labels;
@@ -54,8 +57,14 @@ class TaskCardWidget extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(8.0),
         decoration: BoxDecoration(
-          color: (done) ? highlightColor : null,
-          border: Border.all(color: blackColor.withOpacity(0.25)),
+          color: (done)
+              ? isLightTheme
+                  ? highlightColor
+                  : blackColor.withOpacity(0.01)
+              : null,
+          border: isLightTheme
+              ? Border.all(color: blackColor.withOpacity(0.25))
+              : Border.all(color: whiteColor.withOpacity(0.25)),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Row(
@@ -94,7 +103,7 @@ class TaskCardWidget extends StatelessWidget {
                                 final label = labels[index];
                                 colorIndex++;
 
-                                if (colorIndex == colorPalette.length) {
+                                if (colorIndex == lightColorPalette.length) {
                                   colorIndex = 0;
                                 }
 
@@ -105,7 +114,9 @@ class TaskCardWidget extends StatelessWidget {
                                       color: whiteColor,
                                     ),
                                   ),
-                                  backgroundColor: colorPalette[colorIndex],
+                                  backgroundColor: isLightTheme
+                                      ? lightColorPalette[colorIndex]
+                                      : darkColorPalette[colorIndex],
                                 );
                               },
                               separatorBuilder: (context, index) =>
@@ -149,6 +160,9 @@ class TaskCardWidget extends StatelessWidget {
                                       task.copyWith(done: value),
                                     ),
                                   ),
+                          activeColor: isLightTheme
+                              ? secondaryColor
+                              : secondaryDarkColor,
                         ),
                       ],
                     ),
@@ -163,7 +177,7 @@ class TaskCardWidget extends StatelessWidget {
                               child: RotatedBox(
                                 quarterTurns: -1,
                                 child: LinearProgressIndicator(
-                                  color: _getLevelColor(priority),
+                                  color: _getLevelColor(priority, isLightTheme),
                                   value: _getLevelValue(priority),
                                   backgroundColor:
                                       (done) ? null : highlightColor,
@@ -187,7 +201,8 @@ class TaskCardWidget extends StatelessWidget {
                               child: RotatedBox(
                                 quarterTurns: -1,
                                 child: LinearProgressIndicator(
-                                  color: _getLevelColor(complexity),
+                                  color:
+                                      _getLevelColor(complexity, isLightTheme),
                                   value: _getLevelValue(complexity),
                                   backgroundColor:
                                       (done) ? null : highlightColor,

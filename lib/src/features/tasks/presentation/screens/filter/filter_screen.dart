@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tasker_mobile/src/common_widgets/export.dart';
 import 'package:tasker_mobile/src/constants/export.dart';
 import 'package:tasker_mobile/src/features/tasks/export.dart';
+import 'package:tasker_mobile/src/themes/export.dart';
 import 'package:tasker_mobile/src/utils/export.dart';
 
 import 'cubit/filter_screen_cubit.dart';
@@ -50,6 +51,8 @@ class _FilterScreenState extends State<FilterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isLightTheme = AppTheme.of(context) == AppThemes.lightTheme;
+
     return BlocProvider(
       create: (context) => FilterScreenCubit(
         taskRepository: context.read<TaskRepository>(),
@@ -120,8 +123,12 @@ class _FilterScreenState extends State<FilterScreen> {
                                             }
                                           });
                                         },
-                                        backgroundColor: highlightColor,
-                                        selectedColor: primaryColor,
+                                        backgroundColor: isLightTheme
+                                            ? highlightColor
+                                            : primaryDarkColor.withOpacity(0.3),
+                                        selectedColor: isLightTheme
+                                            ? primaryColor
+                                            : primaryDarkColor,
                                         checkmarkColor: whiteColor,
                                       ),
                                   ],
@@ -175,8 +182,12 @@ class _FilterScreenState extends State<FilterScreen> {
                                             }
                                           });
                                         },
-                                        backgroundColor: highlightColor,
-                                        selectedColor: primaryColor,
+                                        backgroundColor: isLightTheme
+                                            ? highlightColor
+                                            : primaryDarkColor.withOpacity(0.3),
+                                        selectedColor: isLightTheme
+                                            ? primaryColor
+                                            : primaryDarkColor,
                                         checkmarkColor: whiteColor,
                                       ),
                                   ],
@@ -230,8 +241,12 @@ class _FilterScreenState extends State<FilterScreen> {
                                             }
                                           });
                                         },
-                                        backgroundColor: highlightColor,
-                                        selectedColor: primaryColor,
+                                        backgroundColor: isLightTheme
+                                            ? highlightColor
+                                            : primaryDarkColor.withOpacity(0.3),
+                                        selectedColor: isLightTheme
+                                            ? primaryColor
+                                            : primaryDarkColor,
                                         checkmarkColor: whiteColor,
                                       ),
                                   ],
@@ -285,8 +300,12 @@ class _FilterScreenState extends State<FilterScreen> {
                                             }
                                           });
                                         },
-                                        backgroundColor: highlightColor,
-                                        selectedColor: primaryColor,
+                                        backgroundColor: isLightTheme
+                                            ? highlightColor
+                                            : primaryDarkColor.withOpacity(0.3),
+                                        selectedColor: isLightTheme
+                                            ? primaryColor
+                                            : primaryDarkColor,
                                         checkmarkColor: whiteColor,
                                       ),
                                   ],
@@ -372,8 +391,12 @@ class _FilterScreenState extends State<FilterScreen> {
                                             }
                                           });
                                         },
-                                        backgroundColor: highlightColor,
-                                        selectedColor: primaryColor,
+                                        backgroundColor: isLightTheme
+                                            ? highlightColor
+                                            : primaryDarkColor.withOpacity(0.3),
+                                        selectedColor: isLightTheme
+                                            ? primaryColor
+                                            : primaryDarkColor,
                                         checkmarkColor: whiteColor,
                                       ),
                                   ],

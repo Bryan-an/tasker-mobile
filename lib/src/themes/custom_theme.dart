@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tasker_mobile/src/themes/export.dart';
 
 class _AppTheme extends InheritedWidget {
@@ -54,7 +55,10 @@ class AppThemeState extends State<AppTheme> {
     super.initState();
   }
 
-  void changeTheme(AppThemeKeys themeKey) {
+  void changeTheme(AppThemeKeys themeKey) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('theme', themeKey.toName);
+
     setState(() {
       _theme = AppThemes.getThemeFromKey(themeKey);
     });
