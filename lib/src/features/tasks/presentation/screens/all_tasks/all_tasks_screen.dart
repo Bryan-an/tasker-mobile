@@ -6,12 +6,15 @@ import 'package:tasker_mobile/src/common_widgets/export.dart';
 import 'package:tasker_mobile/src/constants/export.dart';
 import 'package:tasker_mobile/src/features/tasks/export.dart';
 import 'package:tasker_mobile/src/router/export.dart';
+import 'package:tasker_mobile/src/themes/export.dart';
 
 class AllTasksScreen extends StatelessWidget {
   const AllTasksScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final isLightTheme = AppTheme.of(context) == AppThemes.lightTheme;
+
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -78,7 +81,9 @@ class AllTasksScreen extends StatelessWidget {
                                           AppScreen.taskForm.toPath,
                                           extra: task),
                                       icon: Icons.edit,
-                                      backgroundColor: secondaryColor,
+                                      backgroundColor: isLightTheme
+                                          ? secondaryColor
+                                          : secondaryDarkColor,
                                       foregroundColor: whiteColor,
                                     ),
                                   ],
@@ -102,7 +107,9 @@ class AllTasksScreen extends StatelessWidget {
                                                 DeleteTask(task.id!),
                                               ),
                                       icon: Icons.delete,
-                                      backgroundColor: primaryColor,
+                                      backgroundColor: isLightTheme
+                                          ? primaryColor
+                                          : primaryDarkColor,
                                       foregroundColor: whiteColor,
                                     ),
                                   ],

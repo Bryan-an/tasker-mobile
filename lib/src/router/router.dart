@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tasker_mobile/src/features/auth/export.dart';
+import 'package:tasker_mobile/src/features/settings/export.dart';
 import 'package:tasker_mobile/src/features/tasks/export.dart';
 import 'package:tasker_mobile/src/router/export.dart';
 
@@ -17,12 +18,12 @@ class AppRouter {
         GoRoute(
           path: AppScreen.login.toPath,
           name: AppScreen.login.name,
-          builder: (context, state) => LoginScreen(),
+          builder: (context, state) => const LoginScreen(),
         ),
         GoRoute(
           path: AppScreen.register.toPath,
           name: AppScreen.register.name,
-          builder: (context, state) => RegisterScreen(),
+          builder: (context, state) => const RegisterScreen(),
         ),
         GoRoute(
           path: AppScreen.verifyEmail.toPath,
@@ -54,6 +55,11 @@ class AppRouter {
           path: AppScreen.allTasks.toPath,
           name: AppScreen.allTasks.name,
           builder: (context, state) => const AllTasksScreen(),
+        ),
+        GoRoute(
+          path: AppScreen.settings.toPath,
+          name: AppScreen.settings.name,
+          builder: (context, state) => const SettingsScreen(),
         ),
       ],
       redirect: (BuildContext context, GoRouterState state) {

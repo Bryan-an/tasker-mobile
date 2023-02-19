@@ -12,11 +12,20 @@ const Color whiteColor = Color(0xFFFFFFFF);
 const Color blackColor = Color(0xFF333333);
 const Color highlightColor = Color(0xFFFEEFEC);
 const Color greenColor = Color(0xFF9DE47C);
+const Color greenDarkColor = Color(0xFF42911E);
 const Color purpleColor = Color(0xFFDC9CFD);
+const Color purpleDarkColor = Color(0xFF8504C8);
 
-const List<Color> colorPalette = [
+const List<Color> lightColorPalette = [
   primaryColor,
   secondaryColor,
   greenColor,
   purpleColor,
+];
+
+List<Color> darkColorPalette = [
+  primaryDarkColor,
+  secondaryDarkColor,
+  greenDarkColor,
+  purpleDarkColor,
 ];

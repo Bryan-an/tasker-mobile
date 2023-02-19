@@ -7,6 +7,7 @@ enum AppScreen {
   taskForm,
   timeline,
   allTasks,
+  settings,
 }
 
 extension AppScreenExtension on AppScreen {
@@ -28,6 +29,8 @@ extension AppScreenExtension on AppScreen {
         return '/timeline';
       case AppScreen.allTasks:
         return '/allTasks';
+      case AppScreen.settings:
+        return '/settings';
       default:
         return '/';
     }
@@ -51,6 +54,8 @@ extension AppScreenExtension on AppScreen {
         return 'timeline';
       case AppScreen.allTasks:
         return 'all tasks';
+      case AppScreen.settings:
+        return 'settings';
       default:
         return 'home';
     }
@@ -74,6 +79,8 @@ extension AppScreenExtension on AppScreen {
         return 'Timeline';
       case AppScreen.allTasks:
         return 'All Tasks';
+      case AppScreen.settings:
+        return 'Settings';
       default:
         return 'Tasks';
     }

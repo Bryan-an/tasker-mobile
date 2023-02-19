@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tasker_mobile/src/constants/colors.dart';
+import 'package:tasker_mobile/src/themes/export.dart';
 
 class ChipInputWidget extends StatefulWidget {
   final List<String> chipLabels;
@@ -32,6 +33,7 @@ class _ChipInputWidgetState extends State<ChipInputWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final isLightTheme = AppTheme.of(context) == AppThemes.lightTheme;
     int colorIndex = -1;
 
     return SizedBox(
@@ -46,7 +48,7 @@ class _ChipInputWidgetState extends State<ChipInputWidget> {
         itemBuilder: (context, index) {
           colorIndex++;
 
-          if (colorIndex == colorPalette.length) {
+          if (colorIndex == lightColorPalette.length) {
             colorIndex = 0;
           }
 
@@ -73,7 +75,9 @@ class _ChipInputWidgetState extends State<ChipInputWidget> {
                   ),
                 ),
               ),
-              backgroundColor: colorPalette[colorIndex],
+              backgroundColor: isLightTheme
+                  ? lightColorPalette[colorIndex]
+                  : darkColorPalette[colorIndex],
               onDeleted: () {
                 final label = _inputController.text;
 
@@ -96,7 +100,9 @@ class _ChipInputWidgetState extends State<ChipInputWidget> {
                 color: whiteColor,
               ),
             ),
-            backgroundColor: colorPalette[colorIndex],
+            backgroundColor: isLightTheme
+                ? lightColorPalette[colorIndex]
+                : darkColorPalette[colorIndex],
             onDeleted: () => widget.onDeleted(index),
             deleteIconColor: whiteColor,
           );

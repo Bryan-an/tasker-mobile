@@ -74,11 +74,11 @@ class DrawerNavigator extends StatelessWidget {
           ),
           const Divider(),
           ListTile(
-            selected: false,
+            selected: selectedRoute == AppScreen.settings.toPath,
             leading: const Icon(Icons.settings),
             title: const Text('Settings'),
             onTap: () {
-              print('go to settings');
+              context.go(AppScreen.settings.toPath);
               context.pop();
             },
           ),

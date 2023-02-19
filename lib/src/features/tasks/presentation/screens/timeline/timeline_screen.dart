@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:tasker_mobile/src/common_widgets/export.dart';
 import 'package:tasker_mobile/src/constants/export.dart';
 import 'package:tasker_mobile/src/features/tasks/export.dart';
+import 'package:tasker_mobile/src/themes/export.dart';
 import 'package:tasker_mobile/src/utils/export.dart';
 
 class TimelineScreen extends StatefulWidget {
@@ -42,14 +43,16 @@ class _TimelineScreenState extends State<TimelineScreen>
 
   @override
   Widget build(BuildContext context) {
+    final isLightTheme = AppTheme.of(context) == AppThemes.lightTheme;
+
     return SafeArea(
       child: Scaffold(
-        backgroundColor: primaryColor,
+        backgroundColor: isLightTheme ? primaryColor : primaryDarkColor,
         drawer: const DrawerNavigator(),
         body: NestedScrollView(
           headerSliverBuilder: (context, value) => <Widget>[
             SliverAppBar(
-              backgroundColor: primaryColor,
+              backgroundColor: isLightTheme ? primaryColor : primaryDarkColor,
               foregroundColor: whiteColor,
               centerTitle: true,
               title: const Text(
@@ -63,11 +66,12 @@ class _TimelineScreenState extends State<TimelineScreen>
                 background: Padding(
                   padding: const EdgeInsets.only(top: 64, left: 4, right: 4),
                   child: Material(
-                    color: primaryColor,
+                    color: isLightTheme ? primaryColor : primaryDarkColor,
                     child: TabBar(
-                      labelColor: primaryColor,
+                      labelColor: isLightTheme ? primaryColor : whiteColor,
                       unselectedLabelColor: whiteColor,
-                      indicator: DateIndicator(color: whiteColor),
+                      indicator: DateIndicator(
+                          color: isLightTheme ? whiteColor : blackColor),
                       controller: _tabController,
                       tabs: _tabs,
                     ),
@@ -99,12 +103,12 @@ class _TimelineScreenState extends State<TimelineScreen>
 
                   return Container(
                     padding: const EdgeInsets.only(top: 16),
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(4),
                         topRight: Radius.circular(4),
                       ),
-                      color: whiteColor,
+                      color: isLightTheme ? whiteColor : blackColor,
                     ),
                     child: tasksByFrom.isEmpty
                         ? const EmptyWidget(
@@ -117,7 +121,7 @@ class _TimelineScreenState extends State<TimelineScreen>
                               final tasksByTime = tasksByFrom[time];
                               colorIndex++;
 
-                              if (colorIndex == colorPalette.length) {
+                              if (colorIndex == lightColorPalette.length) {
                                 colorIndex = 0;
                               }
 
@@ -130,7 +134,9 @@ class _TimelineScreenState extends State<TimelineScreen>
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 8.0),
                                       child: TimeIntervalWidget(
-                                        color: colorPalette[colorIndex],
+                                        color: isLightTheme
+                                            ? lightColorPalette[colorIndex]
+                                            : darkColorPalette[colorIndex],
                                       ),
                                     ),
                                   ),
