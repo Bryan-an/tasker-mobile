@@ -45,9 +45,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
               children: <Widget>[
                 Container(
                   padding: const EdgeInsets.symmetric(vertical: 8),
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     border: Border(
-                      bottom: BorderSide(width: 1, color: highlightColor),
+                      bottom: BorderSide(
+                        width: 1,
+                        color: isLightTheme
+                            ? highlightColor
+                            : Colors.grey.shade800,
+                      ),
                     ),
                   ),
                   child: const Text(
@@ -92,9 +97,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 Container(
                   padding: const EdgeInsets.symmetric(vertical: 8),
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     border: Border(
-                      bottom: BorderSide(width: 1, color: highlightColor),
+                      bottom: BorderSide(
+                        width: 1,
+                        color: isLightTheme
+                            ? highlightColor
+                            : Colors.grey.shade800,
+                      ),
                     ),
                   ),
                   child: const Text(
