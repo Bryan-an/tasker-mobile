@@ -37,6 +37,8 @@ void main() async {
   final androidSdkVersion =
       deviceInfo is AndroidDeviceInfo ? deviceInfo.version.sdkInt : 0;
 
+  await LocalNoticeService().setup();
+
   runApp(
     AppTheme(
       initialThemeKey: theme == "dark" ? AppThemeKeys.dark : AppThemeKeys.light,

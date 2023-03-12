@@ -7,6 +7,7 @@ import 'package:tasker_mobile/src/constants/export.dart';
 import 'package:tasker_mobile/src/features/tasks/export.dart';
 import 'package:tasker_mobile/src/router/export.dart';
 import 'package:tasker_mobile/src/themes/export.dart';
+import 'package:tasker_mobile/src/utils/export.dart';
 
 class AllTasksScreen extends StatelessWidget {
   const AllTasksScreen({super.key});
@@ -24,6 +25,8 @@ class AllTasksScreen extends StatelessWidget {
         drawer: const DrawerNavigator(),
         body: BlocBuilder<TaskBloc, TaskState>(
           builder: (context, state) {
+            LocalNoticeService().cancelAllNotifications();
+
             if (state.getTasksStatus.isLoading) {
               return const Center(
                 child: CircularProgressIndicator(),
@@ -90,10 +93,11 @@ class AllTasksScreen extends StatelessWidget {
                                 ),
                                 endActionPane: ActionPane(
                                   dismissible: DismissiblePane(
-                                    onDismissed: () =>
-                                        context.read<TaskBloc>().add(
-                                              DeleteTask(task.id!),
-                                            ),
+                                    onDismissed: () {
+                                      context.read<TaskBloc>().add(
+                                            DeleteTask(task.id!),
+                                          );
+                                    },
                                   ),
                                   motion: const StretchMotion(),
                                   children: [
@@ -114,7 +118,35 @@ class AllTasksScreen extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                                child: TaskCardWidget(task: task),
+                                child: Builder(
+                                  builder: (context) {
+                                    if (task.remind! && !task.done!) {
+                                      int notificationTime;
+
+                                      if (task.from != null) {
+                                        notificationTime =
+                                            task.from!.millisecondsSinceEpoch;
+                                      } else {
+                                        notificationTime = task.date!
+                                            .add(const Duration(hours: 6))
+                                            .millisecondsSinceEpoch;
+                                      }
+
+                                      if (notificationTime >
+                                          DateTime.now()
+                                              .millisecondsSinceEpoch) {
+                                        LocalNoticeService().addNotification(
+                                          title: task.title,
+                                          body: task.description,
+                                          time: notificationTime,
+                                          channel: 'to-do',
+                                        );
+                                      }
+                                    }
+
+                                    return TaskCardWidget(task: task);
+                                  },
+                                ),
                               ),
                             ),
                         ],
