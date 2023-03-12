@@ -11,6 +11,7 @@ import 'package:tasker_mobile/src/features/settings/export.dart';
 import 'package:tasker_mobile/src/features/tasks/export.dart';
 import 'package:tasker_mobile/src/router/export.dart';
 import 'package:tasker_mobile/src/themes/export.dart';
+import 'package:tasker_mobile/src/utils/export.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -91,6 +92,8 @@ class _HomeScreenState extends State<HomeScreen> {
           },
           child: BlocBuilder<TaskBloc, TaskState>(
             builder: (context, state) {
+              LocalNoticeService().cancelAllNotifications();
+
               if (state.getTasksStatus.isLoading) {
                 return const Center(
                   child: CircularProgressIndicator(),
@@ -276,7 +279,35 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                     ],
                                   ),
-                                  child: TaskCardWidget(task: task),
+                                  child: Builder(
+                                    builder: (context) {
+                                      if (task.remind! && !task.done!) {
+                                        int notificationTime;
+
+                                        if (task.from != null) {
+                                          notificationTime =
+                                              task.from!.millisecondsSinceEpoch;
+                                        } else {
+                                          notificationTime = task.date!
+                                              .add(const Duration(hours: 6))
+                                              .millisecondsSinceEpoch;
+                                        }
+
+                                        if (notificationTime >
+                                            DateTime.now()
+                                                .millisecondsSinceEpoch) {
+                                          LocalNoticeService().addNotification(
+                                            title: task.title,
+                                            body: task.description,
+                                            time: notificationTime,
+                                            channel: 'to-do',
+                                          );
+                                        }
+                                      }
+
+                                      return TaskCardWidget(task: task);
+                                    },
+                                  ),
                                 ),
                               ),
                           ],
