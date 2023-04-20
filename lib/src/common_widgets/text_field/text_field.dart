@@ -45,7 +45,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
       data: Theme.of(context).copyWith(
           colorScheme: ColorScheme.fromSeed(
         seedColor: secondaryColor,
-        primary: isError ? Theme.of(context).errorColor : secondaryColor,
+        primary: isError ? Theme.of(context).colorScheme.error : secondaryColor,
       )),
       child: TextFormField(
         textCapitalization: widget.textCapitalization,
@@ -63,7 +63,8 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
           errorText: widget.error,
           suffixIcon: widget.suffixIcon,
           floatingLabelStyle: TextStyle(
-            color: isError ? Theme.of(context).errorColor : secondaryColor,
+            color:
+                isError ? Theme.of(context).colorScheme.error : secondaryColor,
           ),
         ),
         validator: (widget.validator != null)

@@ -29,7 +29,7 @@ class EmptyWidget extends StatelessWidget {
                 title!,
                 style: Theme.of(context)
                     .textTheme
-                    .headline1
+                    .displayLarge
                     ?.copyWith(color: primaryColor.withOpacity(0.4)),
                 textAlign: TextAlign.center,
               ),
