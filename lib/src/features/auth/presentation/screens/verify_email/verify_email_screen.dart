@@ -46,7 +46,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
       final email = widget.user.email;
       final data = Verification(email: email);
 
-      context.read<AuthBloc>().add(ResendCode(data));
+      context.read<AuthBloc>().add(AuthEvent.resendCode(data: data));
       context.read<VerifyEmailScreenCubit>().resetTimer();
     };
   }
@@ -67,14 +67,14 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
           code: code,
         );
 
-        context.read<AuthBloc>().add(VerifyEmail(data));
+        context.read<AuthBloc>().add(AuthEvent.verifyEmail(data: data));
       }
     };
   }
 
   void _blocListener(BuildContext context, AuthState state) {
     if (state.verifyEmailStatus.isSuccess) {
-      context.read<AuthBloc>().add(Login(widget.user));
+      context.read<AuthBloc>().add(AuthEvent.login(user: widget.user));
     }
   }
 

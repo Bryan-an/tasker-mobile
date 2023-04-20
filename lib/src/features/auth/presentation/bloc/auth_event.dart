@@ -1,50 +1,22 @@
 part of 'auth_bloc.dart';
 
-class AuthEvent extends Equatable {
-  @override
-  List<Object?> get props => [];
-}
+@freezed
+class AuthEvent with _$AuthEvent {
+  const factory AuthEvent.login({required User user}) = _Login;
 
-class Login extends AuthEvent {
-  final User user;
+  const factory AuthEvent.loginWithFacebook() = _LoginWithFacebook;
 
-  Login(this.user);
+  const factory AuthEvent.loginWithGoogle() = _LoginWithGoogle;
 
-  @override
-  List<Object> get props => [user];
-}
+  const factory AuthEvent.register({required User user}) = _Register;
 
-class LoginWithFacebook extends AuthEvent {}
+  const factory AuthEvent.logout() = _Logout;
 
-class LoginWithGoogle extends AuthEvent {}
+  const factory AuthEvent.startApp() = _StartApp;
 
-class Register extends AuthEvent {
-  final User user;
+  const factory AuthEvent.verifyEmail({required Verification data}) =
+      _VerifyEmail;
 
-  Register(this.user);
-
-  @override
-  List<Object> get props => [user];
-}
-
-class Logout extends AuthEvent {}
-
-class AppStart extends AuthEvent {}
-
-class VerifyEmail extends AuthEvent {
-  final Verification data;
-
-  VerifyEmail(this.data);
-
-  @override
-  List<Object> get props => [data];
-}
-
-class ResendCode extends AuthEvent {
-  final Verification data;
-
-  ResendCode(this.data);
-
-  @override
-  List<Object> get props => [data];
+  const factory AuthEvent.resendCode({required Verification data}) =
+      _ResendCode;
 }

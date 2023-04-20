@@ -1,21 +1,18 @@
-import 'package:equatable/equatable.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:flutter/foundation.dart';
 
+part 'verification.freezed.dart';
 part 'verification.g.dart';
 
-@JsonSerializable(fieldRename: FieldRename.snake)
-class Verification extends Equatable {
-  final String? email;
-  final String? code;
-  final DateTime? expiresAt;
-
-  const Verification({this.email, this.code, this.expiresAt});
-
-  @override
-  List<Object?> get props => [email, code, expiresAt];
+@freezed
+class Verification with _$Verification {
+  @JsonSerializable(fieldRename: FieldRename.snake)
+  const factory Verification({
+    String? email,
+    String? code,
+    DateTime? expiresAt,
+  }) = _Verification;
 
   factory Verification.fromJson(Map<String, dynamic> json) =>
       _$VerificationFromJson(json);
-
-  Map<String, dynamic> toJson() => _$VerificationToJson(this);
 }

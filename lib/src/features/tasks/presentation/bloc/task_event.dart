@@ -1,74 +1,24 @@
 part of 'task_bloc.dart';
 
-abstract class TaskEvent extends Equatable {
-  const TaskEvent();
+@freezed
+class TaskEvent with _$TaskEvent {
+  const factory TaskEvent.getTasks({
+    TaskLevel? priority,
+    TaskLevel? complexity,
+    List<String>? labels,
+    TaskOrder? order,
+  }) = _GetTasks;
 
-  @override
-  List<Object> get props => [];
-}
+  const factory TaskEvent.updateTask({required Task task}) = _UpdateTask;
 
-class GetTasks extends TaskEvent {
-  final TaskLevel? priority;
-  final TaskLevel? complexity;
-  final List<String>? labels;
-  final TaskOrder? order;
+  const factory TaskEvent.replaceTask({required Task task}) = _ReplaceTask;
 
-  const GetTasks({
-    this.priority,
-    this.complexity,
-    this.labels,
-    this.order,
-  });
+  const factory TaskEvent.reorderTaskList({
+    required int oldIndex,
+    required int newIndex,
+  }) = _ReorderTaskList;
 
-  @override
-  List<Object> get props => [];
-}
+  const factory TaskEvent.addTask({required Task task}) = _AddTask;
 
-class UpdateTask extends TaskEvent {
-  final Task task;
-
-  const UpdateTask(this.task);
-
-  @override
-  List<Object> get props => [task];
-}
-
-class ReplaceTask extends TaskEvent {
-  final Task task;
-
-  const ReplaceTask(this.task);
-
-  @override
-  List<Object> get props => [task];
-}
-
-class ReorderTaskList extends TaskEvent {
-  final int oldIndex;
-  final int newIndex;
-
-  const ReorderTaskList({
-    required this.oldIndex,
-    required this.newIndex,
-  });
-
-  @override
-  List<Object> get props => [oldIndex, newIndex];
-}
-
-class AddTask extends TaskEvent {
-  final Task task;
-
-  const AddTask(this.task);
-
-  @override
-  List<Object> get props => [task];
-}
-
-class DeleteTask extends TaskEvent {
-  final String id;
-
-  const DeleteTask(this.id);
-
-  @override
-  List<Object> get props => [id];
+  const factory TaskEvent.deleteTask({required String id}) = _DeleteTask;
 }

@@ -1,24 +1,9 @@
 part of 'settings_bloc.dart';
 
-abstract class SettingsEvent extends Equatable {
-  const SettingsEvent();
+@freezed
+class SettingsEvent with _$SettingsEvent {
+  const factory SettingsEvent.getSettings() = _GetSettings;
 
-  @override
-  List<Object> get props => [];
-}
-
-class GetSettings extends SettingsEvent {
-  const GetSettings();
-
-  @override
-  List<Object> get props => [];
-}
-
-class UpdateSettings extends SettingsEvent {
-  final Settings settings;
-
-  const UpdateSettings(this.settings);
-
-  @override
-  List<Object> get props => [settings];
+  const factory SettingsEvent.updateSettings({required Settings settings}) =
+      _UpdateSettings;
 }

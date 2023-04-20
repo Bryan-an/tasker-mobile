@@ -1,10 +1,12 @@
 import 'package:dio/dio.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tasker_mobile/src/constants/export.dart';
 import 'package:tasker_mobile/src/features/tasks/export.dart';
 import 'package:tasker_mobile/src/utils/export.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:flutter/foundation.dart';
 
+part 'task_bloc.freezed.dart';
 part 'task_event.dart';
 part 'task_state.dart';
 
@@ -12,15 +14,19 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
   final ITaskRepository taskRepository;
 
   TaskBloc({required this.taskRepository}) : super(const TaskState()) {
-    on<GetTasks>(_mapGetTasksEventToState);
-    on<UpdateTask>(_mapUpdateTaskEventToState);
-    on<ReorderTaskList>(_mapReorderTaskListEventToState);
-    on<AddTask>(_mapAddTaskEventToState);
-    on<DeleteTask>(_mapDeleteTaskEventToState);
-    on<ReplaceTask>(_mapReplaceTaskEventToState);
+    on<TaskEvent>((events, emit) async {
+      await events.map(
+        getTasks: (event) async => await _getTasks(event, emit),
+        addTask: (event) async => await _addTask(event, emit),
+        deleteTask: (event) async => await _deleteTask(event, emit),
+        reorderTaskList: (event) async => await _reorderTaskList(event, emit),
+        replaceTask: (event) async => await _replaceTask(event, emit),
+        updateTask: (event) async => await _updateTask(event, emit),
+      );
+    });
   }
 
-  void _mapGetTasksEventToState(GetTasks event, Emitter<TaskState> emit) async {
+  _getTasks(_GetTasks event, Emitter<TaskState> emit) async {
     emit(state.copyWith(getTasksStatus: Status.loading));
 
     try {
@@ -42,12 +48,9 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
       showGeneralError(e);
       emit(state.copyWith(getTasksStatus: Status.error));
     }
-
-    emit(state.copyWith(getTasksStatus: Status.initial));
   }
 
-  void _mapUpdateTaskEventToState(
-      UpdateTask event, Emitter<TaskState> emit) async {
+  _updateTask(_UpdateTask event, Emitter<TaskState> emit) async {
     emit(state.copyWith(updateTaskStatus: Status.loading));
 
     try {
@@ -68,17 +71,14 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
       showGeneralError(e);
       emit(state.copyWith(updateTaskStatus: Status.error));
     }
-
-    emit(state.copyWith(updateTaskStatus: Status.initial));
   }
 
-  void _mapReplaceTaskEventToState(
-      ReplaceTask event, Emitter<TaskState> emit) async {
+  _replaceTask(_ReplaceTask event, Emitter<TaskState> emit) async {
     emit(state.copyWith(replaceTaskStatus: Status.loading));
 
     try {
       await taskRepository.replace(event.task.id!, event.task);
-      add(const GetTasks());
+      add(const _GetTasks());
 
       emit(state.copyWith(
         replaceTaskStatus: Status.success,
@@ -90,16 +90,14 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
       showGeneralError(e);
       emit(state.copyWith(replaceTaskStatus: Status.error));
     }
-
-    emit(state.copyWith(replaceTaskStatus: Status.initial));
   }
 
-  void _mapAddTaskEventToState(AddTask event, Emitter<TaskState> emit) async {
+  _addTask(_AddTask event, Emitter<TaskState> emit) async {
     emit(state.copyWith(addTaskStatus: Status.loading));
 
     try {
       await taskRepository.insert(event.task);
-      add(const GetTasks());
+      add(const _GetTasks());
 
       emit(state.copyWith(
         addTaskStatus: Status.success,
@@ -111,12 +109,9 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
       showGeneralError(e);
       emit(state.copyWith(addTaskStatus: Status.error));
     }
-
-    emit(state.copyWith(addTaskStatus: Status.initial));
   }
 
-  void _mapReorderTaskListEventToState(
-      ReorderTaskList event, Emitter<TaskState> emit) {
+  _reorderTaskList(_ReorderTaskList event, Emitter<TaskState> emit) {
     var oldIndex = event.oldIndex;
     var newIndex = event.newIndex;
     final taskList = List<Task>.from(state.tasks);
@@ -130,8 +125,7 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     emit(state.copyWith(tasks: taskList));
   }
 
-  void _mapDeleteTaskEventToState(
-      DeleteTask event, Emitter<TaskState> emit) async {
+  _deleteTask(_DeleteTask event, Emitter<TaskState> emit) async {
     emit(state.copyWith(deleteTaskStatus: Status.loading));
 
     try {
@@ -149,7 +143,5 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
       showGeneralError(e);
       emit(state.copyWith(deleteTaskStatus: Status.error));
     }
-
-    emit(state.copyWith(deleteTaskStatus: Status.initial));
   }
 }

@@ -1,12 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: non_constant_identifier_names
+
 part of 'task.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Task _$TaskFromJson(Map<String, dynamic> json) => Task(
+_$_Task _$$_TaskFromJson(Map<String, dynamic> json) => _$_Task(
       id: json['id'] as String?,
       userId: json['user_id'] as String?,
       title: json['title'] as String?,
@@ -31,7 +33,7 @@ Task _$TaskFromJson(Map<String, dynamic> json) => Task(
           : DateTime.parse(json['updated_at'] as String),
     );
 
-Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{
+Map<String, dynamic> _$$_TaskToJson(_$_Task instance) => <String, dynamic>{
       'id': instance.id,
       'user_id': instance.userId,
       'title': instance.title,
@@ -39,12 +41,12 @@ Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{
       'labels': instance.labels,
       'priority': instance.priority,
       'complexity': instance.complexity,
-      'date': instance.date?.toUtc().toIso8601String(),
-      'from': instance.from?.toUtc().toIso8601String(),
-      'to': instance.to?.toUtc().toIso8601String(),
+      'date': instance.date?.toIso8601String(),
+      'from': instance.from?.toIso8601String(),
+      'to': instance.to?.toIso8601String(),
       'done': instance.done,
       'remind': instance.remind,
       'status': instance.status,
-      'created_at': instance.createdAt?.toUtc().toIso8601String(),
-      'updated_at': instance.updatedAt?.toUtc().toIso8601String(),
+      'created_at': instance.createdAt?.toIso8601String(),
+      'updated_at': instance.updatedAt?.toIso8601String(),
     };

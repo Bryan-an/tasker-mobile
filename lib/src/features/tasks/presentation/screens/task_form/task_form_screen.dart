@@ -98,7 +98,7 @@ class _TaskFormScreenState extends State<TaskFormScreen> {
     return () {
       if (_formGlobalKey.currentState!.validate()) {
         final task = _prepareTask(context);
-        context.read<TaskBloc>().add(AddTask(task));
+        context.read<TaskBloc>().add(TaskEvent.addTask(task: task));
       }
     };
   }
@@ -107,7 +107,7 @@ class _TaskFormScreenState extends State<TaskFormScreen> {
     return () {
       if (_formGlobalKey.currentState!.validate()) {
         final task = _prepareTask(context);
-        context.read<TaskBloc>().add(ReplaceTask(task));
+        context.read<TaskBloc>().add(TaskEvent.replaceTask(task: task));
       }
     };
   }
