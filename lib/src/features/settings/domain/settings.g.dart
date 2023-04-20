@@ -27,6 +27,6 @@ Map<String, dynamic> _$SettingsToJson(Settings instance) => <String, dynamic>{
       'user_id': instance.userId,
       'notifications': instance.notifications,
       'theme': instance.theme,
-      'created_at': instance.createdAt?.toUtc().toIso8601String(),
-      'updated_at': instance.updatedAt?.toUtc().toIso8601String(),
+      'created_at': instance.createdAt?.toIso8601String(),
+      'updated_at': instance.updatedAt?.toIso8601String(),
     };
