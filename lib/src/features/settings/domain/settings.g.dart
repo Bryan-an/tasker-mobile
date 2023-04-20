@@ -1,12 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: non_constant_identifier_names
+
 part of 'settings.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Settings _$SettingsFromJson(Map<String, dynamic> json) => Settings(
+_$_Settings _$$_SettingsFromJson(Map<String, dynamic> json) => _$_Settings(
       id: json['id'] as String?,
       userId: json['user_id'] as String?,
       notifications: json['notifications'] == null
@@ -22,7 +24,8 @@ Settings _$SettingsFromJson(Map<String, dynamic> json) => Settings(
           : DateTime.parse(json['updated_at'] as String),
     );
 
-Map<String, dynamic> _$SettingsToJson(Settings instance) => <String, dynamic>{
+Map<String, dynamic> _$$_SettingsToJson(_$_Settings instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'user_id': instance.userId,
       'notifications': instance.notifications,
