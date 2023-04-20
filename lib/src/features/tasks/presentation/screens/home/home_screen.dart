@@ -29,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _confettiController =
         ConfettiController(duration: const Duration(seconds: 1));
     context.read<TaskBloc>().add(const GetTasks());
-    context.read<SettingsBloc>().add(const GetSettings());
+    context.read<SettingsBloc>().add(const SettingsEvent.getSettings());
   }
 
   @override

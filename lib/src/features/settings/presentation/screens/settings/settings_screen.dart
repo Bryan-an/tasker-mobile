@@ -70,8 +70,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     activeColor: isLightTheme ? primaryColor : primaryDarkColor,
                     value: settings.notifications?.mobile ?? false,
                     onChanged: (bool value) => context.read<SettingsBloc>().add(
-                          UpdateSettings(
-                            Settings(
+                          SettingsEvent.updateSettings(
+                            settings: Settings(
                               notifications: settings.notifications
                                   ?.copyWith(mobile: value),
                             ),
@@ -86,8 +86,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     activeColor: isLightTheme ? primaryColor : primaryDarkColor,
                     value: settings.notifications?.email ?? false,
                     onChanged: (bool value) => context.read<SettingsBloc>().add(
-                          UpdateSettings(
-                            Settings(
+                          SettingsEvent.updateSettings(
+                            settings: Settings(
                               notifications: settings.notifications
                                   ?.copyWith(email: value),
                             ),
@@ -128,8 +128,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     inactiveThumbImage: const AssetImage("assets/img/sun.png"),
                     onChanged: (bool value) {
                       context.read<SettingsBloc>().add(
-                            UpdateSettings(
-                              Settings(
+                            SettingsEvent.updateSettings(
+                              settings: Settings(
                                 theme: value ? "dark" : "light",
                               ),
                             ),
