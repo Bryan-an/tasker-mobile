@@ -66,9 +66,7 @@ void main() async {
               authRepository: context.read<AuthRepository>(),
               userRepository: context.read<UserRepository>(),
               sessionCubit: context.read<SessionCubit>(),
-            )..add(
-                AppStart(),
-              ),
+            )..add(const AuthEvent.startApp()),
           ),
           BlocProvider(
             create: (context) => TaskBloc(

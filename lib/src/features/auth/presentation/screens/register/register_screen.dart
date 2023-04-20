@@ -92,7 +92,7 @@ class _RegisterScreenState extends State<RegisterScreen>
           password: password,
         );
 
-        context.read<AuthBloc>().add(Register(user));
+        context.read<AuthBloc>().add(AuthEvent.register(user: user));
         context.read<RegisterScreenCubit>().setUser(user);
       }
     };

@@ -86,7 +86,7 @@ class DrawerNavigator extends StatelessWidget {
             leading: const Icon(Icons.logout),
             title: const Text('Log out'),
             onTap: () {
-              context.read<AuthBloc>().add(Logout());
+              context.read<AuthBloc>().add(const AuthEvent.logout());
               context.pop();
             },
           ),

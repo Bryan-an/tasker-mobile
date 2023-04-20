@@ -69,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
         final String password = _passwordInputController.text;
         final user = User(email: email, password: password);
 
-        context.read<AuthBloc>().add(Login(user));
+        context.read<AuthBloc>().add(AuthEvent.login(user: user));
       }
     };
   }
@@ -82,13 +82,13 @@ class _LoginScreenState extends State<LoginScreen> with InputValidationMixin {
 
   VoidCallback _loginWithFacebook(BuildContext context) {
     return () {
-      context.read<AuthBloc>().add(LoginWithFacebook());
+      context.read<AuthBloc>().add(const AuthEvent.loginWithFacebook());
     };
   }
 
   VoidCallback _loginWithGoogle(BuildContext context) {
     return () {
-      context.read<AuthBloc>().add(LoginWithGoogle());
+      context.read<AuthBloc>().add(const AuthEvent.loginWithGoogle());
     };
   }
 

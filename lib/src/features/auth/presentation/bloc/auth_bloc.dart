@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -8,7 +7,11 @@ import 'package:tasker_mobile/src/config/export.dart';
 import 'package:tasker_mobile/src/constants/export.dart';
 import 'package:tasker_mobile/src/features/auth/export.dart';
 import 'package:tasker_mobile/src/utils/export.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+// ignore: unnecessary_import
+import 'package:flutter/foundation.dart';
 
+part 'auth_bloc.freezed.dart';
 part 'auth_event.dart';
 part 'auth_state.dart';
 
@@ -22,17 +25,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     required this.userRepository,
     required this.sessionCubit,
   }) : super(const AuthState()) {
-    on<Login>(_mapLoginEventToState);
-    on<LoginWithFacebook>(_mapLoginWithFacebookEventToState);
-    on<LoginWithGoogle>(_mapLoginWithGoogleEventToState);
-    on<Register>(_mapRegisterEventToState);
-    on<AppStart>(_mapAppStartEventToState);
-    on<Logout>(_mapLogoutUserEventToState);
-    on<VerifyEmail>(_mapVerifyEmailEventToState);
-    on<ResendCode>(_mapResendCodeEventToState);
+    on<AuthEvent>((events, emit) async {
+      await events.map(
+        login: (event) async => await _login(event, emit),
+        loginWithFacebook: (event) async =>
+            await _loginWithFacebook(event, emit),
+        loginWithGoogle: (event) async => await _loginWithGoogle(event, emit),
+        logout: (event) async => await _logout(event, emit),
+        register: (event) async => await _register(event, emit),
+        resendCode: (event) async => await _resendCode(event, emit),
+        startApp: (event) async => await _startApp(event, emit),
+        verifyEmail: (event) async => await _verifyEmail(event, emit),
+      );
+    });
   }
 
-  void _mapLoginEventToState(Login event, Emitter<AuthState> emit) async {
+  _login(_Login event, Emitter<AuthState> emit) async {
     emit(state.copyWith(loginStatus: Status.loading));
 
     try {
@@ -52,12 +60,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       showGeneralError(error);
       emit(state.copyWith(loginStatus: Status.error));
     }
-
-    emit(state.copyWith(loginStatus: Status.initial));
   }
 
-  void _mapLoginWithFacebookEventToState(
-      LoginWithFacebook event, Emitter<AuthState> emit) async {
+  _loginWithFacebook(_LoginWithFacebook event, Emitter<AuthState> emit) async {
     emit(state.copyWith(loginFacebookStatus: Status.loading));
 
     try {
@@ -77,12 +82,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       showGeneralError(error);
       emit(state.copyWith(loginFacebookStatus: Status.error));
     }
-
-    emit(state.copyWith(loginFacebookStatus: Status.initial));
   }
 
-  void _mapLoginWithGoogleEventToState(
-      LoginWithGoogle event, Emitter<AuthState> emit) async {
+  _loginWithGoogle(_LoginWithGoogle event, Emitter<AuthState> emit) async {
     emit(state.copyWith(loginGoogleStatus: Status.loading));
 
     try {
@@ -102,11 +104,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       showGeneralError(error);
       emit(state.copyWith(loginGoogleStatus: Status.error));
     }
-
-    emit(state.copyWith(loginGoogleStatus: Status.initial));
   }
 
-  void _mapRegisterEventToState(Register event, Emitter<AuthState> emit) async {
+  _register(_Register event, Emitter<AuthState> emit) async {
     emit(state.copyWith(registerStatus: Status.loading));
 
     try {
@@ -119,11 +119,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       showGeneralError(error);
       emit(state.copyWith(registerStatus: Status.error));
     }
-
-    emit(state.copyWith(registerStatus: Status.initial));
   }
 
-  void _mapAppStartEventToState(AppStart event, Emitter<AuthState> emit) async {
+  _startApp(_StartApp event, Emitter<AuthState> emit) async {
     dio.interceptors.add(InterceptorsWrapper(
       onError: (e, handler) {
         if (e.response?.statusCode == 401) {
@@ -161,7 +159,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     FlutterNativeSplash.remove();
   }
 
-  void _mapLogoutUserEventToState(Logout event, Emitter<AuthState> emit) async {
+  _logout(_Logout event, Emitter<AuthState> emit) async {
     emit(state.copyWith(logoutStatus: Status.loading));
 
     try {
@@ -180,12 +178,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       showGeneralError(e);
       emit(state.copyWith(logoutStatus: Status.error));
     }
-
-    emit(state.copyWith(logoutStatus: Status.initial));
   }
 
-  void _mapVerifyEmailEventToState(
-      VerifyEmail event, Emitter<AuthState> emit) async {
+  _verifyEmail(_VerifyEmail event, Emitter<AuthState> emit) async {
     emit(state.copyWith(verifyEmailStatus: Status.loading));
 
     try {
@@ -198,12 +193,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       showGeneralError(error);
       emit(state.copyWith(verifyEmailStatus: Status.error));
     }
-
-    emit(state.copyWith(verifyEmailStatus: Status.initial));
   }
 
-  void _mapResendCodeEventToState(
-      ResendCode event, Emitter<AuthState> emit) async {
+  _resendCode(_ResendCode event, Emitter<AuthState> emit) async {
     emit(state.copyWith(resendCodeStatus: Status.loading));
 
     try {
@@ -222,7 +214,5 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       showGeneralError(error);
       emit(state.copyWith(resendCodeStatus: Status.error));
     }
-
-    emit(state.copyWith(resendCodeStatus: Status.initial));
   }
 }
