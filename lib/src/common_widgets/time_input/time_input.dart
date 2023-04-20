@@ -31,7 +31,7 @@ class _TimeInputWidgetState extends State<TimeInputWidget> {
       data: Theme.of(context).copyWith(
           colorScheme: ColorScheme.fromSeed(
         seedColor: secondaryColor,
-        primary: isError ? Theme.of(context).errorColor : secondaryColor,
+        primary: isError ? Theme.of(context).colorScheme.error : secondaryColor,
       )),
       child: TextFormField(
         controller: widget.controller,
@@ -42,7 +42,8 @@ class _TimeInputWidgetState extends State<TimeInputWidget> {
           hintText: widget.hint,
           prefixIcon: const Icon(Icons.access_time),
           floatingLabelStyle: TextStyle(
-            color: isError ? Theme.of(context).errorColor : secondaryColor,
+            color:
+                isError ? Theme.of(context).colorScheme.error : secondaryColor,
           ),
         ),
         validator: (widget.validator != null)

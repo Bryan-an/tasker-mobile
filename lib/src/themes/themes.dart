@@ -35,11 +35,11 @@ class AppThemes {
     ),
     scaffoldBackgroundColor: whiteColor,
     textTheme: const TextTheme(
-      headline1: TextStyle(
+      displayLarge: TextStyle(
         fontSize: 32,
         fontWeight: FontWeight.bold,
       ),
-      button: TextStyle(
+      labelLarge: TextStyle(
         fontSize: 18,
       ),
     ).apply(
@@ -68,7 +68,6 @@ class AppThemes {
 
   static final ThemeData darkTheme = ThemeData(
     primaryColor: primaryDarkColor,
-    backgroundColor: blackColor,
     appBarTheme: const AppBarTheme(
       systemOverlayStyle: SystemUiOverlayStyle(
         statusBarColor: primaryDarkColor,
@@ -99,11 +98,11 @@ class AppThemes {
     ),
     scaffoldBackgroundColor: blackColor,
     textTheme: const TextTheme(
-      headline1: TextStyle(
+      displayLarge: TextStyle(
         fontSize: 32,
         fontWeight: FontWeight.bold,
       ),
-      button: TextStyle(
+      labelLarge: TextStyle(
         fontSize: 18,
       ),
     ).apply(
