@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     _confettiController =
         ConfettiController(duration: const Duration(seconds: 1));
-    context.read<TaskBloc>().add(const GetTasks());
+    context.read<TaskBloc>().add(const TaskEvent.getTasks());
     context.read<SettingsBloc>().add(const SettingsEvent.getSettings());
   }
 
@@ -219,7 +219,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           onReorder: (oldIndex, newIndex) =>
                               context.read<TaskBloc>().add(
-                                    ReorderTaskList(
+                                    TaskEvent.reorderTaskList(
                                       oldIndex: oldIndex,
                                       newIndex: newIndex,
                                     ),
@@ -255,10 +255,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                   endActionPane: ActionPane(
                                     dismissible: DismissiblePane(
-                                      onDismissed: () =>
-                                          context.read<TaskBloc>().add(
-                                                DeleteTask(task.id!),
-                                              ),
+                                      onDismissed: () => context
+                                          .read<TaskBloc>()
+                                          .add(
+                                            TaskEvent.deleteTask(id: task.id!),
+                                          ),
                                     ),
                                     motion: const StretchMotion(),
                                     children: [
@@ -269,7 +270,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                         onPressed: (context) =>
                                             context.read<TaskBloc>().add(
-                                                  DeleteTask(task.id!),
+                                                  TaskEvent.deleteTask(
+                                                      id: task.id!),
                                                 ),
                                         icon: Icons.delete,
                                         backgroundColor: isLightTheme

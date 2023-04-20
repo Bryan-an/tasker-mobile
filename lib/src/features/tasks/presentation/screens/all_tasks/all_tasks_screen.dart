@@ -57,7 +57,7 @@ class AllTasksScreen extends StatelessWidget {
                         ),
                         onReorder: (oldIndex, newIndex) =>
                             context.read<TaskBloc>().add(
-                                  ReorderTaskList(
+                                  TaskEvent.reorderTaskList(
                                     oldIndex: oldIndex,
                                     newIndex: newIndex,
                                   ),
@@ -95,7 +95,7 @@ class AllTasksScreen extends StatelessWidget {
                                   dismissible: DismissiblePane(
                                     onDismissed: () {
                                       context.read<TaskBloc>().add(
-                                            DeleteTask(task.id!),
+                                            TaskEvent.deleteTask(id: task.id!),
                                           );
                                     },
                                   ),
@@ -106,10 +106,11 @@ class AllTasksScreen extends StatelessWidget {
                                         topRight: Radius.circular(10),
                                         bottomRight: Radius.circular(10),
                                       ),
-                                      onPressed: (context) =>
-                                          context.read<TaskBloc>().add(
-                                                DeleteTask(task.id!),
-                                              ),
+                                      onPressed: (context) => context
+                                          .read<TaskBloc>()
+                                          .add(
+                                            TaskEvent.deleteTask(id: task.id!),
+                                          ),
                                       icon: Icons.delete,
                                       backgroundColor: isLightTheme
                                           ? primaryColor

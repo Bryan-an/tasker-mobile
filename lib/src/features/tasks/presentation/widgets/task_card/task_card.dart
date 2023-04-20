@@ -156,8 +156,8 @@ class TaskCardWidget extends StatelessWidget {
                           value: done,
                           onChanged: (bool? value) =>
                               context.read<TaskBloc>().add(
-                                    UpdateTask(
-                                      task.copyWith(done: value),
+                                    TaskEvent.updateTask(
+                                      task: task.copyWith(done: value),
                                     ),
                                   ),
                           activeColor: isLightTheme
