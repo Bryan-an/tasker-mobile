@@ -1,12 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: non_constant_identifier_names
+
 part of 'task.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Task _$TaskFromJson(Map<String, dynamic> json) => Task(
+_$_Task _$$_TaskFromJson(Map<String, dynamic> json) => _$_Task(
       id: json['id'] as String?,
       userId: json['user_id'] as String?,
       title: json['title'] as String?,
@@ -31,7 +33,7 @@ Task _$TaskFromJson(Map<String, dynamic> json) => Task(
           : DateTime.parse(json['updated_at'] as String),
     );
 
-Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{
+Map<String, dynamic> _$$_TaskToJson(_$_Task instance) => <String, dynamic>{
       'id': instance.id,
       'user_id': instance.userId,
       'title': instance.title,
