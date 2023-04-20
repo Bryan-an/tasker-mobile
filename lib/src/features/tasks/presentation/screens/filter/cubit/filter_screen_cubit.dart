@@ -1,10 +1,12 @@
 import 'package:dio/dio.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tasker_mobile/src/constants/export.dart';
 import 'package:tasker_mobile/src/features/tasks/export.dart';
 import 'package:tasker_mobile/src/utils/export.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:flutter/foundation.dart';
 
+part 'filter_screen_cubit.freezed.dart';
 part 'filter_screen_state.dart';
 
 class FilterScreenCubit extends Cubit<FilterScreenState> {
@@ -44,7 +46,5 @@ class FilterScreenCubit extends Cubit<FilterScreenState> {
       showGeneralError(e);
       emit(state.copyWith(searchStatus: Status.error));
     }
-
-    emit(state.copyWith(searchStatus: Status.initial));
   }
 }
