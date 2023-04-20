@@ -6,7 +6,8 @@ part of 'verification.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Verification _$VerificationFromJson(Map<String, dynamic> json) => Verification(
+_$_Verification _$$_VerificationFromJson(Map<String, dynamic> json) =>
+    _$_Verification(
       email: json['email'] as String?,
       code: json['code'] as String?,
       expiresAt: json['expires_at'] == null
@@ -14,7 +15,7 @@ Verification _$VerificationFromJson(Map<String, dynamic> json) => Verification(
           : DateTime.parse(json['expires_at'] as String),
     );
 
-Map<String, dynamic> _$VerificationToJson(Verification instance) =>
+Map<String, dynamic> _$$_VerificationToJson(_$_Verification instance) =>
     <String, dynamic>{
       'email': instance.email,
       'code': instance.code,
