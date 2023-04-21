@@ -84,9 +84,9 @@ class _TaskFormScreenState extends State<TaskFormScreen> {
       priority: priority.toName,
       complexity: complexity.toName,
       labels: labels.isEmpty ? null : labels,
-      date: date,
-      from: from,
-      to: to,
+      date: date.toUtc(),
+      from: from?.toUtc(),
+      to: to?.toUtc(),
       remind: remind,
       done: false,
     );
