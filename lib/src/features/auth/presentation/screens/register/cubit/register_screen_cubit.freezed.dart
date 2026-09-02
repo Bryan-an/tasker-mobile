@@ -73,11 +73,11 @@ class _$RegisterScreenStateCopyWithImpl<$Res, $Val extends RegisterScreenState>
 }
 
 /// @nodoc
-abstract class _$$_RegisterScreenStateCopyWith<$Res>
+abstract class _$$RegisterScreenStateImplCopyWith<$Res>
     implements $RegisterScreenStateCopyWith<$Res> {
-  factory _$$_RegisterScreenStateCopyWith(_$_RegisterScreenState value,
-          $Res Function(_$_RegisterScreenState) then) =
-      __$$_RegisterScreenStateCopyWithImpl<$Res>;
+  factory _$$RegisterScreenStateImplCopyWith(_$RegisterScreenStateImpl value,
+          $Res Function(_$RegisterScreenStateImpl) then) =
+      __$$RegisterScreenStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({bool passwordVisible, User user});
@@ -87,11 +87,11 @@ abstract class _$$_RegisterScreenStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_RegisterScreenStateCopyWithImpl<$Res>
-    extends _$RegisterScreenStateCopyWithImpl<$Res, _$_RegisterScreenState>
-    implements _$$_RegisterScreenStateCopyWith<$Res> {
-  __$$_RegisterScreenStateCopyWithImpl(_$_RegisterScreenState _value,
-      $Res Function(_$_RegisterScreenState) _then)
+class __$$RegisterScreenStateImplCopyWithImpl<$Res>
+    extends _$RegisterScreenStateCopyWithImpl<$Res, _$RegisterScreenStateImpl>
+    implements _$$RegisterScreenStateImplCopyWith<$Res> {
+  __$$RegisterScreenStateImplCopyWithImpl(_$RegisterScreenStateImpl _value,
+      $Res Function(_$RegisterScreenStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -100,7 +100,7 @@ class __$$_RegisterScreenStateCopyWithImpl<$Res>
     Object? passwordVisible = null,
     Object? user = null,
   }) {
-    return _then(_$_RegisterScreenState(
+    return _then(_$RegisterScreenStateImpl(
       passwordVisible: null == passwordVisible
           ? _value.passwordVisible
           : passwordVisible // ignore: cast_nullable_to_non_nullable
@@ -115,10 +115,10 @@ class __$$_RegisterScreenStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_RegisterScreenState
+class _$RegisterScreenStateImpl
     with DiagnosticableTreeMixin
     implements _RegisterScreenState {
-  const _$_RegisterScreenState(
+  const _$RegisterScreenStateImpl(
       {this.passwordVisible = false, this.user = const User()});
 
   @override
@@ -146,7 +146,7 @@ class _$_RegisterScreenState
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_RegisterScreenState &&
+            other is _$RegisterScreenStateImpl &&
             (identical(other.passwordVisible, passwordVisible) ||
                 other.passwordVisible == passwordVisible) &&
             (identical(other.user, user) || other.user == user));
@@ -158,14 +158,15 @@ class _$_RegisterScreenState
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_RegisterScreenStateCopyWith<_$_RegisterScreenState> get copyWith =>
-      __$$_RegisterScreenStateCopyWithImpl<_$_RegisterScreenState>(
+  _$$RegisterScreenStateImplCopyWith<_$RegisterScreenStateImpl> get copyWith =>
+      __$$RegisterScreenStateImplCopyWithImpl<_$RegisterScreenStateImpl>(
           this, _$identity);
 }
 
 abstract class _RegisterScreenState implements RegisterScreenState {
   const factory _RegisterScreenState(
-      {final bool passwordVisible, final User user}) = _$_RegisterScreenState;
+      {final bool passwordVisible,
+      final User user}) = _$RegisterScreenStateImpl;
 
   @override
   bool get passwordVisible;
@@ -173,6 +174,6 @@ abstract class _RegisterScreenState implements RegisterScreenState {
   User get user;
   @override
   @JsonKey(ignore: true)
-  _$$_RegisterScreenStateCopyWith<_$_RegisterScreenState> get copyWith =>
+  _$$RegisterScreenStateImplCopyWith<_$RegisterScreenStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

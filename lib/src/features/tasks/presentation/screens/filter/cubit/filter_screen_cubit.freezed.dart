@@ -63,22 +63,22 @@ class _$FilterScreenStateCopyWithImpl<$Res, $Val extends FilterScreenState>
 }
 
 /// @nodoc
-abstract class _$$_FilterScreenStateCopyWith<$Res>
+abstract class _$$FilterScreenStateImplCopyWith<$Res>
     implements $FilterScreenStateCopyWith<$Res> {
-  factory _$$_FilterScreenStateCopyWith(_$_FilterScreenState value,
-          $Res Function(_$_FilterScreenState) then) =
-      __$$_FilterScreenStateCopyWithImpl<$Res>;
+  factory _$$FilterScreenStateImplCopyWith(_$FilterScreenStateImpl value,
+          $Res Function(_$FilterScreenStateImpl) then) =
+      __$$FilterScreenStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({List<Task> tasks, Status searchStatus});
 }
 
 /// @nodoc
-class __$$_FilterScreenStateCopyWithImpl<$Res>
-    extends _$FilterScreenStateCopyWithImpl<$Res, _$_FilterScreenState>
-    implements _$$_FilterScreenStateCopyWith<$Res> {
-  __$$_FilterScreenStateCopyWithImpl(
-      _$_FilterScreenState _value, $Res Function(_$_FilterScreenState) _then)
+class __$$FilterScreenStateImplCopyWithImpl<$Res>
+    extends _$FilterScreenStateCopyWithImpl<$Res, _$FilterScreenStateImpl>
+    implements _$$FilterScreenStateImplCopyWith<$Res> {
+  __$$FilterScreenStateImplCopyWithImpl(_$FilterScreenStateImpl _value,
+      $Res Function(_$FilterScreenStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -87,7 +87,7 @@ class __$$_FilterScreenStateCopyWithImpl<$Res>
     Object? tasks = null,
     Object? searchStatus = null,
   }) {
-    return _then(_$_FilterScreenState(
+    return _then(_$FilterScreenStateImpl(
       tasks: null == tasks
           ? _value._tasks
           : tasks // ignore: cast_nullable_to_non_nullable
@@ -102,10 +102,10 @@ class __$$_FilterScreenStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_FilterScreenState
+class _$FilterScreenStateImpl
     with DiagnosticableTreeMixin
     implements _FilterScreenState {
-  const _$_FilterScreenState(
+  const _$FilterScreenStateImpl(
       {final List<Task> tasks = const [], this.searchStatus = Status.initial})
       : _tasks = tasks;
 
@@ -140,7 +140,7 @@ class _$_FilterScreenState
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_FilterScreenState &&
+            other is _$FilterScreenStateImpl &&
             const DeepCollectionEquality().equals(other._tasks, _tasks) &&
             (identical(other.searchStatus, searchStatus) ||
                 other.searchStatus == searchStatus));
@@ -153,15 +153,15 @@ class _$_FilterScreenState
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_FilterScreenStateCopyWith<_$_FilterScreenState> get copyWith =>
-      __$$_FilterScreenStateCopyWithImpl<_$_FilterScreenState>(
+  _$$FilterScreenStateImplCopyWith<_$FilterScreenStateImpl> get copyWith =>
+      __$$FilterScreenStateImplCopyWithImpl<_$FilterScreenStateImpl>(
           this, _$identity);
 }
 
 abstract class _FilterScreenState implements FilterScreenState {
   const factory _FilterScreenState(
       {final List<Task> tasks,
-      final Status searchStatus}) = _$_FilterScreenState;
+      final Status searchStatus}) = _$FilterScreenStateImpl;
 
   @override
   List<Task> get tasks;
@@ -169,6 +169,6 @@ abstract class _FilterScreenState implements FilterScreenState {
   Status get searchStatus;
   @override
   @JsonKey(ignore: true)
-  _$$_FilterScreenStateCopyWith<_$_FilterScreenState> get copyWith =>
+  _$$FilterScreenStateImplCopyWith<_$FilterScreenStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -1,5 +1,5 @@
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:flutter/foundation.dart';
 
 import 'package:tasker_mobile/src/features/settings/export.dart';
 
@@ -13,7 +13,7 @@ class Settings with _$Settings {
     String? id,
     String? userId,
     Notifications? notifications,
-    String? theme,
+    @ThemeModeConverter() ThemeMode? theme,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) = _Settings;

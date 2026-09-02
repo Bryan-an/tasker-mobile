@@ -1,5 +1,6 @@
 export 'domain/notifications.dart';
 export 'domain/settings.dart';
+export 'domain/theme_mode_converter.dart';
 
 export 'data/settings_interface.dart';
 export 'data/settings_repository.dart';

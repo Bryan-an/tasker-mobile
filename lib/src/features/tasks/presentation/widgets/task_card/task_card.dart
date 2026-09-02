@@ -28,19 +28,19 @@ class TaskCardWidget extends StatelessWidget {
     }
   }
 
-  Color _getLevelColor(String level, bool isLightTheme) {
+  Color _getLevelColor(String level, BuildContext context) {
     if (level == TaskLevel.high.toName) {
-      return isLightTheme ? primaryColor : primaryDarkColor;
+      return Theme.of(context).colorScheme.primary;
     } else if (level == TaskLevel.medium.toName) {
-      return isLightTheme ? secondaryColor : secondaryDarkColor;
+      return Theme.of(context).colorScheme.secondary;
     } else {
-      return isLightTheme ? greenColor : greenDarkColor;
+      return AppColors.of(context).green;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final isLightTheme = AppTheme.of(context) == AppThemes.lightTheme;
+    final appColors = AppColors.of(context);
 
     int colorIndex = -1;
     final title = task.title;
@@ -57,14 +57,8 @@ class TaskCardWidget extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(8.0),
         decoration: BoxDecoration(
-          color: (done)
-              ? isLightTheme
-                  ? highlightColor
-                  : blackColor.withOpacity(0.01)
-              : null,
-          border: isLightTheme
-              ? Border.all(color: blackColor.withOpacity(0.25))
-              : Border.all(color: whiteColor.withOpacity(0.25)),
+          color: (done) ? appColors.doneCardBackground : null,
+          border: Border.all(color: appColors.cardBorder),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Row(
@@ -103,7 +97,7 @@ class TaskCardWidget extends StatelessWidget {
                                 final label = labels[index];
                                 colorIndex++;
 
-                                if (colorIndex == lightColorPalette.length) {
+                                if (colorIndex == appColors.palette.length) {
                                   colorIndex = 0;
                                 }
 
@@ -114,9 +108,8 @@ class TaskCardWidget extends StatelessWidget {
                                       color: whiteColor,
                                     ),
                                   ),
-                                  backgroundColor: isLightTheme
-                                      ? lightColorPalette[colorIndex]
-                                      : darkColorPalette[colorIndex],
+                                  backgroundColor:
+                                      appColors.palette[colorIndex],
                                 );
                               },
                               separatorBuilder: (context, index) =>
@@ -160,9 +153,7 @@ class TaskCardWidget extends StatelessWidget {
                                       task: task.copyWith(done: value),
                                     ),
                                   ),
-                          activeColor: isLightTheme
-                              ? secondaryColor
-                              : secondaryDarkColor,
+                          activeColor: Theme.of(context).colorScheme.secondary,
                         ),
                       ],
                     ),
@@ -177,7 +168,7 @@ class TaskCardWidget extends StatelessWidget {
                               child: RotatedBox(
                                 quarterTurns: -1,
                                 child: LinearProgressIndicator(
-                                  color: _getLevelColor(priority, isLightTheme),
+                                  color: _getLevelColor(priority, context),
                                   value: _getLevelValue(priority),
                                   backgroundColor:
                                       (done) ? null : highlightColor,
@@ -201,8 +192,7 @@ class TaskCardWidget extends StatelessWidget {
                               child: RotatedBox(
                                 quarterTurns: -1,
                                 child: LinearProgressIndicator(
-                                  color:
-                                      _getLevelColor(complexity, isLightTheme),
+                                  color: _getLevelColor(complexity, context),
                                   value: _getLevelValue(complexity),
                                   backgroundColor:
                                       (done) ? null : highlightColor,

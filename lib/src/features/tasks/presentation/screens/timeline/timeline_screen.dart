@@ -43,16 +43,18 @@ class _TimelineScreenState extends State<TimelineScreen>
 
   @override
   Widget build(BuildContext context) {
-    final isLightTheme = AppTheme.of(context) == AppThemes.lightTheme;
+    final theme = Theme.of(context);
+    final primary = theme.colorScheme.primary;
+    final appColors = AppColors.of(context);
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: isLightTheme ? primaryColor : primaryDarkColor,
+        backgroundColor: primary,
         drawer: const DrawerNavigator(),
         body: NestedScrollView(
           headerSliverBuilder: (context, value) => <Widget>[
             SliverAppBar(
-              backgroundColor: isLightTheme ? primaryColor : primaryDarkColor,
+              backgroundColor: primary,
               foregroundColor: whiteColor,
               centerTitle: true,
               title: const Text(
@@ -66,12 +68,12 @@ class _TimelineScreenState extends State<TimelineScreen>
                 background: Padding(
                   padding: const EdgeInsets.only(top: 64, left: 4, right: 4),
                   child: Material(
-                    color: isLightTheme ? primaryColor : primaryDarkColor,
+                    color: primary,
                     child: TabBar(
-                      labelColor: isLightTheme ? primaryColor : whiteColor,
+                      labelColor: appColors.tabLabel,
                       unselectedLabelColor: whiteColor,
-                      indicator: DateIndicator(
-                          color: isLightTheme ? whiteColor : blackColor),
+                      indicator:
+                          DateIndicator(color: theme.scaffoldBackgroundColor),
                       controller: _tabController,
                       tabs: _tabs,
                     ),
@@ -108,7 +110,7 @@ class _TimelineScreenState extends State<TimelineScreen>
                         topLeft: Radius.circular(4),
                         topRight: Radius.circular(4),
                       ),
-                      color: isLightTheme ? whiteColor : blackColor,
+                      color: theme.scaffoldBackgroundColor,
                     ),
                     child: tasksByFrom.isEmpty
                         ? const EmptyWidget(
@@ -121,7 +123,7 @@ class _TimelineScreenState extends State<TimelineScreen>
                               final tasksByTime = tasksByFrom[time];
                               colorIndex++;
 
-                              if (colorIndex == lightColorPalette.length) {
+                              if (colorIndex == appColors.palette.length) {
                                 colorIndex = 0;
                               }
 
@@ -134,9 +136,7 @@ class _TimelineScreenState extends State<TimelineScreen>
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 8.0),
                                       child: TimeIntervalWidget(
-                                        color: isLightTheme
-                                            ? lightColorPalette[colorIndex]
-                                            : darkColorPalette[colorIndex],
+                                        color: appColors.palette[colorIndex],
                                       ),
                                     ),
                                   ),

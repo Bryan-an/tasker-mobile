@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tasker_mobile/src/constants/export.dart';
-import 'package:tasker_mobile/src/themes/export.dart';
 
 class FilledButtonWidget extends StatelessWidget {
   final Widget child;
@@ -11,12 +10,10 @@ class FilledButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isLightTheme = AppTheme.of(context) == AppThemes.lightTheme;
-
     return TextButton(
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all<Color>(
-            isLightTheme ? primaryColor : primaryDarkColor),
+            Theme.of(context).colorScheme.primary),
         foregroundColor: MaterialStateProperty.all<Color>(whiteColor),
         overlayColor: MaterialStateProperty.resolveWith<Color?>(
           (Set<MaterialState> states) {

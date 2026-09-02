@@ -6,7 +6,6 @@ import 'package:tasker_mobile/src/common_widgets/export.dart';
 import 'package:tasker_mobile/src/constants/export.dart';
 import 'package:tasker_mobile/src/features/tasks/export.dart';
 import 'package:tasker_mobile/src/router/export.dart';
-import 'package:tasker_mobile/src/themes/export.dart';
 import 'package:tasker_mobile/src/utils/export.dart';
 
 class AllTasksScreen extends StatelessWidget {
@@ -14,7 +13,7 @@ class AllTasksScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isLightTheme = AppTheme.of(context) == AppThemes.lightTheme;
+    final colorScheme = Theme.of(context).colorScheme;
 
     return SafeArea(
       child: Scaffold(
@@ -84,9 +83,7 @@ class AllTasksScreen extends StatelessWidget {
                                           AppScreen.taskForm.toPath,
                                           extra: task),
                                       icon: Icons.edit,
-                                      backgroundColor: isLightTheme
-                                          ? secondaryColor
-                                          : secondaryDarkColor,
+                                      backgroundColor: colorScheme.secondary,
                                       foregroundColor: whiteColor,
                                     ),
                                   ],
@@ -112,9 +109,7 @@ class AllTasksScreen extends StatelessWidget {
                                             TaskEvent.deleteTask(id: task.id!),
                                           ),
                                       icon: Icons.delete,
-                                      backgroundColor: isLightTheme
-                                          ? primaryColor
-                                          : primaryDarkColor,
+                                      backgroundColor: colorScheme.primary,
                                       foregroundColor: whiteColor,
                                     ),
                                   ],

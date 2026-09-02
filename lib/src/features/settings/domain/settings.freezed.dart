@@ -23,7 +23,8 @@ mixin _$Settings {
   String? get id => throw _privateConstructorUsedError;
   String? get userId => throw _privateConstructorUsedError;
   Notifications? get notifications => throw _privateConstructorUsedError;
-  String? get theme => throw _privateConstructorUsedError;
+  @ThemeModeConverter()
+  ThemeMode? get theme => throw _privateConstructorUsedError;
   DateTime? get createdAt => throw _privateConstructorUsedError;
   DateTime? get updatedAt => throw _privateConstructorUsedError;
 
@@ -42,7 +43,7 @@ abstract class $SettingsCopyWith<$Res> {
       {String? id,
       String? userId,
       Notifications? notifications,
-      String? theme,
+      @ThemeModeConverter() ThemeMode? theme,
       DateTime? createdAt,
       DateTime? updatedAt});
 
@@ -85,7 +86,7 @@ class _$SettingsCopyWithImpl<$Res, $Val extends Settings>
       theme: freezed == theme
           ? _value.theme
           : theme // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as ThemeMode?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -111,17 +112,18 @@ class _$SettingsCopyWithImpl<$Res, $Val extends Settings>
 }
 
 /// @nodoc
-abstract class _$$_SettingsCopyWith<$Res> implements $SettingsCopyWith<$Res> {
-  factory _$$_SettingsCopyWith(
-          _$_Settings value, $Res Function(_$_Settings) then) =
-      __$$_SettingsCopyWithImpl<$Res>;
+abstract class _$$SettingsImplCopyWith<$Res>
+    implements $SettingsCopyWith<$Res> {
+  factory _$$SettingsImplCopyWith(
+          _$SettingsImpl value, $Res Function(_$SettingsImpl) then) =
+      __$$SettingsImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
       {String? id,
       String? userId,
       Notifications? notifications,
-      String? theme,
+      @ThemeModeConverter() ThemeMode? theme,
       DateTime? createdAt,
       DateTime? updatedAt});
 
@@ -130,11 +132,11 @@ abstract class _$$_SettingsCopyWith<$Res> implements $SettingsCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_SettingsCopyWithImpl<$Res>
-    extends _$SettingsCopyWithImpl<$Res, _$_Settings>
-    implements _$$_SettingsCopyWith<$Res> {
-  __$$_SettingsCopyWithImpl(
-      _$_Settings _value, $Res Function(_$_Settings) _then)
+class __$$SettingsImplCopyWithImpl<$Res>
+    extends _$SettingsCopyWithImpl<$Res, _$SettingsImpl>
+    implements _$$SettingsImplCopyWith<$Res> {
+  __$$SettingsImplCopyWithImpl(
+      _$SettingsImpl _value, $Res Function(_$SettingsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -147,7 +149,7 @@ class __$$_SettingsCopyWithImpl<$Res>
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
   }) {
-    return _then(_$_Settings(
+    return _then(_$SettingsImpl(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -163,7 +165,7 @@ class __$$_SettingsCopyWithImpl<$Res>
       theme: freezed == theme
           ? _value.theme
           : theme // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as ThemeMode?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -179,17 +181,17 @@ class __$$_SettingsCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class _$_Settings with DiagnosticableTreeMixin implements _Settings {
-  const _$_Settings(
+class _$SettingsImpl implements _Settings {
+  const _$SettingsImpl(
       {this.id,
       this.userId,
       this.notifications,
-      this.theme,
+      @ThemeModeConverter() this.theme,
       this.createdAt,
       this.updatedAt});
 
-  factory _$_Settings.fromJson(Map<String, dynamic> json) =>
-      _$$_SettingsFromJson(json);
+  factory _$SettingsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$SettingsImplFromJson(json);
 
   @override
   final String? id;
@@ -198,35 +200,23 @@ class _$_Settings with DiagnosticableTreeMixin implements _Settings {
   @override
   final Notifications? notifications;
   @override
-  final String? theme;
+  @ThemeModeConverter()
+  final ThemeMode? theme;
   @override
   final DateTime? createdAt;
   @override
   final DateTime? updatedAt;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'Settings(id: $id, userId: $userId, notifications: $notifications, theme: $theme, createdAt: $createdAt, updatedAt: $updatedAt)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'Settings'))
-      ..add(DiagnosticsProperty('id', id))
-      ..add(DiagnosticsProperty('userId', userId))
-      ..add(DiagnosticsProperty('notifications', notifications))
-      ..add(DiagnosticsProperty('theme', theme))
-      ..add(DiagnosticsProperty('createdAt', createdAt))
-      ..add(DiagnosticsProperty('updatedAt', updatedAt));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Settings &&
+            other is _$SettingsImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.notifications, notifications) ||
@@ -246,12 +236,12 @@ class _$_Settings with DiagnosticableTreeMixin implements _Settings {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SettingsCopyWith<_$_Settings> get copyWith =>
-      __$$_SettingsCopyWithImpl<_$_Settings>(this, _$identity);
+  _$$SettingsImplCopyWith<_$SettingsImpl> get copyWith =>
+      __$$SettingsImplCopyWithImpl<_$SettingsImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_SettingsToJson(
+    return _$$SettingsImplToJson(
       this,
     );
   }
@@ -262,11 +252,12 @@ abstract class _Settings implements Settings {
       {final String? id,
       final String? userId,
       final Notifications? notifications,
-      final String? theme,
+      @ThemeModeConverter() final ThemeMode? theme,
       final DateTime? createdAt,
-      final DateTime? updatedAt}) = _$_Settings;
+      final DateTime? updatedAt}) = _$SettingsImpl;
 
-  factory _Settings.fromJson(Map<String, dynamic> json) = _$_Settings.fromJson;
+  factory _Settings.fromJson(Map<String, dynamic> json) =
+      _$SettingsImpl.fromJson;
 
   @override
   String? get id;
@@ -275,13 +266,14 @@ abstract class _Settings implements Settings {
   @override
   Notifications? get notifications;
   @override
-  String? get theme;
+  @ThemeModeConverter()
+  ThemeMode? get theme;
   @override
   DateTime? get createdAt;
   @override
   DateTime? get updatedAt;
   @override
   @JsonKey(ignore: true)
-  _$$_SettingsCopyWith<_$_Settings> get copyWith =>
+  _$$SettingsImplCopyWith<_$SettingsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

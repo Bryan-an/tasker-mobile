@@ -68,22 +68,22 @@ class _$NotificationsCopyWithImpl<$Res, $Val extends Notifications>
 }
 
 /// @nodoc
-abstract class _$$_NotificationsCopyWith<$Res>
+abstract class _$$NotificationsImplCopyWith<$Res>
     implements $NotificationsCopyWith<$Res> {
-  factory _$$_NotificationsCopyWith(
-          _$_Notifications value, $Res Function(_$_Notifications) then) =
-      __$$_NotificationsCopyWithImpl<$Res>;
+  factory _$$NotificationsImplCopyWith(
+          _$NotificationsImpl value, $Res Function(_$NotificationsImpl) then) =
+      __$$NotificationsImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({bool? email, bool? mobile});
 }
 
 /// @nodoc
-class __$$_NotificationsCopyWithImpl<$Res>
-    extends _$NotificationsCopyWithImpl<$Res, _$_Notifications>
-    implements _$$_NotificationsCopyWith<$Res> {
-  __$$_NotificationsCopyWithImpl(
-      _$_Notifications _value, $Res Function(_$_Notifications) _then)
+class __$$NotificationsImplCopyWithImpl<$Res>
+    extends _$NotificationsCopyWithImpl<$Res, _$NotificationsImpl>
+    implements _$$NotificationsImplCopyWith<$Res> {
+  __$$NotificationsImplCopyWithImpl(
+      _$NotificationsImpl _value, $Res Function(_$NotificationsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -92,7 +92,7 @@ class __$$_NotificationsCopyWithImpl<$Res>
     Object? email = freezed,
     Object? mobile = freezed,
   }) {
-    return _then(_$_Notifications(
+    return _then(_$NotificationsImpl(
       email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -108,11 +108,13 @@ class __$$_NotificationsCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class _$_Notifications with DiagnosticableTreeMixin implements _Notifications {
-  const _$_Notifications({this.email, this.mobile});
+class _$NotificationsImpl
+    with DiagnosticableTreeMixin
+    implements _Notifications {
+  const _$NotificationsImpl({this.email, this.mobile});
 
-  factory _$_Notifications.fromJson(Map<String, dynamic> json) =>
-      _$$_NotificationsFromJson(json);
+  factory _$NotificationsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$NotificationsImplFromJson(json);
 
   @override
   final bool? email;
@@ -137,7 +139,7 @@ class _$_Notifications with DiagnosticableTreeMixin implements _Notifications {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Notifications &&
+            other is _$NotificationsImpl &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.mobile, mobile) || other.mobile == mobile));
   }
@@ -149,12 +151,12 @@ class _$_Notifications with DiagnosticableTreeMixin implements _Notifications {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_NotificationsCopyWith<_$_Notifications> get copyWith =>
-      __$$_NotificationsCopyWithImpl<_$_Notifications>(this, _$identity);
+  _$$NotificationsImplCopyWith<_$NotificationsImpl> get copyWith =>
+      __$$NotificationsImplCopyWithImpl<_$NotificationsImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_NotificationsToJson(
+    return _$$NotificationsImplToJson(
       this,
     );
   }
@@ -162,10 +164,10 @@ class _$_Notifications with DiagnosticableTreeMixin implements _Notifications {
 
 abstract class _Notifications implements Notifications {
   const factory _Notifications({final bool? email, final bool? mobile}) =
-      _$_Notifications;
+      _$NotificationsImpl;
 
   factory _Notifications.fromJson(Map<String, dynamic> json) =
-      _$_Notifications.fromJson;
+      _$NotificationsImpl.fromJson;
 
   @override
   bool? get email;
@@ -173,6 +175,6 @@ abstract class _Notifications implements Notifications {
   bool? get mobile;
   @override
   @JsonKey(ignore: true)
-  _$$_NotificationsCopyWith<_$_Notifications> get copyWith =>
+  _$$NotificationsImplCopyWith<_$NotificationsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

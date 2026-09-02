@@ -57,22 +57,22 @@ class _$LoginScreenStateCopyWithImpl<$Res, $Val extends LoginScreenState>
 }
 
 /// @nodoc
-abstract class _$$_LoginScreenStateCopyWith<$Res>
+abstract class _$$LoginScreenStateImplCopyWith<$Res>
     implements $LoginScreenStateCopyWith<$Res> {
-  factory _$$_LoginScreenStateCopyWith(
-          _$_LoginScreenState value, $Res Function(_$_LoginScreenState) then) =
-      __$$_LoginScreenStateCopyWithImpl<$Res>;
+  factory _$$LoginScreenStateImplCopyWith(_$LoginScreenStateImpl value,
+          $Res Function(_$LoginScreenStateImpl) then) =
+      __$$LoginScreenStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({bool passwordVisible});
 }
 
 /// @nodoc
-class __$$_LoginScreenStateCopyWithImpl<$Res>
-    extends _$LoginScreenStateCopyWithImpl<$Res, _$_LoginScreenState>
-    implements _$$_LoginScreenStateCopyWith<$Res> {
-  __$$_LoginScreenStateCopyWithImpl(
-      _$_LoginScreenState _value, $Res Function(_$_LoginScreenState) _then)
+class __$$LoginScreenStateImplCopyWithImpl<$Res>
+    extends _$LoginScreenStateCopyWithImpl<$Res, _$LoginScreenStateImpl>
+    implements _$$LoginScreenStateImplCopyWith<$Res> {
+  __$$LoginScreenStateImplCopyWithImpl(_$LoginScreenStateImpl _value,
+      $Res Function(_$LoginScreenStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -80,7 +80,7 @@ class __$$_LoginScreenStateCopyWithImpl<$Res>
   $Res call({
     Object? passwordVisible = null,
   }) {
-    return _then(_$_LoginScreenState(
+    return _then(_$LoginScreenStateImpl(
       passwordVisible: null == passwordVisible
           ? _value.passwordVisible
           : passwordVisible // ignore: cast_nullable_to_non_nullable
@@ -91,10 +91,10 @@ class __$$_LoginScreenStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_LoginScreenState
+class _$LoginScreenStateImpl
     with DiagnosticableTreeMixin
     implements _LoginScreenState {
-  const _$_LoginScreenState({this.passwordVisible = false});
+  const _$LoginScreenStateImpl({this.passwordVisible = false});
 
   @override
   @JsonKey()
@@ -117,7 +117,7 @@ class _$_LoginScreenState
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_LoginScreenState &&
+            other is _$LoginScreenStateImpl &&
             (identical(other.passwordVisible, passwordVisible) ||
                 other.passwordVisible == passwordVisible));
   }
@@ -128,18 +128,19 @@ class _$_LoginScreenState
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_LoginScreenStateCopyWith<_$_LoginScreenState> get copyWith =>
-      __$$_LoginScreenStateCopyWithImpl<_$_LoginScreenState>(this, _$identity);
+  _$$LoginScreenStateImplCopyWith<_$LoginScreenStateImpl> get copyWith =>
+      __$$LoginScreenStateImplCopyWithImpl<_$LoginScreenStateImpl>(
+          this, _$identity);
 }
 
 abstract class _LoginScreenState implements LoginScreenState {
   const factory _LoginScreenState({final bool passwordVisible}) =
-      _$_LoginScreenState;
+      _$LoginScreenStateImpl;
 
   @override
   bool get passwordVisible;
   @override
   @JsonKey(ignore: true)
-  _$$_LoginScreenStateCopyWith<_$_LoginScreenState> get copyWith =>
+  _$$LoginScreenStateImplCopyWith<_$LoginScreenStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

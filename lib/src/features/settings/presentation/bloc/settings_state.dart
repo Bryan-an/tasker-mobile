@@ -5,6 +5,7 @@ part of 'settings_bloc.dart';
 class SettingsState with _$SettingsState {
   const factory SettingsState({
     @Default(Settings()) Settings settings,
+    @Default(ThemeMode.light) ThemeMode themeMode,
     @Default(Status.initial) Status getSettingsStatus,
     @Default(Status.initial) Status updateSettingsStatus,
   }) = _SettingsState;

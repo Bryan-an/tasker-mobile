@@ -20,18 +20,21 @@ mixin _$SettingsEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() getSettings,
     required TResult Function(Settings settings) updateSettings,
+    required TResult Function() reset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getSettings,
     TResult? Function(Settings settings)? updateSettings,
+    TResult? Function()? reset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getSettings,
     TResult Function(Settings settings)? updateSettings,
+    TResult Function()? reset,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +42,21 @@ mixin _$SettingsEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetSettings value) getSettings,
     required TResult Function(_UpdateSettings value) updateSettings,
+    required TResult Function(_Reset value) reset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetSettings value)? getSettings,
     TResult? Function(_UpdateSettings value)? updateSettings,
+    TResult? Function(_Reset value)? reset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetSettings value)? getSettings,
     TResult Function(_UpdateSettings value)? updateSettings,
+    TResult Function(_Reset value)? reset,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -75,41 +81,35 @@ class _$SettingsEventCopyWithImpl<$Res, $Val extends SettingsEvent>
 }
 
 /// @nodoc
-abstract class _$$_GetSettingsCopyWith<$Res> {
-  factory _$$_GetSettingsCopyWith(
-          _$_GetSettings value, $Res Function(_$_GetSettings) then) =
-      __$$_GetSettingsCopyWithImpl<$Res>;
+abstract class _$$GetSettingsImplCopyWith<$Res> {
+  factory _$$GetSettingsImplCopyWith(
+          _$GetSettingsImpl value, $Res Function(_$GetSettingsImpl) then) =
+      __$$GetSettingsImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$_GetSettingsCopyWithImpl<$Res>
-    extends _$SettingsEventCopyWithImpl<$Res, _$_GetSettings>
-    implements _$$_GetSettingsCopyWith<$Res> {
-  __$$_GetSettingsCopyWithImpl(
-      _$_GetSettings _value, $Res Function(_$_GetSettings) _then)
+class __$$GetSettingsImplCopyWithImpl<$Res>
+    extends _$SettingsEventCopyWithImpl<$Res, _$GetSettingsImpl>
+    implements _$$GetSettingsImplCopyWith<$Res> {
+  __$$GetSettingsImplCopyWithImpl(
+      _$GetSettingsImpl _value, $Res Function(_$GetSettingsImpl) _then)
       : super(_value, _then);
 }
 
 /// @nodoc
 
-class _$_GetSettings with DiagnosticableTreeMixin implements _GetSettings {
-  const _$_GetSettings();
+class _$GetSettingsImpl implements _GetSettings {
+  const _$GetSettingsImpl();
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'SettingsEvent.getSettings()';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty('type', 'SettingsEvent.getSettings'));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$_GetSettings);
+        (other.runtimeType == runtimeType && other is _$GetSettingsImpl);
   }
 
   @override
@@ -120,6 +120,7 @@ class _$_GetSettings with DiagnosticableTreeMixin implements _GetSettings {
   TResult when<TResult extends Object?>({
     required TResult Function() getSettings,
     required TResult Function(Settings settings) updateSettings,
+    required TResult Function() reset,
   }) {
     return getSettings();
   }
@@ -129,6 +130,7 @@ class _$_GetSettings with DiagnosticableTreeMixin implements _GetSettings {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getSettings,
     TResult? Function(Settings settings)? updateSettings,
+    TResult? Function()? reset,
   }) {
     return getSettings?.call();
   }
@@ -138,6 +140,7 @@ class _$_GetSettings with DiagnosticableTreeMixin implements _GetSettings {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getSettings,
     TResult Function(Settings settings)? updateSettings,
+    TResult Function()? reset,
     required TResult orElse(),
   }) {
     if (getSettings != null) {
@@ -151,6 +154,7 @@ class _$_GetSettings with DiagnosticableTreeMixin implements _GetSettings {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetSettings value) getSettings,
     required TResult Function(_UpdateSettings value) updateSettings,
+    required TResult Function(_Reset value) reset,
   }) {
     return getSettings(this);
   }
@@ -160,6 +164,7 @@ class _$_GetSettings with DiagnosticableTreeMixin implements _GetSettings {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetSettings value)? getSettings,
     TResult? Function(_UpdateSettings value)? updateSettings,
+    TResult? Function(_Reset value)? reset,
   }) {
     return getSettings?.call(this);
   }
@@ -169,6 +174,7 @@ class _$_GetSettings with DiagnosticableTreeMixin implements _GetSettings {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetSettings value)? getSettings,
     TResult Function(_UpdateSettings value)? updateSettings,
+    TResult Function(_Reset value)? reset,
     required TResult orElse(),
   }) {
     if (getSettings != null) {
@@ -179,14 +185,14 @@ class _$_GetSettings with DiagnosticableTreeMixin implements _GetSettings {
 }
 
 abstract class _GetSettings implements SettingsEvent {
-  const factory _GetSettings() = _$_GetSettings;
+  const factory _GetSettings() = _$GetSettingsImpl;
 }
 
 /// @nodoc
-abstract class _$$_UpdateSettingsCopyWith<$Res> {
-  factory _$$_UpdateSettingsCopyWith(
-          _$_UpdateSettings value, $Res Function(_$_UpdateSettings) then) =
-      __$$_UpdateSettingsCopyWithImpl<$Res>;
+abstract class _$$UpdateSettingsImplCopyWith<$Res> {
+  factory _$$UpdateSettingsImplCopyWith(_$UpdateSettingsImpl value,
+          $Res Function(_$UpdateSettingsImpl) then) =
+      __$$UpdateSettingsImplCopyWithImpl<$Res>;
   @useResult
   $Res call({Settings settings});
 
@@ -194,11 +200,11 @@ abstract class _$$_UpdateSettingsCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_UpdateSettingsCopyWithImpl<$Res>
-    extends _$SettingsEventCopyWithImpl<$Res, _$_UpdateSettings>
-    implements _$$_UpdateSettingsCopyWith<$Res> {
-  __$$_UpdateSettingsCopyWithImpl(
-      _$_UpdateSettings _value, $Res Function(_$_UpdateSettings) _then)
+class __$$UpdateSettingsImplCopyWithImpl<$Res>
+    extends _$SettingsEventCopyWithImpl<$Res, _$UpdateSettingsImpl>
+    implements _$$UpdateSettingsImplCopyWith<$Res> {
+  __$$UpdateSettingsImplCopyWithImpl(
+      _$UpdateSettingsImpl _value, $Res Function(_$UpdateSettingsImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -206,7 +212,7 @@ class __$$_UpdateSettingsCopyWithImpl<$Res>
   $Res call({
     Object? settings = null,
   }) {
-    return _then(_$_UpdateSettings(
+    return _then(_$UpdateSettingsImpl(
       settings: null == settings
           ? _value.settings
           : settings // ignore: cast_nullable_to_non_nullable
@@ -225,32 +231,22 @@ class __$$_UpdateSettingsCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_UpdateSettings
-    with DiagnosticableTreeMixin
-    implements _UpdateSettings {
-  const _$_UpdateSettings({required this.settings});
+class _$UpdateSettingsImpl implements _UpdateSettings {
+  const _$UpdateSettingsImpl({required this.settings});
 
   @override
   final Settings settings;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'SettingsEvent.updateSettings(settings: $settings)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'SettingsEvent.updateSettings'))
-      ..add(DiagnosticsProperty('settings', settings));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UpdateSettings &&
+            other is _$UpdateSettingsImpl &&
             (identical(other.settings, settings) ||
                 other.settings == settings));
   }
@@ -261,14 +257,16 @@ class _$_UpdateSettings
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_UpdateSettingsCopyWith<_$_UpdateSettings> get copyWith =>
-      __$$_UpdateSettingsCopyWithImpl<_$_UpdateSettings>(this, _$identity);
+  _$$UpdateSettingsImplCopyWith<_$UpdateSettingsImpl> get copyWith =>
+      __$$UpdateSettingsImplCopyWithImpl<_$UpdateSettingsImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() getSettings,
     required TResult Function(Settings settings) updateSettings,
+    required TResult Function() reset,
   }) {
     return updateSettings(settings);
   }
@@ -278,6 +276,7 @@ class _$_UpdateSettings
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? getSettings,
     TResult? Function(Settings settings)? updateSettings,
+    TResult? Function()? reset,
   }) {
     return updateSettings?.call(settings);
   }
@@ -287,6 +286,7 @@ class _$_UpdateSettings
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getSettings,
     TResult Function(Settings settings)? updateSettings,
+    TResult Function()? reset,
     required TResult orElse(),
   }) {
     if (updateSettings != null) {
@@ -300,6 +300,7 @@ class _$_UpdateSettings
   TResult map<TResult extends Object?>({
     required TResult Function(_GetSettings value) getSettings,
     required TResult Function(_UpdateSettings value) updateSettings,
+    required TResult Function(_Reset value) reset,
   }) {
     return updateSettings(this);
   }
@@ -309,6 +310,7 @@ class _$_UpdateSettings
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetSettings value)? getSettings,
     TResult? Function(_UpdateSettings value)? updateSettings,
+    TResult? Function(_Reset value)? reset,
   }) {
     return updateSettings?.call(this);
   }
@@ -318,6 +320,7 @@ class _$_UpdateSettings
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetSettings value)? getSettings,
     TResult Function(_UpdateSettings value)? updateSettings,
+    TResult Function(_Reset value)? reset,
     required TResult orElse(),
   }) {
     if (updateSettings != null) {
@@ -329,17 +332,126 @@ class _$_UpdateSettings
 
 abstract class _UpdateSettings implements SettingsEvent {
   const factory _UpdateSettings({required final Settings settings}) =
-      _$_UpdateSettings;
+      _$UpdateSettingsImpl;
 
   Settings get settings;
   @JsonKey(ignore: true)
-  _$$_UpdateSettingsCopyWith<_$_UpdateSettings> get copyWith =>
+  _$$UpdateSettingsImplCopyWith<_$UpdateSettingsImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ResetImplCopyWith<$Res> {
+  factory _$$ResetImplCopyWith(
+          _$ResetImpl value, $Res Function(_$ResetImpl) then) =
+      __$$ResetImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ResetImplCopyWithImpl<$Res>
+    extends _$SettingsEventCopyWithImpl<$Res, _$ResetImpl>
+    implements _$$ResetImplCopyWith<$Res> {
+  __$$ResetImplCopyWithImpl(
+      _$ResetImpl _value, $Res Function(_$ResetImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$ResetImpl implements _Reset {
+  const _$ResetImpl();
+
+  @override
+  String toString() {
+    return 'SettingsEvent.reset()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ResetImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getSettings,
+    required TResult Function(Settings settings) updateSettings,
+    required TResult Function() reset,
+  }) {
+    return reset();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? getSettings,
+    TResult? Function(Settings settings)? updateSettings,
+    TResult? Function()? reset,
+  }) {
+    return reset?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getSettings,
+    TResult Function(Settings settings)? updateSettings,
+    TResult Function()? reset,
+    required TResult orElse(),
+  }) {
+    if (reset != null) {
+      return reset();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetSettings value) getSettings,
+    required TResult Function(_UpdateSettings value) updateSettings,
+    required TResult Function(_Reset value) reset,
+  }) {
+    return reset(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetSettings value)? getSettings,
+    TResult? Function(_UpdateSettings value)? updateSettings,
+    TResult? Function(_Reset value)? reset,
+  }) {
+    return reset?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetSettings value)? getSettings,
+    TResult Function(_UpdateSettings value)? updateSettings,
+    TResult Function(_Reset value)? reset,
+    required TResult orElse(),
+  }) {
+    if (reset != null) {
+      return reset(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Reset implements SettingsEvent {
+  const factory _Reset() = _$ResetImpl;
 }
 
 /// @nodoc
 mixin _$SettingsState {
   Settings get settings => throw _privateConstructorUsedError;
+  ThemeMode get themeMode => throw _privateConstructorUsedError;
   Status get getSettingsStatus => throw _privateConstructorUsedError;
   Status get updateSettingsStatus => throw _privateConstructorUsedError;
 
@@ -356,6 +468,7 @@ abstract class $SettingsStateCopyWith<$Res> {
   @useResult
   $Res call(
       {Settings settings,
+      ThemeMode themeMode,
       Status getSettingsStatus,
       Status updateSettingsStatus});
 
@@ -376,6 +489,7 @@ class _$SettingsStateCopyWithImpl<$Res, $Val extends SettingsState>
   @override
   $Res call({
     Object? settings = null,
+    Object? themeMode = null,
     Object? getSettingsStatus = null,
     Object? updateSettingsStatus = null,
   }) {
@@ -384,6 +498,10 @@ class _$SettingsStateCopyWithImpl<$Res, $Val extends SettingsState>
           ? _value.settings
           : settings // ignore: cast_nullable_to_non_nullable
               as Settings,
+      themeMode: null == themeMode
+          ? _value.themeMode
+          : themeMode // ignore: cast_nullable_to_non_nullable
+              as ThemeMode,
       getSettingsStatus: null == getSettingsStatus
           ? _value.getSettingsStatus
           : getSettingsStatus // ignore: cast_nullable_to_non_nullable
@@ -405,15 +523,16 @@ class _$SettingsStateCopyWithImpl<$Res, $Val extends SettingsState>
 }
 
 /// @nodoc
-abstract class _$$_SettingsStateCopyWith<$Res>
+abstract class _$$SettingsStateImplCopyWith<$Res>
     implements $SettingsStateCopyWith<$Res> {
-  factory _$$_SettingsStateCopyWith(
-          _$_SettingsState value, $Res Function(_$_SettingsState) then) =
-      __$$_SettingsStateCopyWithImpl<$Res>;
+  factory _$$SettingsStateImplCopyWith(
+          _$SettingsStateImpl value, $Res Function(_$SettingsStateImpl) then) =
+      __$$SettingsStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
       {Settings settings,
+      ThemeMode themeMode,
       Status getSettingsStatus,
       Status updateSettingsStatus});
 
@@ -422,25 +541,30 @@ abstract class _$$_SettingsStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_SettingsStateCopyWithImpl<$Res>
-    extends _$SettingsStateCopyWithImpl<$Res, _$_SettingsState>
-    implements _$$_SettingsStateCopyWith<$Res> {
-  __$$_SettingsStateCopyWithImpl(
-      _$_SettingsState _value, $Res Function(_$_SettingsState) _then)
+class __$$SettingsStateImplCopyWithImpl<$Res>
+    extends _$SettingsStateCopyWithImpl<$Res, _$SettingsStateImpl>
+    implements _$$SettingsStateImplCopyWith<$Res> {
+  __$$SettingsStateImplCopyWithImpl(
+      _$SettingsStateImpl _value, $Res Function(_$SettingsStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? settings = null,
+    Object? themeMode = null,
     Object? getSettingsStatus = null,
     Object? updateSettingsStatus = null,
   }) {
-    return _then(_$_SettingsState(
+    return _then(_$SettingsStateImpl(
       settings: null == settings
           ? _value.settings
           : settings // ignore: cast_nullable_to_non_nullable
               as Settings,
+      themeMode: null == themeMode
+          ? _value.themeMode
+          : themeMode // ignore: cast_nullable_to_non_nullable
+              as ThemeMode,
       getSettingsStatus: null == getSettingsStatus
           ? _value.getSettingsStatus
           : getSettingsStatus // ignore: cast_nullable_to_non_nullable
@@ -455,9 +579,10 @@ class __$$_SettingsStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SettingsState with DiagnosticableTreeMixin implements _SettingsState {
-  const _$_SettingsState(
+class _$SettingsStateImpl implements _SettingsState {
+  const _$SettingsStateImpl(
       {this.settings = const Settings(),
+      this.themeMode = ThemeMode.light,
       this.getSettingsStatus = Status.initial,
       this.updateSettingsStatus = Status.initial});
 
@@ -466,33 +591,28 @@ class _$_SettingsState with DiagnosticableTreeMixin implements _SettingsState {
   final Settings settings;
   @override
   @JsonKey()
+  final ThemeMode themeMode;
+  @override
+  @JsonKey()
   final Status getSettingsStatus;
   @override
   @JsonKey()
   final Status updateSettingsStatus;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SettingsState(settings: $settings, getSettingsStatus: $getSettingsStatus, updateSettingsStatus: $updateSettingsStatus)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'SettingsState'))
-      ..add(DiagnosticsProperty('settings', settings))
-      ..add(DiagnosticsProperty('getSettingsStatus', getSettingsStatus))
-      ..add(DiagnosticsProperty('updateSettingsStatus', updateSettingsStatus));
+  String toString() {
+    return 'SettingsState(settings: $settings, themeMode: $themeMode, getSettingsStatus: $getSettingsStatus, updateSettingsStatus: $updateSettingsStatus)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SettingsState &&
+            other is _$SettingsStateImpl &&
             (identical(other.settings, settings) ||
                 other.settings == settings) &&
+            (identical(other.themeMode, themeMode) ||
+                other.themeMode == themeMode) &&
             (identical(other.getSettingsStatus, getSettingsStatus) ||
                 other.getSettingsStatus == getSettingsStatus) &&
             (identical(other.updateSettingsStatus, updateSettingsStatus) ||
@@ -500,30 +620,33 @@ class _$_SettingsState with DiagnosticableTreeMixin implements _SettingsState {
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, settings, getSettingsStatus, updateSettingsStatus);
+  int get hashCode => Object.hash(runtimeType, settings, themeMode,
+      getSettingsStatus, updateSettingsStatus);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SettingsStateCopyWith<_$_SettingsState> get copyWith =>
-      __$$_SettingsStateCopyWithImpl<_$_SettingsState>(this, _$identity);
+  _$$SettingsStateImplCopyWith<_$SettingsStateImpl> get copyWith =>
+      __$$SettingsStateImplCopyWithImpl<_$SettingsStateImpl>(this, _$identity);
 }
 
 abstract class _SettingsState implements SettingsState {
   const factory _SettingsState(
       {final Settings settings,
+      final ThemeMode themeMode,
       final Status getSettingsStatus,
-      final Status updateSettingsStatus}) = _$_SettingsState;
+      final Status updateSettingsStatus}) = _$SettingsStateImpl;
 
   @override
   Settings get settings;
+  @override
+  ThemeMode get themeMode;
   @override
   Status get getSettingsStatus;
   @override
   Status get updateSettingsStatus;
   @override
   @JsonKey(ignore: true)
-  _$$_SettingsStateCopyWith<_$_SettingsState> get copyWith =>
+  _$$SettingsStateImplCopyWith<_$SettingsStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

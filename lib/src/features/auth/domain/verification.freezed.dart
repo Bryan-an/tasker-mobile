@@ -74,22 +74,22 @@ class _$VerificationCopyWithImpl<$Res, $Val extends Verification>
 }
 
 /// @nodoc
-abstract class _$$_VerificationCopyWith<$Res>
+abstract class _$$VerificationImplCopyWith<$Res>
     implements $VerificationCopyWith<$Res> {
-  factory _$$_VerificationCopyWith(
-          _$_Verification value, $Res Function(_$_Verification) then) =
-      __$$_VerificationCopyWithImpl<$Res>;
+  factory _$$VerificationImplCopyWith(
+          _$VerificationImpl value, $Res Function(_$VerificationImpl) then) =
+      __$$VerificationImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String? email, String? code, DateTime? expiresAt});
 }
 
 /// @nodoc
-class __$$_VerificationCopyWithImpl<$Res>
-    extends _$VerificationCopyWithImpl<$Res, _$_Verification>
-    implements _$$_VerificationCopyWith<$Res> {
-  __$$_VerificationCopyWithImpl(
-      _$_Verification _value, $Res Function(_$_Verification) _then)
+class __$$VerificationImplCopyWithImpl<$Res>
+    extends _$VerificationCopyWithImpl<$Res, _$VerificationImpl>
+    implements _$$VerificationImplCopyWith<$Res> {
+  __$$VerificationImplCopyWithImpl(
+      _$VerificationImpl _value, $Res Function(_$VerificationImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -99,7 +99,7 @@ class __$$_VerificationCopyWithImpl<$Res>
     Object? code = freezed,
     Object? expiresAt = freezed,
   }) {
-    return _then(_$_Verification(
+    return _then(_$VerificationImpl(
       email: freezed == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -119,11 +119,11 @@ class __$$_VerificationCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class _$_Verification with DiagnosticableTreeMixin implements _Verification {
-  const _$_Verification({this.email, this.code, this.expiresAt});
+class _$VerificationImpl with DiagnosticableTreeMixin implements _Verification {
+  const _$VerificationImpl({this.email, this.code, this.expiresAt});
 
-  factory _$_Verification.fromJson(Map<String, dynamic> json) =>
-      _$$_VerificationFromJson(json);
+  factory _$VerificationImpl.fromJson(Map<String, dynamic> json) =>
+      _$$VerificationImplFromJson(json);
 
   @override
   final String? email;
@@ -151,7 +151,7 @@ class _$_Verification with DiagnosticableTreeMixin implements _Verification {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Verification &&
+            other is _$VerificationImpl &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.code, code) || other.code == code) &&
             (identical(other.expiresAt, expiresAt) ||
@@ -165,12 +165,12 @@ class _$_Verification with DiagnosticableTreeMixin implements _Verification {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_VerificationCopyWith<_$_Verification> get copyWith =>
-      __$$_VerificationCopyWithImpl<_$_Verification>(this, _$identity);
+  _$$VerificationImplCopyWith<_$VerificationImpl> get copyWith =>
+      __$$VerificationImplCopyWithImpl<_$VerificationImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_VerificationToJson(
+    return _$$VerificationImplToJson(
       this,
     );
   }
@@ -180,10 +180,10 @@ abstract class _Verification implements Verification {
   const factory _Verification(
       {final String? email,
       final String? code,
-      final DateTime? expiresAt}) = _$_Verification;
+      final DateTime? expiresAt}) = _$VerificationImpl;
 
   factory _Verification.fromJson(Map<String, dynamic> json) =
-      _$_Verification.fromJson;
+      _$VerificationImpl.fromJson;
 
   @override
   String? get email;
@@ -193,6 +193,6 @@ abstract class _Verification implements Verification {
   DateTime? get expiresAt;
   @override
   @JsonKey(ignore: true)
-  _$$_VerificationCopyWith<_$_Verification> get copyWith =>
+  _$$VerificationImplCopyWith<_$VerificationImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

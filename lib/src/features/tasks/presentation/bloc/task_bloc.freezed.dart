@@ -104,10 +104,10 @@ class _$TaskEventCopyWithImpl<$Res, $Val extends TaskEvent>
 }
 
 /// @nodoc
-abstract class _$$_GetTasksCopyWith<$Res> {
-  factory _$$_GetTasksCopyWith(
-          _$_GetTasks value, $Res Function(_$_GetTasks) then) =
-      __$$_GetTasksCopyWithImpl<$Res>;
+abstract class _$$GetTasksImplCopyWith<$Res> {
+  factory _$$GetTasksImplCopyWith(
+          _$GetTasksImpl value, $Res Function(_$GetTasksImpl) then) =
+      __$$GetTasksImplCopyWithImpl<$Res>;
   @useResult
   $Res call(
       {TaskLevel? priority,
@@ -117,11 +117,11 @@ abstract class _$$_GetTasksCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_GetTasksCopyWithImpl<$Res>
-    extends _$TaskEventCopyWithImpl<$Res, _$_GetTasks>
-    implements _$$_GetTasksCopyWith<$Res> {
-  __$$_GetTasksCopyWithImpl(
-      _$_GetTasks _value, $Res Function(_$_GetTasks) _then)
+class __$$GetTasksImplCopyWithImpl<$Res>
+    extends _$TaskEventCopyWithImpl<$Res, _$GetTasksImpl>
+    implements _$$GetTasksImplCopyWith<$Res> {
+  __$$GetTasksImplCopyWithImpl(
+      _$GetTasksImpl _value, $Res Function(_$GetTasksImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -132,7 +132,7 @@ class __$$_GetTasksCopyWithImpl<$Res>
     Object? labels = freezed,
     Object? order = freezed,
   }) {
-    return _then(_$_GetTasks(
+    return _then(_$GetTasksImpl(
       priority: freezed == priority
           ? _value.priority
           : priority // ignore: cast_nullable_to_non_nullable
@@ -155,8 +155,8 @@ class __$$_GetTasksCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_GetTasks with DiagnosticableTreeMixin implements _GetTasks {
-  const _$_GetTasks(
+class _$GetTasksImpl with DiagnosticableTreeMixin implements _GetTasks {
+  const _$GetTasksImpl(
       {this.priority, this.complexity, final List<String>? labels, this.order})
       : _labels = labels;
 
@@ -197,7 +197,7 @@ class _$_GetTasks with DiagnosticableTreeMixin implements _GetTasks {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_GetTasks &&
+            other is _$GetTasksImpl &&
             (identical(other.priority, priority) ||
                 other.priority == priority) &&
             (identical(other.complexity, complexity) ||
@@ -213,8 +213,8 @@ class _$_GetTasks with DiagnosticableTreeMixin implements _GetTasks {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_GetTasksCopyWith<_$_GetTasks> get copyWith =>
-      __$$_GetTasksCopyWithImpl<_$_GetTasks>(this, _$identity);
+  _$$GetTasksImplCopyWith<_$GetTasksImpl> get copyWith =>
+      __$$GetTasksImplCopyWithImpl<_$GetTasksImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -314,22 +314,22 @@ abstract class _GetTasks implements TaskEvent {
       {final TaskLevel? priority,
       final TaskLevel? complexity,
       final List<String>? labels,
-      final TaskOrder? order}) = _$_GetTasks;
+      final TaskOrder? order}) = _$GetTasksImpl;
 
   TaskLevel? get priority;
   TaskLevel? get complexity;
   List<String>? get labels;
   TaskOrder? get order;
   @JsonKey(ignore: true)
-  _$$_GetTasksCopyWith<_$_GetTasks> get copyWith =>
+  _$$GetTasksImplCopyWith<_$GetTasksImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_UpdateTaskCopyWith<$Res> {
-  factory _$$_UpdateTaskCopyWith(
-          _$_UpdateTask value, $Res Function(_$_UpdateTask) then) =
-      __$$_UpdateTaskCopyWithImpl<$Res>;
+abstract class _$$UpdateTaskImplCopyWith<$Res> {
+  factory _$$UpdateTaskImplCopyWith(
+          _$UpdateTaskImpl value, $Res Function(_$UpdateTaskImpl) then) =
+      __$$UpdateTaskImplCopyWithImpl<$Res>;
   @useResult
   $Res call({Task task});
 
@@ -337,11 +337,11 @@ abstract class _$$_UpdateTaskCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_UpdateTaskCopyWithImpl<$Res>
-    extends _$TaskEventCopyWithImpl<$Res, _$_UpdateTask>
-    implements _$$_UpdateTaskCopyWith<$Res> {
-  __$$_UpdateTaskCopyWithImpl(
-      _$_UpdateTask _value, $Res Function(_$_UpdateTask) _then)
+class __$$UpdateTaskImplCopyWithImpl<$Res>
+    extends _$TaskEventCopyWithImpl<$Res, _$UpdateTaskImpl>
+    implements _$$UpdateTaskImplCopyWith<$Res> {
+  __$$UpdateTaskImplCopyWithImpl(
+      _$UpdateTaskImpl _value, $Res Function(_$UpdateTaskImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -349,7 +349,7 @@ class __$$_UpdateTaskCopyWithImpl<$Res>
   $Res call({
     Object? task = null,
   }) {
-    return _then(_$_UpdateTask(
+    return _then(_$UpdateTaskImpl(
       task: null == task
           ? _value.task
           : task // ignore: cast_nullable_to_non_nullable
@@ -368,8 +368,8 @@ class __$$_UpdateTaskCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_UpdateTask with DiagnosticableTreeMixin implements _UpdateTask {
-  const _$_UpdateTask({required this.task});
+class _$UpdateTaskImpl with DiagnosticableTreeMixin implements _UpdateTask {
+  const _$UpdateTaskImpl({required this.task});
 
   @override
   final Task task;
@@ -391,7 +391,7 @@ class _$_UpdateTask with DiagnosticableTreeMixin implements _UpdateTask {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_UpdateTask &&
+            other is _$UpdateTaskImpl &&
             (identical(other.task, task) || other.task == task));
   }
 
@@ -401,8 +401,8 @@ class _$_UpdateTask with DiagnosticableTreeMixin implements _UpdateTask {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_UpdateTaskCopyWith<_$_UpdateTask> get copyWith =>
-      __$$_UpdateTaskCopyWithImpl<_$_UpdateTask>(this, _$identity);
+  _$$UpdateTaskImplCopyWith<_$UpdateTaskImpl> get copyWith =>
+      __$$UpdateTaskImplCopyWithImpl<_$UpdateTaskImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -498,19 +498,19 @@ class _$_UpdateTask with DiagnosticableTreeMixin implements _UpdateTask {
 }
 
 abstract class _UpdateTask implements TaskEvent {
-  const factory _UpdateTask({required final Task task}) = _$_UpdateTask;
+  const factory _UpdateTask({required final Task task}) = _$UpdateTaskImpl;
 
   Task get task;
   @JsonKey(ignore: true)
-  _$$_UpdateTaskCopyWith<_$_UpdateTask> get copyWith =>
+  _$$UpdateTaskImplCopyWith<_$UpdateTaskImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_ReplaceTaskCopyWith<$Res> {
-  factory _$$_ReplaceTaskCopyWith(
-          _$_ReplaceTask value, $Res Function(_$_ReplaceTask) then) =
-      __$$_ReplaceTaskCopyWithImpl<$Res>;
+abstract class _$$ReplaceTaskImplCopyWith<$Res> {
+  factory _$$ReplaceTaskImplCopyWith(
+          _$ReplaceTaskImpl value, $Res Function(_$ReplaceTaskImpl) then) =
+      __$$ReplaceTaskImplCopyWithImpl<$Res>;
   @useResult
   $Res call({Task task});
 
@@ -518,11 +518,11 @@ abstract class _$$_ReplaceTaskCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_ReplaceTaskCopyWithImpl<$Res>
-    extends _$TaskEventCopyWithImpl<$Res, _$_ReplaceTask>
-    implements _$$_ReplaceTaskCopyWith<$Res> {
-  __$$_ReplaceTaskCopyWithImpl(
-      _$_ReplaceTask _value, $Res Function(_$_ReplaceTask) _then)
+class __$$ReplaceTaskImplCopyWithImpl<$Res>
+    extends _$TaskEventCopyWithImpl<$Res, _$ReplaceTaskImpl>
+    implements _$$ReplaceTaskImplCopyWith<$Res> {
+  __$$ReplaceTaskImplCopyWithImpl(
+      _$ReplaceTaskImpl _value, $Res Function(_$ReplaceTaskImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -530,7 +530,7 @@ class __$$_ReplaceTaskCopyWithImpl<$Res>
   $Res call({
     Object? task = null,
   }) {
-    return _then(_$_ReplaceTask(
+    return _then(_$ReplaceTaskImpl(
       task: null == task
           ? _value.task
           : task // ignore: cast_nullable_to_non_nullable
@@ -549,8 +549,8 @@ class __$$_ReplaceTaskCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ReplaceTask with DiagnosticableTreeMixin implements _ReplaceTask {
-  const _$_ReplaceTask({required this.task});
+class _$ReplaceTaskImpl with DiagnosticableTreeMixin implements _ReplaceTask {
+  const _$ReplaceTaskImpl({required this.task});
 
   @override
   final Task task;
@@ -572,7 +572,7 @@ class _$_ReplaceTask with DiagnosticableTreeMixin implements _ReplaceTask {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ReplaceTask &&
+            other is _$ReplaceTaskImpl &&
             (identical(other.task, task) || other.task == task));
   }
 
@@ -582,8 +582,8 @@ class _$_ReplaceTask with DiagnosticableTreeMixin implements _ReplaceTask {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ReplaceTaskCopyWith<_$_ReplaceTask> get copyWith =>
-      __$$_ReplaceTaskCopyWithImpl<_$_ReplaceTask>(this, _$identity);
+  _$$ReplaceTaskImplCopyWith<_$ReplaceTaskImpl> get copyWith =>
+      __$$ReplaceTaskImplCopyWithImpl<_$ReplaceTaskImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -679,29 +679,29 @@ class _$_ReplaceTask with DiagnosticableTreeMixin implements _ReplaceTask {
 }
 
 abstract class _ReplaceTask implements TaskEvent {
-  const factory _ReplaceTask({required final Task task}) = _$_ReplaceTask;
+  const factory _ReplaceTask({required final Task task}) = _$ReplaceTaskImpl;
 
   Task get task;
   @JsonKey(ignore: true)
-  _$$_ReplaceTaskCopyWith<_$_ReplaceTask> get copyWith =>
+  _$$ReplaceTaskImplCopyWith<_$ReplaceTaskImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_ReorderTaskListCopyWith<$Res> {
-  factory _$$_ReorderTaskListCopyWith(
-          _$_ReorderTaskList value, $Res Function(_$_ReorderTaskList) then) =
-      __$$_ReorderTaskListCopyWithImpl<$Res>;
+abstract class _$$ReorderTaskListImplCopyWith<$Res> {
+  factory _$$ReorderTaskListImplCopyWith(_$ReorderTaskListImpl value,
+          $Res Function(_$ReorderTaskListImpl) then) =
+      __$$ReorderTaskListImplCopyWithImpl<$Res>;
   @useResult
   $Res call({int oldIndex, int newIndex});
 }
 
 /// @nodoc
-class __$$_ReorderTaskListCopyWithImpl<$Res>
-    extends _$TaskEventCopyWithImpl<$Res, _$_ReorderTaskList>
-    implements _$$_ReorderTaskListCopyWith<$Res> {
-  __$$_ReorderTaskListCopyWithImpl(
-      _$_ReorderTaskList _value, $Res Function(_$_ReorderTaskList) _then)
+class __$$ReorderTaskListImplCopyWithImpl<$Res>
+    extends _$TaskEventCopyWithImpl<$Res, _$ReorderTaskListImpl>
+    implements _$$ReorderTaskListImplCopyWith<$Res> {
+  __$$ReorderTaskListImplCopyWithImpl(
+      _$ReorderTaskListImpl _value, $Res Function(_$ReorderTaskListImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -710,7 +710,7 @@ class __$$_ReorderTaskListCopyWithImpl<$Res>
     Object? oldIndex = null,
     Object? newIndex = null,
   }) {
-    return _then(_$_ReorderTaskList(
+    return _then(_$ReorderTaskListImpl(
       oldIndex: null == oldIndex
           ? _value.oldIndex
           : oldIndex // ignore: cast_nullable_to_non_nullable
@@ -725,10 +725,10 @@ class __$$_ReorderTaskListCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_ReorderTaskList
+class _$ReorderTaskListImpl
     with DiagnosticableTreeMixin
     implements _ReorderTaskList {
-  const _$_ReorderTaskList({required this.oldIndex, required this.newIndex});
+  const _$ReorderTaskListImpl({required this.oldIndex, required this.newIndex});
 
   @override
   final int oldIndex;
@@ -753,7 +753,7 @@ class _$_ReorderTaskList
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_ReorderTaskList &&
+            other is _$ReorderTaskListImpl &&
             (identical(other.oldIndex, oldIndex) ||
                 other.oldIndex == oldIndex) &&
             (identical(other.newIndex, newIndex) ||
@@ -766,8 +766,9 @@ class _$_ReorderTaskList
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ReorderTaskListCopyWith<_$_ReorderTaskList> get copyWith =>
-      __$$_ReorderTaskListCopyWithImpl<_$_ReorderTaskList>(this, _$identity);
+  _$$ReorderTaskListImplCopyWith<_$ReorderTaskListImpl> get copyWith =>
+      __$$ReorderTaskListImplCopyWithImpl<_$ReorderTaskListImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -865,20 +866,20 @@ class _$_ReorderTaskList
 abstract class _ReorderTaskList implements TaskEvent {
   const factory _ReorderTaskList(
       {required final int oldIndex,
-      required final int newIndex}) = _$_ReorderTaskList;
+      required final int newIndex}) = _$ReorderTaskListImpl;
 
   int get oldIndex;
   int get newIndex;
   @JsonKey(ignore: true)
-  _$$_ReorderTaskListCopyWith<_$_ReorderTaskList> get copyWith =>
+  _$$ReorderTaskListImplCopyWith<_$ReorderTaskListImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_AddTaskCopyWith<$Res> {
-  factory _$$_AddTaskCopyWith(
-          _$_AddTask value, $Res Function(_$_AddTask) then) =
-      __$$_AddTaskCopyWithImpl<$Res>;
+abstract class _$$AddTaskImplCopyWith<$Res> {
+  factory _$$AddTaskImplCopyWith(
+          _$AddTaskImpl value, $Res Function(_$AddTaskImpl) then) =
+      __$$AddTaskImplCopyWithImpl<$Res>;
   @useResult
   $Res call({Task task});
 
@@ -886,10 +887,11 @@ abstract class _$$_AddTaskCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_AddTaskCopyWithImpl<$Res>
-    extends _$TaskEventCopyWithImpl<$Res, _$_AddTask>
-    implements _$$_AddTaskCopyWith<$Res> {
-  __$$_AddTaskCopyWithImpl(_$_AddTask _value, $Res Function(_$_AddTask) _then)
+class __$$AddTaskImplCopyWithImpl<$Res>
+    extends _$TaskEventCopyWithImpl<$Res, _$AddTaskImpl>
+    implements _$$AddTaskImplCopyWith<$Res> {
+  __$$AddTaskImplCopyWithImpl(
+      _$AddTaskImpl _value, $Res Function(_$AddTaskImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -897,7 +899,7 @@ class __$$_AddTaskCopyWithImpl<$Res>
   $Res call({
     Object? task = null,
   }) {
-    return _then(_$_AddTask(
+    return _then(_$AddTaskImpl(
       task: null == task
           ? _value.task
           : task // ignore: cast_nullable_to_non_nullable
@@ -916,8 +918,8 @@ class __$$_AddTaskCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_AddTask with DiagnosticableTreeMixin implements _AddTask {
-  const _$_AddTask({required this.task});
+class _$AddTaskImpl with DiagnosticableTreeMixin implements _AddTask {
+  const _$AddTaskImpl({required this.task});
 
   @override
   final Task task;
@@ -939,7 +941,7 @@ class _$_AddTask with DiagnosticableTreeMixin implements _AddTask {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_AddTask &&
+            other is _$AddTaskImpl &&
             (identical(other.task, task) || other.task == task));
   }
 
@@ -949,8 +951,8 @@ class _$_AddTask with DiagnosticableTreeMixin implements _AddTask {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AddTaskCopyWith<_$_AddTask> get copyWith =>
-      __$$_AddTaskCopyWithImpl<_$_AddTask>(this, _$identity);
+  _$$AddTaskImplCopyWith<_$AddTaskImpl> get copyWith =>
+      __$$AddTaskImplCopyWithImpl<_$AddTaskImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1046,29 +1048,29 @@ class _$_AddTask with DiagnosticableTreeMixin implements _AddTask {
 }
 
 abstract class _AddTask implements TaskEvent {
-  const factory _AddTask({required final Task task}) = _$_AddTask;
+  const factory _AddTask({required final Task task}) = _$AddTaskImpl;
 
   Task get task;
   @JsonKey(ignore: true)
-  _$$_AddTaskCopyWith<_$_AddTask> get copyWith =>
+  _$$AddTaskImplCopyWith<_$AddTaskImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$_DeleteTaskCopyWith<$Res> {
-  factory _$$_DeleteTaskCopyWith(
-          _$_DeleteTask value, $Res Function(_$_DeleteTask) then) =
-      __$$_DeleteTaskCopyWithImpl<$Res>;
+abstract class _$$DeleteTaskImplCopyWith<$Res> {
+  factory _$$DeleteTaskImplCopyWith(
+          _$DeleteTaskImpl value, $Res Function(_$DeleteTaskImpl) then) =
+      __$$DeleteTaskImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String id});
 }
 
 /// @nodoc
-class __$$_DeleteTaskCopyWithImpl<$Res>
-    extends _$TaskEventCopyWithImpl<$Res, _$_DeleteTask>
-    implements _$$_DeleteTaskCopyWith<$Res> {
-  __$$_DeleteTaskCopyWithImpl(
-      _$_DeleteTask _value, $Res Function(_$_DeleteTask) _then)
+class __$$DeleteTaskImplCopyWithImpl<$Res>
+    extends _$TaskEventCopyWithImpl<$Res, _$DeleteTaskImpl>
+    implements _$$DeleteTaskImplCopyWith<$Res> {
+  __$$DeleteTaskImplCopyWithImpl(
+      _$DeleteTaskImpl _value, $Res Function(_$DeleteTaskImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1076,7 +1078,7 @@ class __$$_DeleteTaskCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
   }) {
-    return _then(_$_DeleteTask(
+    return _then(_$DeleteTaskImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -1087,8 +1089,8 @@ class __$$_DeleteTaskCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_DeleteTask with DiagnosticableTreeMixin implements _DeleteTask {
-  const _$_DeleteTask({required this.id});
+class _$DeleteTaskImpl with DiagnosticableTreeMixin implements _DeleteTask {
+  const _$DeleteTaskImpl({required this.id});
 
   @override
   final String id;
@@ -1110,7 +1112,7 @@ class _$_DeleteTask with DiagnosticableTreeMixin implements _DeleteTask {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_DeleteTask &&
+            other is _$DeleteTaskImpl &&
             (identical(other.id, id) || other.id == id));
   }
 
@@ -1120,8 +1122,8 @@ class _$_DeleteTask with DiagnosticableTreeMixin implements _DeleteTask {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_DeleteTaskCopyWith<_$_DeleteTask> get copyWith =>
-      __$$_DeleteTaskCopyWithImpl<_$_DeleteTask>(this, _$identity);
+  _$$DeleteTaskImplCopyWith<_$DeleteTaskImpl> get copyWith =>
+      __$$DeleteTaskImplCopyWithImpl<_$DeleteTaskImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1217,11 +1219,11 @@ class _$_DeleteTask with DiagnosticableTreeMixin implements _DeleteTask {
 }
 
 abstract class _DeleteTask implements TaskEvent {
-  const factory _DeleteTask({required final String id}) = _$_DeleteTask;
+  const factory _DeleteTask({required final String id}) = _$DeleteTaskImpl;
 
   String get id;
   @JsonKey(ignore: true)
-  _$$_DeleteTaskCopyWith<_$_DeleteTask> get copyWith =>
+  _$$DeleteTaskImplCopyWith<_$DeleteTaskImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1303,10 +1305,11 @@ class _$TaskStateCopyWithImpl<$Res, $Val extends TaskState>
 }
 
 /// @nodoc
-abstract class _$$_TaskStateCopyWith<$Res> implements $TaskStateCopyWith<$Res> {
-  factory _$$_TaskStateCopyWith(
-          _$_TaskState value, $Res Function(_$_TaskState) then) =
-      __$$_TaskStateCopyWithImpl<$Res>;
+abstract class _$$TaskStateImplCopyWith<$Res>
+    implements $TaskStateCopyWith<$Res> {
+  factory _$$TaskStateImplCopyWith(
+          _$TaskStateImpl value, $Res Function(_$TaskStateImpl) then) =
+      __$$TaskStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -1319,11 +1322,11 @@ abstract class _$$_TaskStateCopyWith<$Res> implements $TaskStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_TaskStateCopyWithImpl<$Res>
-    extends _$TaskStateCopyWithImpl<$Res, _$_TaskState>
-    implements _$$_TaskStateCopyWith<$Res> {
-  __$$_TaskStateCopyWithImpl(
-      _$_TaskState _value, $Res Function(_$_TaskState) _then)
+class __$$TaskStateImplCopyWithImpl<$Res>
+    extends _$TaskStateCopyWithImpl<$Res, _$TaskStateImpl>
+    implements _$$TaskStateImplCopyWith<$Res> {
+  __$$TaskStateImplCopyWithImpl(
+      _$TaskStateImpl _value, $Res Function(_$TaskStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1336,7 +1339,7 @@ class __$$_TaskStateCopyWithImpl<$Res>
     Object? deleteTaskStatus = null,
     Object? replaceTaskStatus = null,
   }) {
-    return _then(_$_TaskState(
+    return _then(_$TaskStateImpl(
       tasks: null == tasks
           ? _value._tasks
           : tasks // ignore: cast_nullable_to_non_nullable
@@ -1367,8 +1370,8 @@ class __$$_TaskStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_TaskState with DiagnosticableTreeMixin implements _TaskState {
-  const _$_TaskState(
+class _$TaskStateImpl with DiagnosticableTreeMixin implements _TaskState {
+  const _$TaskStateImpl(
       {final List<Task> tasks = const [],
       this.getTasksStatus = Status.initial,
       this.updateTaskStatus = Status.initial,
@@ -1424,7 +1427,7 @@ class _$_TaskState with DiagnosticableTreeMixin implements _TaskState {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_TaskState &&
+            other is _$TaskStateImpl &&
             const DeepCollectionEquality().equals(other._tasks, _tasks) &&
             (identical(other.getTasksStatus, getTasksStatus) ||
                 other.getTasksStatus == getTasksStatus) &&
@@ -1451,8 +1454,8 @@ class _$_TaskState with DiagnosticableTreeMixin implements _TaskState {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TaskStateCopyWith<_$_TaskState> get copyWith =>
-      __$$_TaskStateCopyWithImpl<_$_TaskState>(this, _$identity);
+  _$$TaskStateImplCopyWith<_$TaskStateImpl> get copyWith =>
+      __$$TaskStateImplCopyWithImpl<_$TaskStateImpl>(this, _$identity);
 }
 
 abstract class _TaskState implements TaskState {
@@ -1462,7 +1465,7 @@ abstract class _TaskState implements TaskState {
       final Status updateTaskStatus,
       final Status addTaskStatus,
       final Status deleteTaskStatus,
-      final Status replaceTaskStatus}) = _$_TaskState;
+      final Status replaceTaskStatus}) = _$TaskStateImpl;
 
   @override
   List<Task> get tasks;
@@ -1478,6 +1481,6 @@ abstract class _TaskState implements TaskState {
   Status get replaceTaskStatus;
   @override
   @JsonKey(ignore: true)
-  _$$_TaskStateCopyWith<_$_TaskState> get copyWith =>
+  _$$TaskStateImplCopyWith<_$TaskStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

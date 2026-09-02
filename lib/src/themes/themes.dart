@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tasker_mobile/src/constants/export.dart';
-
-enum AppThemeKeys { light, dark }
+import 'package:tasker_mobile/src/themes/app_colors.dart';
 
 class AppThemes {
   static final ThemeData lightTheme = ThemeData(
+    extensions: <ThemeExtension<dynamic>>[AppColors.light],
     primaryColor: primaryColor,
     appBarTheme: const AppBarTheme(
       systemOverlayStyle: SystemUiOverlayStyle(
@@ -67,6 +67,7 @@ class AppThemes {
   );
 
   static final ThemeData darkTheme = ThemeData(
+    extensions: <ThemeExtension<dynamic>>[AppColors.dark],
     primaryColor: primaryDarkColor,
     appBarTheme: const AppBarTheme(
       systemOverlayStyle: SystemUiOverlayStyle(
@@ -134,28 +135,4 @@ class AppThemes {
       ),
     ),
   );
-
-  static ThemeData getThemeFromKey(AppThemeKeys themeKey) {
-    switch (themeKey) {
-      case AppThemeKeys.light:
-        return lightTheme;
-      case AppThemeKeys.dark:
-        return darkTheme;
-      default:
-        return lightTheme;
-    }
-  }
-}
-
-extension AppThemeKeysExtension on AppThemeKeys {
-  String get toName {
-    switch (this) {
-      case AppThemeKeys.light:
-        return "light";
-      case AppThemeKeys.dark:
-        return "dark";
-      default:
-        return "light";
-    }
-  }
 }
