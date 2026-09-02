@@ -15,13 +15,9 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    final isLightTheme = AppTheme.of(context) == AppThemes.lightTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+    final appColors = AppColors.of(context);
 
     return SafeArea(
       child: Scaffold(
@@ -49,9 +45,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     border: Border(
                       bottom: BorderSide(
                         width: 1,
-                        color: isLightTheme
-                            ? highlightColor
-                            : Colors.grey.shade800,
+                        color: appColors.sectionDivider,
                       ),
                     ),
                   ),
@@ -67,7 +61,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   leading: const Icon(Icons.phone_android),
                   title: const Text("App notifications"),
                   trailing: Switch(
-                    activeColor: isLightTheme ? primaryColor : primaryDarkColor,
+                    activeColor: colorScheme.primary,
                     value: settings.notifications?.mobile ?? false,
                     onChanged: (bool value) => context.read<SettingsBloc>().add(
                           SettingsEvent.updateSettings(
@@ -83,7 +77,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   leading: const Icon(Icons.email),
                   title: const Text("Email notifications"),
                   trailing: Switch(
-                    activeColor: isLightTheme ? primaryColor : primaryDarkColor,
+                    activeColor: colorScheme.primary,
                     value: settings.notifications?.email ?? false,
                     onChanged: (bool value) => context.read<SettingsBloc>().add(
                           SettingsEvent.updateSettings(
@@ -101,9 +95,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     border: Border(
                       bottom: BorderSide(
                         width: 1,
-                        color: isLightTheme
-                            ? highlightColor
-                            : Colors.grey.shade800,
+                        color: appColors.sectionDivider,
                       ),
                     ),
                   ),
@@ -123,21 +115,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     inactiveTrackColor: secondaryColor.withOpacity(0.9),
                     activeColor: blackColor,
                     activeTrackColor: primaryDarkColor.withOpacity(0.3),
-                    value: state.settings.theme == "dark",
+                    value: state.themeMode == ThemeMode.dark,
                     activeThumbImage: const AssetImage("assets/img/moon.png"),
                     inactiveThumbImage: const AssetImage("assets/img/sun.png"),
-                    onChanged: (bool value) {
-                      context.read<SettingsBloc>().add(
-                            SettingsEvent.updateSettings(
-                              settings: Settings(
-                                theme: value ? "dark" : "light",
-                              ),
+                    onChanged: (bool value) => context.read<SettingsBloc>().add(
+                          SettingsEvent.updateSettings(
+                            settings: Settings(
+                              theme: value ? ThemeMode.dark : ThemeMode.light,
                             ),
-                          );
-
-                      AppTheme.instanceOf(context).changeTheme(
-                          value ? AppThemeKeys.dark : AppThemeKeys.light);
-                    },
+                          ),
+                        ),
                   ),
                 ),
               ],

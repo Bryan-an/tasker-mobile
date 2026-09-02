@@ -33,7 +33,7 @@ class _ChipInputWidgetState extends State<ChipInputWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final isLightTheme = AppTheme.of(context) == AppThemes.lightTheme;
+    final palette = AppColors.of(context).palette;
     int colorIndex = -1;
 
     return SizedBox(
@@ -48,7 +48,7 @@ class _ChipInputWidgetState extends State<ChipInputWidget> {
         itemBuilder: (context, index) {
           colorIndex++;
 
-          if (colorIndex == lightColorPalette.length) {
+          if (colorIndex == palette.length) {
             colorIndex = 0;
           }
 
@@ -75,9 +75,7 @@ class _ChipInputWidgetState extends State<ChipInputWidget> {
                   ),
                 ),
               ),
-              backgroundColor: isLightTheme
-                  ? lightColorPalette[colorIndex]
-                  : darkColorPalette[colorIndex],
+              backgroundColor: palette[colorIndex],
               onDeleted: () {
                 final label = _inputController.text;
 
@@ -100,9 +98,7 @@ class _ChipInputWidgetState extends State<ChipInputWidget> {
                 color: whiteColor,
               ),
             ),
-            backgroundColor: isLightTheme
-                ? lightColorPalette[colorIndex]
-                : darkColorPalette[colorIndex],
+            backgroundColor: palette[colorIndex],
             onDeleted: () => widget.onDeleted(index),
             deleteIconColor: whiteColor,
           );

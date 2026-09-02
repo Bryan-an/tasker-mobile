@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tasker_mobile/src/features/auth/export.dart';
+import 'package:tasker_mobile/src/features/settings/export.dart';
 import 'package:tasker_mobile/src/router/export.dart';
 
 class DrawerNavigator extends StatelessWidget {
@@ -86,6 +87,7 @@ class DrawerNavigator extends StatelessWidget {
             leading: const Icon(Icons.logout),
             title: const Text('Log out'),
             onTap: () {
+              context.read<SettingsBloc>().add(const SettingsEvent.reset());
               context.read<AuthBloc>().add(const AuthEvent.logout());
               context.pop();
             },

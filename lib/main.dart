@@ -1,10 +1,12 @@
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:go_router/go_router.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:tasker_mobile/src/common_widgets/export.dart';
 import 'package:tasker_mobile/src/constants/export.dart';
 import 'package:tasker_mobile/src/features/auth/export.dart';
@@ -18,13 +20,10 @@ void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
-  final prefs = await SharedPreferences.getInstance();
-  String? theme = prefs.getString('theme');
-
-  SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(
-      statusBarColor: theme == "dark" ? primaryDarkColor : primaryColor,
-    ),
+  HydratedBloc.storage = await HydratedStorage.build(
+    storageDirectory: kIsWeb
+        ? HydratedStorage.webStorageDirectory
+        : await getApplicationDocumentsDirectory(),
   );
 
   SystemChrome.setPreferredOrientations([
@@ -79,11 +78,7 @@ void main() async {
             ),
           ),
         ],
-        child: AppTheme(
-          initialThemeKey:
-              theme == "dark" ? AppThemeKeys.dark : AppThemeKeys.light,
-          child: MyApp(androidSdkVersion: androidSdkVersion),
-        ),
+        child: MyApp(androidSdkVersion: androidSdkVersion),
       ),
     ),
   );
@@ -189,14 +184,21 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.of(context),
-      title: 'Tasker',
-      routerConfig: _router,
-      scaffoldMessengerKey: scaffoldMessengerKey,
-      scrollBehavior:
-          CustomScrollBehavior(androidSdkVersion: widget.androidSdkVersion),
+    return BlocSelector<SettingsBloc, SettingsState, ThemeMode>(
+      selector: (state) => state.themeMode,
+      builder: (context, themeMode) {
+        return MaterialApp.router(
+          debugShowCheckedModeBanner: false,
+          theme: AppThemes.lightTheme,
+          darkTheme: AppThemes.darkTheme,
+          themeMode: themeMode,
+          title: 'Tasker',
+          routerConfig: _router,
+          scaffoldMessengerKey: scaffoldMessengerKey,
+          scrollBehavior:
+              CustomScrollBehavior(androidSdkVersion: widget.androidSdkVersion),
+        );
+      },
     );
   }
 }
