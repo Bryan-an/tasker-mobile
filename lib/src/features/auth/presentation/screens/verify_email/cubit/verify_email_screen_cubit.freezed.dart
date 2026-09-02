@@ -58,23 +58,25 @@ class _$VerifyEmailScreenStateCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$_VerifyEmailScreenStateCopyWith<$Res>
+abstract class _$$VerifyEmailScreenStateImplCopyWith<$Res>
     implements $VerifyEmailScreenStateCopyWith<$Res> {
-  factory _$$_VerifyEmailScreenStateCopyWith(_$_VerifyEmailScreenState value,
-          $Res Function(_$_VerifyEmailScreenState) then) =
-      __$$_VerifyEmailScreenStateCopyWithImpl<$Res>;
+  factory _$$VerifyEmailScreenStateImplCopyWith(
+          _$VerifyEmailScreenStateImpl value,
+          $Res Function(_$VerifyEmailScreenStateImpl) then) =
+      __$$VerifyEmailScreenStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({int timerCount});
 }
 
 /// @nodoc
-class __$$_VerifyEmailScreenStateCopyWithImpl<$Res>
+class __$$VerifyEmailScreenStateImplCopyWithImpl<$Res>
     extends _$VerifyEmailScreenStateCopyWithImpl<$Res,
-        _$_VerifyEmailScreenState>
-    implements _$$_VerifyEmailScreenStateCopyWith<$Res> {
-  __$$_VerifyEmailScreenStateCopyWithImpl(_$_VerifyEmailScreenState _value,
-      $Res Function(_$_VerifyEmailScreenState) _then)
+        _$VerifyEmailScreenStateImpl>
+    implements _$$VerifyEmailScreenStateImplCopyWith<$Res> {
+  __$$VerifyEmailScreenStateImplCopyWithImpl(
+      _$VerifyEmailScreenStateImpl _value,
+      $Res Function(_$VerifyEmailScreenStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -82,7 +84,7 @@ class __$$_VerifyEmailScreenStateCopyWithImpl<$Res>
   $Res call({
     Object? timerCount = null,
   }) {
-    return _then(_$_VerifyEmailScreenState(
+    return _then(_$VerifyEmailScreenStateImpl(
       timerCount: null == timerCount
           ? _value.timerCount
           : timerCount // ignore: cast_nullable_to_non_nullable
@@ -93,10 +95,10 @@ class __$$_VerifyEmailScreenStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_VerifyEmailScreenState
+class _$VerifyEmailScreenStateImpl
     with DiagnosticableTreeMixin
     implements _VerifyEmailScreenState {
-  const _$_VerifyEmailScreenState({this.timerCount = _duration});
+  const _$VerifyEmailScreenStateImpl({this.timerCount = _duration});
 
   @override
   @JsonKey()
@@ -119,7 +121,7 @@ class _$_VerifyEmailScreenState
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_VerifyEmailScreenState &&
+            other is _$VerifyEmailScreenStateImpl &&
             (identical(other.timerCount, timerCount) ||
                 other.timerCount == timerCount));
   }
@@ -130,19 +132,19 @@ class _$_VerifyEmailScreenState
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_VerifyEmailScreenStateCopyWith<_$_VerifyEmailScreenState> get copyWith =>
-      __$$_VerifyEmailScreenStateCopyWithImpl<_$_VerifyEmailScreenState>(
-          this, _$identity);
+  _$$VerifyEmailScreenStateImplCopyWith<_$VerifyEmailScreenStateImpl>
+      get copyWith => __$$VerifyEmailScreenStateImplCopyWithImpl<
+          _$VerifyEmailScreenStateImpl>(this, _$identity);
 }
 
 abstract class _VerifyEmailScreenState implements VerifyEmailScreenState {
   const factory _VerifyEmailScreenState({final int timerCount}) =
-      _$_VerifyEmailScreenState;
+      _$VerifyEmailScreenStateImpl;
 
   @override
   int get timerCount;
   @override
   @JsonKey(ignore: true)
-  _$$_VerifyEmailScreenStateCopyWith<_$_VerifyEmailScreenState> get copyWith =>
-      throw _privateConstructorUsedError;
+  _$$VerifyEmailScreenStateImplCopyWith<_$VerifyEmailScreenStateImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

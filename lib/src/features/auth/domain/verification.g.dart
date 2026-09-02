@@ -1,15 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: non_constant_identifier_names
-
 part of 'verification.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Verification _$$_VerificationFromJson(Map<String, dynamic> json) =>
-    _$_Verification(
+_$VerificationImpl _$$VerificationImplFromJson(Map<String, dynamic> json) =>
+    _$VerificationImpl(
       email: json['email'] as String?,
       code: json['code'] as String?,
       expiresAt: json['expires_at'] == null
@@ -17,7 +15,7 @@ _$_Verification _$$_VerificationFromJson(Map<String, dynamic> json) =>
           : DateTime.parse(json['expires_at'] as String),
     );
 
-Map<String, dynamic> _$$_VerificationToJson(_$_Verification instance) =>
+Map<String, dynamic> _$$VerificationImplToJson(_$VerificationImpl instance) =>
     <String, dynamic>{
       'email': instance.email,
       'code': instance.code,

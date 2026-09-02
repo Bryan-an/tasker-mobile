@@ -107,11 +107,11 @@ class _$TaskFormScreenStateCopyWithImpl<$Res, $Val extends TaskFormScreenState>
 }
 
 /// @nodoc
-abstract class _$$_TaskFormScreenStateCopyWith<$Res>
+abstract class _$$TaskFormScreenStateImplCopyWith<$Res>
     implements $TaskFormScreenStateCopyWith<$Res> {
-  factory _$$_TaskFormScreenStateCopyWith(_$_TaskFormScreenState value,
-          $Res Function(_$_TaskFormScreenState) then) =
-      __$$_TaskFormScreenStateCopyWithImpl<$Res>;
+  factory _$$TaskFormScreenStateImplCopyWith(_$TaskFormScreenStateImpl value,
+          $Res Function(_$TaskFormScreenStateImpl) then) =
+      __$$TaskFormScreenStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -126,11 +126,11 @@ abstract class _$$_TaskFormScreenStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$_TaskFormScreenStateCopyWithImpl<$Res>
-    extends _$TaskFormScreenStateCopyWithImpl<$Res, _$_TaskFormScreenState>
-    implements _$$_TaskFormScreenStateCopyWith<$Res> {
-  __$$_TaskFormScreenStateCopyWithImpl(_$_TaskFormScreenState _value,
-      $Res Function(_$_TaskFormScreenState) _then)
+class __$$TaskFormScreenStateImplCopyWithImpl<$Res>
+    extends _$TaskFormScreenStateCopyWithImpl<$Res, _$TaskFormScreenStateImpl>
+    implements _$$TaskFormScreenStateImplCopyWith<$Res> {
+  __$$TaskFormScreenStateImplCopyWithImpl(_$TaskFormScreenStateImpl _value,
+      $Res Function(_$TaskFormScreenStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -145,7 +145,7 @@ class __$$_TaskFormScreenStateCopyWithImpl<$Res>
     Object? to = null,
     Object? remind = null,
   }) {
-    return _then(_$_TaskFormScreenState(
+    return _then(_$TaskFormScreenStateImpl(
       priority: null == priority
           ? _value.priority
           : priority // ignore: cast_nullable_to_non_nullable
@@ -184,10 +184,10 @@ class __$$_TaskFormScreenStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_TaskFormScreenState
+class _$TaskFormScreenStateImpl
     with DiagnosticableTreeMixin
     implements _TaskFormScreenState {
-  const _$_TaskFormScreenState(
+  const _$TaskFormScreenStateImpl(
       {this.priority = TaskLevel.medium,
       this.complexity = TaskLevel.medium,
       final List<String> labels = const [],
@@ -250,7 +250,7 @@ class _$_TaskFormScreenState
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_TaskFormScreenState &&
+            other is _$TaskFormScreenStateImpl &&
             (identical(other.priority, priority) ||
                 other.priority == priority) &&
             (identical(other.complexity, complexity) ||
@@ -279,8 +279,8 @@ class _$_TaskFormScreenState
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_TaskFormScreenStateCopyWith<_$_TaskFormScreenState> get copyWith =>
-      __$$_TaskFormScreenStateCopyWithImpl<_$_TaskFormScreenState>(
+  _$$TaskFormScreenStateImplCopyWith<_$TaskFormScreenStateImpl> get copyWith =>
+      __$$TaskFormScreenStateImplCopyWithImpl<_$TaskFormScreenStateImpl>(
           this, _$identity);
 }
 
@@ -293,7 +293,7 @@ abstract class _TaskFormScreenState implements TaskFormScreenState {
       final bool includeTime,
       required final DateTime from,
       required final DateTime to,
-      final bool remind}) = _$_TaskFormScreenState;
+      final bool remind}) = _$TaskFormScreenStateImpl;
 
   @override
   TaskLevel get priority;
@@ -313,6 +313,6 @@ abstract class _TaskFormScreenState implements TaskFormScreenState {
   bool get remind;
   @override
   @JsonKey(ignore: true)
-  _$$_TaskFormScreenStateCopyWith<_$_TaskFormScreenState> get copyWith =>
+  _$$TaskFormScreenStateImplCopyWith<_$TaskFormScreenStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
