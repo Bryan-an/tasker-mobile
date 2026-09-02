@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:tasker_mobile/src/common_widgets/drawer/drawer.dart';
 import 'package:tasker_mobile/src/common_widgets/empty/empty.dart';
 import 'package:tasker_mobile/src/constants/colors.dart';
 import 'package:tasker_mobile/src/constants/task.dart';
@@ -12,6 +11,7 @@ import 'package:tasker_mobile/src/features/tasks/presentation/widgets/date_tab/d
 import 'package:tasker_mobile/src/features/tasks/presentation/widgets/short_task_card/short_task_card.dart';
 import 'package:tasker_mobile/src/features/tasks/presentation/widgets/time_interval/time_interval.dart';
 import 'package:tasker_mobile/src/features/tasks/utils/time.dart';
+import 'package:tasker_mobile/src/navigation/drawer.dart';
 import 'package:tasker_mobile/src/themes/app_colors.dart';
 
 class TimelineScreen extends StatefulWidget {

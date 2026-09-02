@@ -5,6 +5,12 @@ import 'package:tasker_mobile/src/features/auth/presentation/bloc/auth_bloc.dart
 import 'package:tasker_mobile/src/features/settings/presentation/bloc/settings_bloc.dart';
 import 'package:tasker_mobile/src/router/route_utils.dart';
 
+/// App-level navigation drawer.
+///
+/// Lives in `navigation` rather than `common_widgets` because it knows about
+/// the route table and dispatches to feature blocs (auth log-out, settings
+/// reset). Shared widgets under `common_widgets` must stay feature-agnostic;
+/// see `test/architecture/import_boundaries_test.dart`.
 class DrawerNavigator extends StatelessWidget {
   const DrawerNavigator({super.key});
 

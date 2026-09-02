@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tasker_mobile/src/common_widgets/chip_input/chip_input.dart';
-import 'package:tasker_mobile/src/common_widgets/drawer/drawer.dart';
 import 'package:tasker_mobile/src/common_widgets/filled_button/filled_button.dart';
 import 'package:tasker_mobile/src/constants/colors.dart';
 import 'package:tasker_mobile/src/constants/status.dart';
@@ -10,6 +9,7 @@ import 'package:tasker_mobile/src/features/tasks/data/task_repository.dart';
 import 'package:tasker_mobile/src/features/tasks/domain/task.dart';
 import 'package:tasker_mobile/src/features/tasks/presentation/screens/filter/cubit/filter_screen_cubit.dart';
 import 'package:tasker_mobile/src/features/tasks/presentation/widgets/task_card/task_card.dart';
+import 'package:tasker_mobile/src/navigation/drawer.dart';
 import 'package:tasker_mobile/src/themes/app_colors.dart';
 import 'package:tasker_mobile/src/utils/string_extension.dart';
 
