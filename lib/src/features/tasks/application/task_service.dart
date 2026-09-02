@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:tasker_mobile/src/config/export.dart';
-import 'package:tasker_mobile/src/errors/export.dart';
+import 'package:tasker_mobile/src/config/dio_config.dart';
+import 'package:tasker_mobile/src/errors/http_exception.dart';
 
 class TaskService {
   final String _endpoint = '/tasks/';

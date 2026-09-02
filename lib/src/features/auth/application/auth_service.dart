@@ -2,8 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tasker_mobile/src/config/export.dart';
-import 'package:tasker_mobile/src/errors/export.dart';
+import 'package:tasker_mobile/src/config/dio_config.dart';
+import 'package:tasker_mobile/src/errors/http_exception.dart';
 
 class AuthService {
   final String _endpoint = '/auth/';

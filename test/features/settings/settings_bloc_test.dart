@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:tasker_mobile/src/constants/export.dart';
-import 'package:tasker_mobile/src/features/settings/export.dart';
+import 'package:tasker_mobile/src/constants/status.dart';
+import 'package:tasker_mobile/src/features/settings/data/settings_repository.dart';
+import 'package:tasker_mobile/src/features/settings/domain/notifications.dart';
+import 'package:tasker_mobile/src/features/settings/domain/settings.dart';
+import 'package:tasker_mobile/src/features/settings/presentation/bloc/settings_bloc.dart';
 
 class _MemoryStorage implements Storage {
   final Map<String, dynamic> _store = <String, dynamic>{};

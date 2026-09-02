@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tasker_mobile/src/common_widgets/export.dart';
-import 'package:tasker_mobile/src/constants/export.dart';
-import 'package:tasker_mobile/src/features/settings/export.dart';
-import 'package:tasker_mobile/src/router/export.dart';
-import 'package:tasker_mobile/src/themes/export.dart';
+import 'package:tasker_mobile/src/common_widgets/drawer/drawer.dart';
+import 'package:tasker_mobile/src/constants/colors.dart';
+import 'package:tasker_mobile/src/constants/status.dart';
+import 'package:tasker_mobile/src/features/settings/domain/settings.dart';
+import 'package:tasker_mobile/src/features/settings/presentation/bloc/settings_bloc.dart';
+import 'package:tasker_mobile/src/router/route_utils.dart';
+import 'package:tasker_mobile/src/themes/app_colors.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});

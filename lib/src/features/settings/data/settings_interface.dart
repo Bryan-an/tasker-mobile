@@ -1,4 +1,4 @@
-import 'package:tasker_mobile/src/features/settings/export.dart';
+import 'package:tasker_mobile/src/features/settings/domain/settings.dart';
 
 abstract class ISettingsRepository {
   Future<Settings> get();

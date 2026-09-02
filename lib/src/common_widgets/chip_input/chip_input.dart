@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tasker_mobile/src/constants/colors.dart';
-import 'package:tasker_mobile/src/themes/export.dart';
+import 'package:tasker_mobile/src/themes/app_colors.dart';
 
 class ChipInputWidget extends StatefulWidget {
   final List<String> chipLabels;
