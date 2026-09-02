@@ -2,9 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:tasker_mobile/src/constants/export.dart';
-import 'package:tasker_mobile/src/features/settings/export.dart';
-import 'package:tasker_mobile/src/utils/export.dart';
+import 'package:tasker_mobile/src/constants/status.dart';
+import 'package:tasker_mobile/src/features/settings/data/settings_repository.dart';
+import 'package:tasker_mobile/src/features/settings/domain/settings.dart';
+import 'package:tasker_mobile/src/utils/errors.dart';
 
 part 'settings_bloc.freezed.dart';
 part 'settings_event.dart';

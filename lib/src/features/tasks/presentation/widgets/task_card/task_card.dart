@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:tasker_mobile/src/constants/export.dart';
-import 'package:tasker_mobile/src/features/tasks/export.dart';
-import 'package:tasker_mobile/src/themes/export.dart';
+import 'package:tasker_mobile/src/constants/colors.dart';
+import 'package:tasker_mobile/src/constants/task.dart';
+import 'package:tasker_mobile/src/features/tasks/domain/task.dart';
+import 'package:tasker_mobile/src/features/tasks/presentation/bloc/task_bloc.dart';
+import 'package:tasker_mobile/src/themes/app_colors.dart';
 
 class TaskCardWidget extends StatelessWidget {
   final Task task;

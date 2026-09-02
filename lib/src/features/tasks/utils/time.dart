@@ -1,8 +1,8 @@
 import 'dart:collection';
 
 import 'package:intl/intl.dart';
-import 'package:tasker_mobile/src/constants/export.dart';
-import 'package:tasker_mobile/src/features/tasks/export.dart';
+import 'package:tasker_mobile/src/constants/task.dart';
+import 'package:tasker_mobile/src/features/tasks/domain/task.dart';
 
 Map<TaskDay, DateTime> getCurrentWeekdays() {
   const oneDay = Duration(days: 1);

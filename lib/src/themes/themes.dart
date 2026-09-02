@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:tasker_mobile/src/constants/export.dart';
+import 'package:tasker_mobile/src/constants/colors.dart';
 import 'package:tasker_mobile/src/themes/app_colors.dart';
 
 class AppThemes {

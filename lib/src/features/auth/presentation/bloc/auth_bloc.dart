@@ -2,14 +2,17 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tasker_mobile/src/config/export.dart';
-import 'package:tasker_mobile/src/constants/export.dart';
-import 'package:tasker_mobile/src/features/auth/export.dart';
-import 'package:tasker_mobile/src/utils/export.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-// ignore: unnecessary_import
-import 'package:flutter/foundation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tasker_mobile/src/config/dio_config.dart';
+import 'package:tasker_mobile/src/constants/globals.dart';
+import 'package:tasker_mobile/src/constants/status.dart';
+import 'package:tasker_mobile/src/features/auth/data/auth_interface.dart';
+import 'package:tasker_mobile/src/features/auth/data/user_interface.dart';
+import 'package:tasker_mobile/src/features/auth/domain/user.dart';
+import 'package:tasker_mobile/src/features/auth/domain/verification.dart';
+import 'package:tasker_mobile/src/features/auth/presentation/cubit/session_cubit.dart';
+import 'package:tasker_mobile/src/utils/errors.dart';
 
 part 'auth_bloc.freezed.dart';
 part 'auth_event.dart';

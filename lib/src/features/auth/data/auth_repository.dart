@@ -1,4 +1,7 @@
-import 'package:tasker_mobile/src/features/auth/export.dart';
+import 'package:tasker_mobile/src/features/auth/application/auth_service.dart';
+import 'package:tasker_mobile/src/features/auth/data/auth_interface.dart';
+import 'package:tasker_mobile/src/features/auth/domain/user.dart';
+import 'package:tasker_mobile/src/features/auth/domain/verification.dart';
 
 class AuthRepository implements IAuthRepository {
   final AuthService _service;

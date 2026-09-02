@@ -1,5 +1,5 @@
-import 'package:tasker_mobile/src/constants/export.dart';
-import 'package:tasker_mobile/src/features/tasks/export.dart';
+import 'package:tasker_mobile/src/constants/task.dart';
+import 'package:tasker_mobile/src/features/tasks/domain/task.dart';
 
 abstract class ITaskRepository {
   Future<List<Task>> getAll({

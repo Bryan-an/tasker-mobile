@@ -1,4 +1,6 @@
-import 'package:tasker_mobile/src/features/settings/export.dart';
+import 'package:tasker_mobile/src/features/settings/application/settings_service.dart';
+import 'package:tasker_mobile/src/features/settings/data/settings_interface.dart';
+import 'package:tasker_mobile/src/features/settings/domain/settings.dart';
 
 class SettingsRepository implements ISettingsRepository {
   final SettingsService _service;

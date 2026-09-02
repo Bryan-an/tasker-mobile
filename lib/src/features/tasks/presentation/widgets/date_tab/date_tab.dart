@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:tasker_mobile/src/constants/export.dart';
+import 'package:tasker_mobile/src/constants/task.dart';
 
 class DateTabWidget extends StatelessWidget {
   final TaskDay day;
